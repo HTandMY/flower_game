@@ -1,0 +1,12 @@
+{
+    "images" : [
+        {"name" : "background1" , "url" : "images/background1.png"},
+        {"name" : "background2" , "url" : "images/background2.png"},
+        {"name" : "background3" , "url" : "images/background3.png"},
+        {"name" : "background4" , "url" : "images/background4.png"},
+        {"name" : "flowerpot1" , "url" : "images/flowerpot1.png"}
+    ],
+    "sounds" : [
+        {"name" : "bgm" , "url" : "sounds/bg.mp3"}
+    ]
+}
