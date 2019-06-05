@@ -30,9 +30,14 @@
         var self = this;
         createjs.Ticker.framerate = 30;
         createjs.Ticker.addEventListener("tick", start);
+        var nowManager = new createjs.Text("","15px sans-serif","");
+        self.stage.addChild(nowManager);
+        nowManager.x = nowManager.y = 10;
         function start(){
+            nowManager.text = self.manager.managerNum;
             self.manager.update();
             self.manager.render();
+            game.stage.update();
         }
     }
 })()
