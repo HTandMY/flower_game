@@ -34,9 +34,8 @@
         self.stage.addChild(nowManager);
         nowManager.x = nowManager.y = 10;
         function start(){
-            nowManager.text = self.manager.managerNum;
             self.manager.update();
-            self.manager.render();
+            nowManager.text = self.manager.managerNum;
             game.stage.update();
         }
     }
