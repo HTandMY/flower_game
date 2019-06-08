@@ -4,6 +4,16 @@
         this.canvas.width = document.documentElement.clientWidth;
         this.canvas.height = document.documentElement.clientHeight;
         this.assets = {images:[],sounds:[]};
+        this.gameObj = {"flowerpot" : [{"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0},
+                                       {"water" : 0 , "time" : 0}],
+                        "nowtime" : 0};
         this.stage = new createjs.Stage("game");
         var self = this;
         this.loading(function(){
@@ -34,6 +44,7 @@
         self.stage.addChild(nowManager);
         nowManager.x = nowManager.y = 10;
         function start(){
+            self.gameObj.nowtime = new Date().getTime();
             self.manager.update();
             nowManager.text = self.manager.managerNum;
             game.stage.update();
