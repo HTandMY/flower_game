@@ -5,7 +5,6 @@
         this.bg = new createjs.Bitmap(game.assets.images.background4);
         this.bg.setTransform(0,0,game.canvas.width/1080,game.canvas.height/1920);
         this.bgObj.addChild(this.bg);
-        var self = this;
         this.bg.addEventListener("click",function(){
             console.log("点击了背景");
         });

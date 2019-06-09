@@ -22,9 +22,6 @@
             self.fp[i].y = y - 200 + 200 * k;
             self.fp[i].scale = 0.18;
             self.fpObj.addChild(self.fp[i]);
-            self.fp[i].addEventListener("click",function(event){
-                self.watering(event,i);
-            });
             if(j < 2){
                 j++
             }else{
@@ -43,6 +40,7 @@
             }
         }
     }
+
     Flowerpot.prototype.watering = function(event,i){
         console.log(i);
         game.gameObj.flowerpot[i].time = new Date().getTime();
@@ -51,4 +49,21 @@
         //点击删除自己的代码
         // this.fpObj.removeChild(event.target);
     }
+
+    Flowerpot.prototype.bindEvent = function(){
+        var self = this;
+        for (let i = 0 ; i < self.fpNum ; i++) {
+            self.fp[i].addEventListener("click",function(event){
+                self.watering(event,i);
+            });
+        }
+    }
+
+    Flowerpot.prototype.removeEvent = function(){
+        var self = this;
+        for (let i = 0 ; i < self.fpNum ; i++) {
+            self.fp[i].removeAllEventListeners("click");
+        }
+    }
+
 })()
