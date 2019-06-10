@@ -4,15 +4,16 @@
         this.canvas.width = document.documentElement.clientWidth;
         this.canvas.height = document.documentElement.clientHeight;
         this.assets = {images:[],sounds:[]};
-        this.gameObj = {"flowerpot" : [{"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0},
-                                       {"water" : 0 , "time" : 0}],
+        this.gameObj = {"playerdata" : {"playerid" : 123456 , "fpNum" : 9},
+                        "flowerpot" : [{"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0},
+                                       {"watertime" : 0 , "have" : 0 , "time" : 0}],
                         "nowtime" : 0};
         this.stage = new createjs.Stage("game");
         var self = this;

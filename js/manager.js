@@ -13,6 +13,7 @@
             case 1:
                 game.background = new Background();
                 game.flowerpot = new Flowerpot();
+                game.flower = new Flower();
                 game.gameicon = new Gameicon();
             break;
             case 2:
@@ -26,9 +27,16 @@
         switch (this.managerNum) {
             case 1:
                 game.flowerpot.update();
+                game.flower.update();
             break;
             case 2:
                 game.flowerpot.update();
+                game.flower.update();
+                game.gameicon.update()
+            break;
+            case 3:
+                game.flowerpot.update();
+                game.flower.update();
                 game.gameicon.update()
             break;
         }

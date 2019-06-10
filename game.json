@@ -5,10 +5,22 @@
         {"name" : "background3" , "url" : "images/background3.png"},
         {"name" : "background4" , "url" : "images/background4.png"},
         {"name" : "background5" , "url" : "images/background5.png"},
-        {"name" : "flowerpot1" , "url" : "images/flowerpot1.png"},
-        {"name" : "flowerpot2" , "url" : "images/flowerpot2.png"},
+        {"name" : "flowerpot_1" , "url" : "images/flowerpot_1.png"},
+        {"name" : "flowerpot_2" , "url" : "images/flowerpot_2.png"},
+        {"name" : "flowerpot_3" , "url" : "images/flowerpot_3.png"},
+        {"name" : "flowerpot_4" , "url" : "images/flowerpot_4.png"},
+
+        {"name" : "narcissus_0" , "url" : "images/narcissus_0.png"},
+        {"name" : "narcissus_1" , "url" : "images/narcissus_1.png"},
+        {"name" : "narcissus_2" , "url" : "images/narcissus_2.png"},
+        {"name" : "narcissus_3" , "url" : "images/narcissus_3.png"},
+        {"name" : "narcissus_4" , "url" : "images/narcissus_4.png"},
+        {"name" : "narcissus_5" , "url" : "images/narcissus_5.png"},
+
         {"name" : "button_water" , "url" : "images/button_water.png"},
-        {"name" : "button_water_1" , "url" : "images/button_water_1.png"}
+        {"name" : "button_water_1" , "url" : "images/button_water_1.png"},
+        {"name" : "button_seed" , "url" : "images/button_seed.png"},
+        {"name" : "button_seed_1" , "url" : "images/button_seed_1.png"}
     ],
     "sounds" : [
         {"name" : "bgm" , "url" : "sounds/bg.mp3"}
