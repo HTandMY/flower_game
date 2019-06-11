@@ -15,7 +15,6 @@
         this.buttonseed.y = game.canvas.height - 70;
         this.iconObj.addChild(this.buttonseed);
 
-
         this.iconclick = new createjs.Bitmap();
 
         var self = this;
@@ -31,10 +30,12 @@
                 self.iconclick.x = game.stage.mouseX;
                 self.iconclick.y = game.stage.mouseY;
                 self.iconObj.addChild(self.iconclick);
+                game.flowerpot.removeEvent();
                 game.flowerpot.bindEvent("water");
                 game.manager.enter(2);
             }
         });
+
         this.buttonseed.addEventListener("click",function(event){
             if(game.manager.managerNum == 3){
                 game.flowerpot.removeEvent();
@@ -47,6 +48,7 @@
                 self.iconclick.x = game.stage.mouseX;
                 self.iconclick.y = game.stage.mouseY;
                 self.iconObj.addChild(self.iconclick);
+                game.flowerpot.removeEvent();
                 game.flowerpot.bindEvent("flower");
                 game.manager.enter(3);
             }
