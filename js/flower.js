@@ -3,6 +3,14 @@
         this.fwObj = new createjs.Container();
         game.stage.addChild(this.fwObj);
         this.fw = [];
+        this.wt = [];
+        this.waterData = new createjs.SpriteSheet({
+            "images": [game.assets.images.water_2],
+            "frames": {"width": 100 , "height": 150, "regX": 50, "regY": 100 , "count": 12},
+            "animations": {
+                "wt":[0,12, ,0.5]
+            }
+        });
         var self = this;
         for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
             self.fw[i] = new createjs.Bitmap();
@@ -33,6 +41,45 @@
                     self.fw[i].image = game.assets.images.narcissus_0;
                 }
             }
+            if((game.gameObj.nowtime - game.gameObj.flowerpot[i].watertime)/1000 > 10 && game.gameObj.flowerpot[i].water){
+                self.fwObj.removeChild(this.wt[i]);
+                game.gameObj.flowerpot[i].water = 0;
+            }
+        }
+    }
+
+    Flower.prototype.watering = function(i){
+        var self = this;
+        console.log(i);
+        if(!game.gameObj.flowerpot[i].water){
+            game.gameObj.flowerpot[i].watertime = new Date().getTime();
+            self.wt[i] = new createjs.Sprite(this.waterData,"wt");
+            self.wt[i].x = self.fw[i].x;
+            self.wt[i].y = self.fw[i].y;
+            self.fwObj.addChild(self.wt[i]);
+            game.gameObj.flowerpot[i].water = 1;
+        }
+    }
+
+    Flower.prototype.bindEvent = function(name){
+        var self = this;
+        switch(name){
+            case "water":
+                for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+                    if(game.gameObj.flowerpot[i].have){
+                        self.fw[i].addEventListener("click",function(){
+                            self.watering(i);
+                        });
+                    }
+                }
+            break;
+        }
+    }
+
+    Flower.prototype.removeEvent = function(){
+        var self = this;
+        for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+            self.fw[i].removeAllEventListeners("click");
         }
     }
 })()
