@@ -36,6 +36,7 @@
             callback();
         });
     }
+    
     Game.prototype.startGame = function(){
         this.manager = new Manager();
         var self = this;

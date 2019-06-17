@@ -6,6 +6,7 @@
         game.stage.addChild(this.nowManager);
         this.nowManager.x = this.nowManager.y = 10;
     }
+    
     Manager.prototype.enter = function(number){
         var self = this;
         self.managerNum = number;
