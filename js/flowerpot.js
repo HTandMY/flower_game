@@ -18,7 +18,11 @@
             }
             self.fp[i].regX = 50;
             self.fp[i].regY = 50;
-            self.fp[i].x = x * (j + 1);
+            if(game.canvas.width > 768){
+                self.fp[i].x = (game.canvas.width / 2) - (768 / 4) + (768 / 4) * j;
+            }else{
+                self.fp[i].x = x * (j + 1);
+            }
             self.fp[i].y = y - 190 + 190 * k;
             self.fp[i].scale = 0.8;
             self.fpObj.addChild(self.fp[i]);
