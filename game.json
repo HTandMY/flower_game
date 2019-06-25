@@ -1,16 +1,14 @@
 {
     "images" : [
-        {"name" : "background1" , "url" : "images/background1.png"},
-        {"name" : "background2" , "url" : "images/background2.png"},
-        {"name" : "background3" , "url" : "images/background3.png"},
-        {"name" : "background4" , "url" : "images/background4.png"},
-        {"name" : "background5" , "url" : "images/background5.png"},
+        {"name" : "bg_1" , "url" : "images/bg_1.png"},
+        {"name" : "bg_2" , "url" : "images/bg_2.png"},
+        {"name" : "bg_3" , "url" : "images/bg_3.png"},
+        {"name" : "bg_4" , "url" : "images/bg_4.png"},
+        {"name" : "bg_5" , "url" : "images/bg_5.png"},
+        {"name" : "bg_window" , "url" : "images/bg_window.png"},
 
-        {"name" : "wood" , "url" : "images/wood.png"},
         {"name" : "wood_1" , "url" : "images/wood_1.png"},
         {"name" : "wood_2" , "url" : "images/wood_2.png"},
-        {"name" : "wood_3" , "url" : "images/wood_3.png"},
-        {"name" : "wood_4" , "url" : "images/wood_4.png"},
 
         {"name" : "flowerpot_1" , "url" : "images/flowerpot_1.png"},
         {"name" : "flowerpot_2" , "url" : "images/flowerpot_2.png"},
@@ -24,15 +22,18 @@
         {"name" : "narcissus_4" , "url" : "images/narcissus_4.png"},
         {"name" : "narcissus_5" , "url" : "images/narcissus_5.png"},
 
-        {"name" : "button_1" , "url" : "images/button_1.png"},
-        {"name" : "button_1_1" , "url" : "images/button_1_1.png"},
-        {"name" : "button_2" , "url" : "images/button_2.png"},
-        {"name" : "button_3" , "url" : "images/button_3.png"},
-        {"name" : "button_water" , "url" : "images/button_water.png"},
         {"name" : "button_water_1" , "url" : "images/button_water_1.png"},
-        {"name" : "button_seed" , "url" : "images/button_seed.png"},
+        {"name" : "button_water_2" , "url" : "images/button_water_2.png"},
+        {"name" : "button_water_3" , "url" : "images/button_water_3.png"},
+        {"name" : "button_water_click" , "url" : "images/button_water_click.png"},
         {"name" : "button_seed_1" , "url" : "images/button_seed_1.png"},
-
+        {"name" : "button_seed_2" , "url" : "images/button_seed_2.png"},
+        {"name" : "button_seed_3" , "url" : "images/button_seed_3.png"},
+        {"name" : "button_hand_1" , "url" : "images/button_hand_1.png"},
+        {"name" : "button_hand_2" , "url" : "images/button_hand_2.png"},
+        {"name" : "button_hand_3" , "url" : "images/button_hand_3.png"},
+        {"name" : "button_bg" , "url" : "images/button_bg.png"},
+        
         {"name" : "water_1" , "url" : "images/water_1.png"},
         {"name" : "water_2" , "url" : "images/water_2.png"}
     ],
