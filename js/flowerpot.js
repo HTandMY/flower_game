@@ -19,7 +19,7 @@
             self.fp[i].regX = 50;
             self.fp[i].regY = 50;
             if(game.canvas.width > 768){
-                self.fp[i].x = (game.canvas.width / 2) - (768 / 4) + (768 / 4) * j;
+                self.fp[i].x = game.canvas.width / 2 - 192 + 192 * j;
             }else{
                 self.fp[i].x = x * (j + 1);
             }

@@ -3,51 +3,63 @@
         this.iconObj = new createjs.Container();
         game.stage.addChild(this.iconObj);
 
-        this.buttonwater = new createjs.Bitmap(game.assets.images.button_water_1);
-        this.buttonwater.x = game.canvas.width - 70;
-        this.buttonwater.y = game.canvas.height - 70;
-        this.iconObj.addChild(this.buttonwater);
+        this.buttonWater = new createjs.Bitmap(game.assets.images.button_water_1);
+        this.buttonWater.regX = this.buttonWater.regY = 30;
+        this.buttonWater.x = game.canvas.width - 40;
+        this.buttonWater.y = game.canvas.height - 40;
+        this.iconObj.addChild(this.buttonWater);
 
-        this.buttonseed = new createjs.Bitmap(game.assets.images.button_seed_1);
-        this.buttonseed.x = game.canvas.width - 140;
-        this.buttonseed.y = game.canvas.height - 70;
-        this.iconObj.addChild(this.buttonseed);
+        this.buttonSeed = new createjs.Bitmap(game.assets.images.button_seed_1);
+        this.buttonSeed.regX = this.buttonSeed.regY = 30;
+        this.buttonSeed.x = game.canvas.width - 120;
+        this.buttonSeed.y = game.canvas.height - 40;
+        this.iconObj.addChild(this.buttonSeed);
+
+        this.buttonHand = new createjs.Bitmap(game.assets.images.button_hand_1);
+        this.buttonHand.regX = this.buttonHand.regY = 30;
+        this.buttonHand.x = game.canvas.width - 200;
+        this.buttonHand.y = game.canvas.height - 40;
+        this.iconObj.addChild(this.buttonHand);
 
         this.buttonBg = new createjs.Bitmap(game.assets.images.button_bg);
-        this.iconclick = new createjs.Bitmap();
+        this.buttonBg.regX = this.buttonBg.regY = 30;
+        this.iconClick = new createjs.Bitmap();
+        this.iconClick.regX = this.iconClick.regY = 30;
         game.stage.enableMouseOver(50);
+
         this.bindEvent();
     }
 
     Gameicon.prototype.update = function(){
-        this.iconclick.x = game.stage.mouseX;
-        this.iconclick.y = game.stage.mouseY;
+        this.iconClick.x = game.stage.mouseX;
+        this.iconClick.y = game.stage.mouseY;
+        this.rotate();
+
     }
 
     Gameicon.prototype.bindEvent = function(){
         var self = this;
-        this.buttonwater.addEventListener("click",function(){
+        this.buttonWater.addEventListener("click",function(){
             if(game.manager.managerNum == 2){
                 self.removeEvent();
-                self.iconObj.removeChild(self.iconclick);
+                self.iconObj.removeChild(self.iconClick);
                 self.iconObj.removeChild(self.buttonBg);
-                self.buttonwater.image = game.assets.images.button_water_1;
+                self.buttonWater.image = game.assets.images.button_water_1;
                 game.stage.enableMouseOver(50);
-                game.manager.managerNum = 1;               
+                game.manager.managerNum = 1;
             }else{
-                self.buttonseed.image = game.assets.images.button_seed_1;
-                self.buttonwater.image = game.assets.images.button_water_3;
-                self.buttonBg.x = self.buttonwater.x;
-                self.buttonBg.y = self.buttonwater.y;
+                self.buttonWater.image = game.assets.images.button_water_3;
+                self.buttonSeed.image = game.assets.images.button_seed_1;
+                self.buttonHand.image = game.assets.images.button_hand_1;
+                self.buttonBg.x = self.buttonWater.x;
+                self.buttonBg.y = self.buttonWater.y;
                 self.iconObj.addChild(self.buttonBg);
 
-                self.iconObj.swapChildren(self.buttonBg,self.buttonwater);
-                self.iconclick.image = game.assets.images.button_water_click;
-                self.iconclick.regX = 30;
-                self.iconclick.regY = 30;
-                self.iconclick.x = game.stage.mouseX;
-                self.iconclick.y = game.stage.mouseY;
-                self.iconObj.addChild(self.iconclick);
+                self.iconObj.swapChildren(self.buttonBg,self.buttonWater);
+                self.iconClick.image = game.assets.images.button_water_click;
+                self.iconClick.x = game.stage.mouseX;
+                self.iconClick.y = game.stage.mouseY;
+                self.iconObj.addChild(self.iconClick);
                 self.removeEvent();
                 game.flower.bindEvent("water");
                 game.flowerpot.bindEvent("water");
@@ -55,51 +67,82 @@
                 game.manager.enter(2);
             }
         });
-        this.buttonwater.addEventListener("mouseover",function(){
-            self.buttonwater.image = game.assets.images.button_water_2;
+        this.buttonWater.addEventListener("mouseover",function(){
+            self.buttonWater.image = game.assets.images.button_water_2;
         });
-        this.buttonwater.addEventListener("mouseout",function(){
-            self.buttonwater.image = game.assets.images.button_water_1;
+        this.buttonWater.addEventListener("mouseout",function(){
+            self.buttonWater.image = game.assets.images.button_water_1;
         });
 
-        this.buttonseed.addEventListener("click",function(){
+        this.buttonSeed.addEventListener("click",function(){
             if(game.manager.managerNum == 3){
                 game.flowerpot.removeEvent();
-                self.iconObj.removeChild(self.iconclick);
+                self.iconObj.removeChild(self.iconClick);
                 self.iconObj.removeChild(self.buttonBg);
-                self.buttonseed.image = game.assets.images.button_seed_1;
+                self.buttonSeed.image = game.assets.images.button_seed_1;
                 game.stage.enableMouseOver(50);
                 game.manager.managerNum = 1;
             }else{
-                self.buttonwater.image = game.assets.images.button_water_1;
-                self.buttonseed.image = game.assets.images.button_seed_3;
-                self.buttonBg.x = self.buttonseed.x;
-                self.buttonBg.y = self.buttonseed.y;
+                self.buttonWater.image = game.assets.images.button_water_1;
+                self.buttonSeed.image = game.assets.images.button_seed_3;
+                self.buttonHand.image = game.assets.images.button_hand_1;
+                self.buttonBg.x = self.buttonSeed.x;
+                self.buttonBg.y = self.buttonSeed.y;
                 self.iconObj.addChild(self.buttonBg);
 
-                self.iconObj.swapChildren(self.buttonBg,self.buttonseed);
-                self.iconclick.image = game.assets.images.button_seed_1;
-                self.iconclick.regX = 24;
-                self.iconclick.regY = 24;
-                self.iconclick.x = game.stage.mouseX;
-                self.iconclick.y = game.stage.mouseY;
-                self.iconObj.addChild(self.iconclick);
+                self.iconObj.swapChildren(self.buttonBg,self.buttonSeed);
+                self.iconClick.image = game.assets.images.button_seed_3;
+                self.iconClick.x = game.stage.mouseX;
+                self.iconClick.y = game.stage.mouseY;
+                self.iconObj.addChild(self.iconClick);
                 self.removeEvent();
                 game.flowerpot.bindEvent("flower");
                 game.stage.enableMouseOver(0);
                 game.manager.enter(3);
             }
         });
-        this.buttonseed.addEventListener("mouseover",function(){
-            self.buttonseed.image = game.assets.images.button_seed_2;
+        this.buttonSeed.addEventListener("mouseover",function(){
+            self.buttonSeed.image = game.assets.images.button_seed_2;
         });
-        this.buttonseed.addEventListener("mouseout",function(){
-            self.buttonseed.image = game.assets.images.button_seed_1;
+        this.buttonSeed.addEventListener("mouseout",function(){
+            self.buttonSeed.image = game.assets.images.button_seed_1;
+        });
+
+        this.buttonHand.addEventListener("click",function(){
+            if(game.manager.managerNum == 4){
+                game.flowerpot.removeEvent();
+                self.iconObj.removeChild(self.iconClick);
+                self.iconObj.removeChild(self.buttonBg);
+                self.buttonHand.image = game.assets.images.button_hand_1;
+                game.stage.enableMouseOver(50);
+                game.manager.managerNum = 1;
+            }else{
+                self.buttonSeed.image = game.assets.images.button_seed_1;
+                self.buttonWater.image = game.assets.images.button_water_1;
+                self.buttonHand.image = game.assets.images.button_hand_3;
+                self.buttonBg.x = self.buttonHand.x;
+                self.buttonBg.y = self.buttonHand.y;
+                self.iconObj.addChild(self.buttonBg);
+
+                self.iconObj.swapChildren(self.buttonBg,self.buttonHand);
+                self.iconClick.image = game.assets.images.button_hand_3;
+                self.iconClick.x = game.stage.mouseX;
+                self.iconClick.y = game.stage.mouseY;
+                self.iconObj.addChild(self.iconClick);
+                self.removeEvent();
+                game.flower.bindEvent("harvest");
+                game.stage.enableMouseOver(0);
+                game.manager.enter(4);
+            }
         });
 
     }
     Gameicon.prototype.removeEvent = function(){
         game.flower.removeEvent();
         game.flowerpot.removeEvent();
+    }
+
+    Gameicon.prototype.rotate = function(){
+        this.buttonBg.rotation += 2;
     }
 })()

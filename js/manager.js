@@ -40,6 +40,12 @@
                 game.flower.update();
                 game.gameicon.update()
             break;
+            case 4:
+                game.flowerpot.update();
+                game.flower.update();
+                game.gameicon.update()
+            break;
+
         }
     }
 })()

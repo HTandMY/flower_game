@@ -61,6 +61,14 @@
         }
     }
 
+    Flower.prototype.harvest = function(i){
+        var self = this;
+        if(game.gameObj.flowerpot[i].have && (game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 25){
+            game.gameObj.flowerpot[i].have = 0;
+            self.fw[i].image = undefined;
+        }
+    }
+
     Flower.prototype.bindEvent = function(name){
         var self = this;
         switch(name){
@@ -72,6 +80,13 @@
                         });
                     }
                 }
+            break;
+            case "harvest":
+                    for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+                        self.fw[i].addEventListener("click",function(){
+                            self.harvest(i);
+                        });
+                    }
             break;
         }
     }
