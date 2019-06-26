@@ -11,13 +11,13 @@
 
         this.buttonSeed = new createjs.Bitmap(game.assets.images.button_seed_1);
         this.buttonSeed.regX = this.buttonSeed.regY = 30;
-        this.buttonSeed.x = game.canvas.width - 120;
+        this.buttonSeed.x = game.canvas.width - 110;
         this.buttonSeed.y = game.canvas.height - 40;
         this.iconObj.addChild(this.buttonSeed);
 
         this.buttonHand = new createjs.Bitmap(game.assets.images.button_hand_1);
         this.buttonHand.regX = this.buttonHand.regY = 30;
-        this.buttonHand.x = game.canvas.width - 200;
+        this.buttonHand.x = game.canvas.width - 180;
         this.buttonHand.y = game.canvas.height - 40;
         this.iconObj.addChild(this.buttonHand);
 
@@ -134,6 +134,12 @@
                 game.stage.enableMouseOver(0);
                 game.manager.enter(4);
             }
+        });
+        this.buttonHand.addEventListener("mouseover",function(){
+            self.buttonHand.image = game.assets.images.button_hand_2;
+        });
+        this.buttonHand.addEventListener("mouseout",function(){
+            self.buttonHand.image = game.assets.images.button_hand_1;
         });
 
     }
