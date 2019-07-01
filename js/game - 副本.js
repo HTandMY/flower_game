@@ -26,19 +26,15 @@
     Game.prototype.loading = function(callback){
         var self = this;
         var readyNum = 0;
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState == 4){
-                var gameData = JSON.parse(xhr.responseText);
-                for(let i = 0; i < gameData.images.length; i++){
-                    self.assets.images[gameData.images[i].name] = new Image();
-                    self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
-                }
-                callback();
+        $.get("game.json",function(data){
+            var gameData = data;
+            console.log(gameData.images , gameData.sounds);
+            for(let i = 0; i < gameData.images.length; i++){
+                self.assets.images[gameData.images[i].name] = new Image();
+                self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
             }
-        }
-        xhr.open("get","game.json",true);
-        xhr.send(null);
+            callback();
+        });
     }
     
     Game.prototype.startGame = function(){
