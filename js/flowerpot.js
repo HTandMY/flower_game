@@ -7,7 +7,7 @@
         var self = this;
         console.log(game.canvas.width * window.devicePixelRatio) 
         var x = game.canvas.width / 4;
-        var y = game.canvas.height / 2;
+        var y = game.canvas.height / 4;
         var j = 0;
         var k = 0;
         for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
@@ -23,7 +23,7 @@
             }else{
                 self.fp[i].x = x * (j + 1);
             }
-            self.fp[i].y = y - 190 + 190 * k;
+            self.fp[i].y = y + y * k - 15;
             self.fp[i].scale = 0.8;
             self.fpObj.addChild(self.fp[i]);
             if(j < 2){

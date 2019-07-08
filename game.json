@@ -32,6 +32,8 @@
         {"name" : "button_hand_1" , "url" : "images/button_hand_1.png"},
         {"name" : "button_hand_2" , "url" : "images/button_hand_2.png"},
         {"name" : "button_hand_3" , "url" : "images/button_hand_3.png"},
+        {"name" : "button_shop_1" , "url" : "images/button_shop_1.png"},
+        {"name" : "button_shop_3" , "url" : "images/button_shop_3.png"},
         {"name" : "button_bg" , "url" : "images/button_bg.png"},
         
         {"name" : "water_1" , "url" : "images/water_1.png"},
