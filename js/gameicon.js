@@ -5,31 +5,15 @@
 
         this.buttonWater = new createjs.Bitmap(game.assets.images.button_water_1);
         this.addIcon(this.buttonWater , -40);
-        // this.buttonWater.regX = this.buttonWater.regY = 30;
-        // this.buttonWater.x = game.canvas.width - 40;
-        // this.buttonWater.y = game.canvas.height - 40;
-        // this.iconObj.addChild(this.buttonWater);
 
         this.buttonSeed = new createjs.Bitmap(game.assets.images.button_seed_1);
         this.addIcon(this.buttonSeed , -110);
-        // this.buttonSeed.regX = this.buttonSeed.regY = 30;
-        // this.buttonSeed.x = game.canvas.width - 110;
-        // this.buttonSeed.y = game.canvas.height - 40;
-        // this.iconObj.addChild(this.buttonSeed);
 
         this.buttonHand = new createjs.Bitmap(game.assets.images.button_hand_1);
         this.addIcon(this.buttonHand , -180);
-        // this.buttonHand.regX = this.buttonHand.regY = 30;
-        // this.buttonHand.x = game.canvas.width - 180;
-        // this.buttonHand.y = game.canvas.height - 40;
-        // this.iconObj.addChild(this.buttonHand);
 
         this.buttonShop = new createjs.Bitmap(game.assets.images.button_shop_1);
         this.addIcon(this.buttonShop , 40 - game.canvas.width );
-        // this.buttonShop.regX = this.buttonShop.regY = 30;
-        // this.buttonShop.x = 40;
-        // this.buttonShop.y = game.canvas.height - 40;
-        // this.iconObj.addChild(this.buttonShop);
 
         this.buttonBg = new createjs.Bitmap(game.assets.images.button_bg);
         this.buttonBg.regX = this.buttonBg.regY = 30;
@@ -127,7 +111,9 @@
             }
         });
 
-        this.buttonShop.addEventListener("click")
+        this.buttonShop.addEventListener("click" , function(){
+            
+        });
     }
 
     Gameicon.prototype.changeImgAndEnter = function(num , ){
