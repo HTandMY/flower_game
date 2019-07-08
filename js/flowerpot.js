@@ -5,7 +5,7 @@
         this.fp = [];
 
         var self = this;
-
+        console.log(game.canvas.width * window.devicePixelRatio) 
         var x = game.canvas.width / 4;
         var y = game.canvas.height / 2;
         var j = 0;
