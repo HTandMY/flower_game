@@ -45,6 +45,11 @@
                 game.flower.update();
                 game.gameicon.update()
             break;
+            case 5:
+                game.flowerpot.update();
+                game.flower.update();
+                game.gameicon.update()
+            break;
 
         }
     }

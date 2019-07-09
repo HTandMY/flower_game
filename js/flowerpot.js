@@ -23,8 +23,8 @@
             }else{
                 self.fp[i].x = x * (j + 1);
             }
-            self.fp[i].y = y + y * k - 15;
-            self.fp[i].scale = 0.8;
+            self.fp[i].y = y + y * k - 5;
+            self.fp[i].scale = 0.6;
             self.fpObj.addChild(self.fp[i]);
             if(j < 2){
                 j++

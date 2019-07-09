@@ -16,9 +16,9 @@
             self.fw[i] = new createjs.Bitmap();
             self.fw[i].regX = 50;
             self.fw[i].regY = 100;
-            self.fw[i].scale = 0.8;
+            self.fw[i].scale = 0.6;
             self.fw[i].x = game.flowerpot.fp[i].x;
-            self.fw[i].y = game.flowerpot.fp[i].y - 46;
+            self.fw[i].y = game.flowerpot.fp[i].y - 35;
             self.fwObj.addChild(self.fw[i]);
         }
     }
