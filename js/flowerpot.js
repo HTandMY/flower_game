@@ -3,6 +3,7 @@
         this.fpObj = new createjs.Container();
 	    game.stage.addChild(this.fpObj);
         this.fp = [];
+        this.eventSwitch = false;
 
         var self = this;
         console.log(game.canvas.width * window.devicePixelRatio) 
@@ -11,11 +12,9 @@
         var j = 0;
         var k = 0;
         for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
-            if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 10){
-                self.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_2);
-            }else{
-                self.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_1);
-            }
+ 
+            self.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_1);
+
             self.fp[i].regX = 50;
             self.fp[i].regY = 50;
             if(game.canvas.width > 768){
@@ -30,18 +29,16 @@
                 j++
             }else{
                 j = 0;
-                k++
+                k++;
             }
         }
     }
 
-    Flowerpot.prototype.update = function(){
-
-    }
-
     Flowerpot.prototype.flower = function(i){
-        game.gameObj.flowerpot[i].time = new Date().getTime();
-        game.gameObj.flowerpot[i].have = 1;
+        if(!game.gameObj.flowerpot[i].have){
+            game.gameObj.flowerpot[i].time = new Date().getTime();
+            game.gameObj.flowerpot[i].have = 1;
+        }
     }
 
     Flowerpot.prototype.bindEvent = function(name){

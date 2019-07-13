@@ -1,7 +1,10 @@
 (function(){
     var Flower = window.Flower = function(){
         this.fwObj = new createjs.Container();
+        this.flowerObj = new createjs.Container();
+        this.waterObj = new createjs.Container();
         game.stage.addChild(this.fwObj);
+        this.fwObj.addChild(this.flowerObj , this.waterObj);
         this.fw = [];
         this.wt = [];
         this.waterData = new createjs.SpriteSheet({
@@ -19,7 +22,14 @@
             self.fw[i].scale = 0.6;
             self.fw[i].x = game.flowerpot.fp[i].x;
             self.fw[i].y = game.flowerpot.fp[i].y - 35;
-            self.fwObj.addChild(self.fw[i]);
+            self.flowerObj.addChild(self.fw[i]);
+            if(game.gameObj.flowerpot[i].water){
+                self.wt[i] = new createjs.Sprite(this.waterData,"wt");
+                self.wt[i].x = self.fw[i].x;
+                self.wt[i].y = self.fw[i].y;
+                self.waterObj.addChild(self.wt[i]);
+                game.gameObj.flowerpot[i].water = 1;
+            }
         }
     }
 
@@ -42,7 +52,7 @@
                 }
             }
             if((game.gameObj.nowtime - game.gameObj.flowerpot[i].watertime)/1000 > 10 && game.gameObj.flowerpot[i].water){
-                self.fwObj.removeChild(this.wt[i]);
+                self.waterObj.removeChild(this.wt[i]);
                 game.gameObj.flowerpot[i].water = 0;
             }
         }
@@ -56,7 +66,7 @@
             self.wt[i] = new createjs.Sprite(this.waterData,"wt");
             self.wt[i].x = self.fw[i].x;
             self.wt[i].y = self.fw[i].y;
-            self.fwObj.addChild(self.wt[i]);
+            self.waterObj.addChild(self.wt[i]);
             game.gameObj.flowerpot[i].water = 1;
         }
     }
@@ -65,7 +75,7 @@
         var self = this;
         if(game.gameObj.flowerpot[i].have && (game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 25){
             game.gameObj.flowerpot[i].have = 0;
-            self.fw[i].image = undefined;
+            self.fw[i].image = null;
         }
     }
 

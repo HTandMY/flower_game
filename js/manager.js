@@ -12,13 +12,38 @@
         self.managerNum = number;
         switch (this.managerNum) {
             case 1:
+                game.stage.removeAllChildren();
+
                 game.background = new Background();
                 game.flowerpot = new Flowerpot();
                 game.flower = new Flower();
                 game.gameicon = new Gameicon();
+
+                game.stage.addChild(this.nowManager);
+
+                game.flowerpot.removeEvent();
+                game.flower.removeEvent();
             break;
             case 2:
-                
+                game.flowerpot.removeEvent();
+                game.flower.removeEvent();
+                game.flowerpot.bindEvent("flower");
+            break;
+            case 3:
+                game.flowerpot.removeEvent();
+                game.flower.removeEvent();
+                game.flowerpot.bindEvent("water");
+                game.flower.bindEvent("water");
+            break;
+            case 4:
+                game.flowerpot.removeEvent();
+                game.flower.removeEvent();
+                game.flower.bindEvent("harvest");
+            break;
+            case 5:
+                game.flowerpot.removeEvent();
+                game.flower.removeEvent();
+                game.shop = new Shop();
             break;
         }
     }
@@ -27,28 +52,22 @@
         this.nowManager.text = this.managerNum;
         switch (this.managerNum) {
             case 1:
-                game.flowerpot.update();
                 game.flower.update();
             break;
             case 2:
-                game.flowerpot.update();
                 game.flower.update();
-                game.gameicon.update()
+                game.gameicon.rotate();
             break;
             case 3:
-                game.flowerpot.update();
                 game.flower.update();
-                game.gameicon.update()
+                game.gameicon.rotate();
             break;
             case 4:
-                game.flowerpot.update();
                 game.flower.update();
-                game.gameicon.update()
+                game.gameicon.rotate();
             break;
             case 5:
-                game.flowerpot.update();
                 game.flower.update();
-                game.gameicon.update()
             break;
 
         }

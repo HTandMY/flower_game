@@ -35,6 +35,16 @@
         {"name" : "button_shop_1" , "url" : "images/button_shop_1.png"},
         {"name" : "button_shop_3" , "url" : "images/button_shop_3.png"},
         {"name" : "button_bg" , "url" : "images/button_bg.png"},
+        {"name" : "button_close" , "url" : "images/button_close.png"},
+        
+        {"name" : "shop_bg" , "url" : "images/shop_bg.png"},
+        {"name" : "shop_bg_1" , "url" : "images/shop_bg_1.png"},
+        {"name" : "shop_bg_2" , "url" : "images/shop_bg_2.png"},
+        {"name" : "shop_bg_3" , "url" : "images/shop_bg_3.png"},
+        {"name" : "shop_word" , "url" : "images/shop_word.png"},
+        {"name" : "shop_bg_button_1" , "url" : "images/shop_bg_button_1.png"},
+        {"name" : "shop_bg_button_2" , "url" : "images/shop_bg_button_2.png"},
+        {"name" : "shop_bg_button_3" , "url" : "images/shop_bg_button_3.png"},
         
         {"name" : "water_1" , "url" : "images/water_1.png"},
         {"name" : "water_2" , "url" : "images/water_2.png"}
