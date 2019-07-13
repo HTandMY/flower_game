@@ -1,7 +1,6 @@
 (function(){
     var Gameicon = window.Gameicon = function(){
         this.iconObj = new createjs.Container();
-        game.stage.addChild(this.iconObj);
 
         this.buttonBg = new createjs.Bitmap();
         this.buttonBg.regX = this.buttonBg.regY = 30;
@@ -31,19 +30,27 @@
 
 
     Gameicon.prototype.clicked = function(iconName , imgURL , goManagerNum){
-        for(let i = 0 ; i < this.iconObj.children.length ; i++){
-            this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name + "1"];
-        }
-        if(game.manager.managerNum != goManagerNum){
-            this.buttonBg.image = game.assets.images.button_bg;
-            this.buttonBg.x = this[iconName].x;
-            this.buttonBg.y = this[iconName].y;
-            this[iconName].image = game.assets.images[imgURL + "3"];
-            game.manager.enter(goManagerNum);
+        if(goManagerNum != 5){
+            for(let i = 0 ; i < this.iconObj.children.length ; i++){
+                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name + "1"];
+            }
+            if(game.manager.managerNum != goManagerNum){
+                this.buttonBg.image = game.assets.images.button_bg;
+                this.buttonBg.x = this[iconName].x;
+                this.buttonBg.y = this[iconName].y;
+                this[iconName].image = game.assets.images[imgURL + "3"];
+                game.manager.enter(goManagerNum);
+            }else{
+                this.buttonBg.image = null;
+                this[iconName].image = game.assets.images[imgURL + "1"];
+                game.manager.enter(1);
+            }
         }else{
-            this.buttonBg.image = null;
-            this[iconName].image = game.assets.images[imgURL + "1"];
-            game.manager.enter(1);
+            for(let i = 0 ; i < this.iconObj.children.length ; i++){
+                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name + "1"];
+            }
+            game.stage.removeChild(this.iconObj)
+            game.manager.enter(goManagerNum);
         }
     }
 

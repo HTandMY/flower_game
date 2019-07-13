@@ -1,10 +1,17 @@
 (function(){
     var Manager = window.Manager = function(){
+        game.background = new Background();
+        game.flowerpot = new Flowerpot();
+        game.flower = new Flower();
+        game.gameicon = new Gameicon();
+        game.shop = new Shop();
         this.managerNum = 1;
         this.enter(1);
         this.nowManager = new createjs.Text("","15px sans-serif","");
         game.stage.addChild(this.nowManager);
         this.nowManager.x = this.nowManager.y = 10;
+
+  
     }
     
     Manager.prototype.enter = function(number){
@@ -14,12 +21,7 @@
             case 1:
                 game.stage.removeAllChildren();
 
-                game.background = new Background();
-                game.flowerpot = new Flowerpot();
-                game.flower = new Flower();
-                game.gameicon = new Gameicon();
-
-                game.stage.addChild(this.nowManager);
+                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , this.nowManager);
 
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
@@ -43,7 +45,7 @@
             case 5:
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
-                game.shop = new Shop();
+                game.stage.addChild(game.shop.shopObj);
             break;
         }
     }

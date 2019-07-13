@@ -3,7 +3,6 @@
         this.fwObj = new createjs.Container();
         this.flowerObj = new createjs.Container();
         this.waterObj = new createjs.Container();
-        game.stage.addChild(this.fwObj);
         this.fwObj.addChild(this.flowerObj , this.waterObj);
         this.fw = [];
         this.wt = [];

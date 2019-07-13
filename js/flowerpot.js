@@ -1,7 +1,6 @@
 (function(){
     var Flowerpot = window.Flowerpot = function(){
         this.fpObj = new createjs.Container();
-	    game.stage.addChild(this.fpObj);
         this.fp = [];
         this.eventSwitch = false;
 
