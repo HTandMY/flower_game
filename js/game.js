@@ -15,7 +15,7 @@
                                        {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
                                        {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0}],
                         "nowtime" : 0,
-                        "itemNum" : 20
+                        "itemNum" : 4
                     };
         this.stage = new createjs.Stage("game");
         var self = this;
