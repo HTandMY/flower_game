@@ -15,32 +15,41 @@
                                        {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
                                        {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0}],
                         "nowtime" : 0,
-                        "itemNum" : 4
+                        "itemNum" : 20
                     };
         this.stage = new createjs.Stage("game");
         var self = this;
         this.loading(function(){
             console.log(self.assets);
-            self.startGame();
-        })
+            self.startGame()
+        });
     }
     
     Game.prototype.loading = function(callback){
         var self = this;
-        var readyNum = 0;
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState == 4){
-                var gameData = JSON.parse(xhr.responseText);
-                for(let i = 0; i < gameData.images.length; i++){
-                    self.assets.images[gameData.images[i].name] = new Image();
-                    self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
-                }
-                callback();
-            }
+        loadFont();
+        function loadFont(){
+            document.fonts.load('12px "UDDigiKyokashoN"').then(
+                function(){
+                    loadImg();
+                });
         }
-        xhr.open("get","game.json",true);
-        xhr.send(null);
+        function loadImg(){
+            var readyNum = 0;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    var gameData = JSON.parse(xhr.responseText);
+                    for(let i = 0; i < gameData.images.length; i++){
+                        self.assets.images[gameData.images[i].name] = new Image();
+                        self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
+                    }
+                    callback();
+                }
+            }
+            xhr.open("get","game.json",true);
+            xhr.send(null);
+        }
     }
     
     Game.prototype.startGame = function(){

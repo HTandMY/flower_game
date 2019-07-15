@@ -64,7 +64,7 @@
         this.itemBox.removeAllChildren();
         this.itemNum = game.gameObj.itemNum;
         this.state = 0;
-        this.allPage = Math.ceil(this.itemNum / 12);
+        this.allPage = Math.ceil(this.itemNum / 6);
         this.nowPage = 1;
         switch(clickNum){
             case 1:
@@ -80,38 +80,150 @@
     }
 
     Shop.prototype.addItem = function(clickNum){
-        switch(this.state){
+        this.itemBox.removeAllChildren();
+        if(this.nowPage == 1 && this.allPage == 1){
+            this.state = 0;
+            this.allPage = Math.ceil(this.itemNum / 6);
+        }else if(this.nowPage == 1 && this.allPage > 1){
+            this.state = 1;
+            this.allPage = Math.ceil(this.itemNum / 6);
+        }else if(this.nowPage != 1 && this.nowPage != this.allPage){
+            this.state = 2;
+            this.allPage = Math.ceil(this.itemNum / 6);
+        }else{
+            this.state = 3;
+            this.allPage = Math.ceil(this.itemNum / 6);
+        }
+        var j = 0;
+        var k = 0;
+        var self = this;
+        switch(self.state){
             //道具为6个一下
             case 0:
-                for(let i = 0; i < this.itemNum ; i++){
+                for(let i = 0; i < self.itemNum ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
                     item.regX = 42.5;
-                    if(i % 3 == 0){
-                        item.x = 512 / 2 - 115;
-                    }else if(i % 3 == 1){
-                        item.x = 512 / 2;
+                    item.x = 512 / 2 + 115 * j - 115;
+                    item.y = 250 + 170 * k;
+                    item.name = k * 3 + j
+                    item.addEventListener("click",function(event){
+                        console.log(event.target.name);
+                    });
+                    if(j < 2){
+                        j++
                     }else{
-                        item.x = 512 / 2 + 115;
+                        j = 0;
+                        k++
                     }
-                    if(i < 3){
-                        item.y = 250;
-                    }else{
-                        item.y = 420;
-                    }
-                    this.itemBox.addChild(item);
+                    self.itemBox.addChild(item);
                 }
             break;
             //道具数量为6个以上，第一页
             case 1:
-                
+                for(let i = 0; i < 6 ; i++){
+                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
+                    item.regX = 42.5;
+                    item.x = 512 / 2 + 115 * j - 115;
+                    item.y = 250 + 170 * k;
+                    item.name = k * 3 + j
+                    item.addEventListener("click",function(event){
+                        console.log(event.target.name);
+                    });
+                    if(j < 2){
+                        j++
+                    }else{
+                        j = 0;
+                        k++
+                    }
+                    self.itemBox.addChild(item);
+                }
+                var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
+                buttonRight.regX = 18;
+                buttonRight.x = 512 / 2 + 115;
+                buttonRight.y = 570;
+                buttonRight.addEventListener("click",function(){
+                    self.nowPage += 1;
+                    self.addItem(clickNum);
+                });
+                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
+                pageNum.textAlign = "center";
+                pageNum.x = 512 / 2;
+                pageNum.y = 580;
+                self.itemBox.addChild(pageNum,buttonRight);
             break;
             //道具数量为6个以上，中间页
             case 2:
-                
+                for(let i = self.nowPage * 6 ; i < self.nowPage * 6 + 6 ; i++){
+                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
+                    item.regX = 42.5;
+                    item.x = 512 / 2 + 115 * j - 115;
+                    item.y = 250 + 170 * k;
+                    item.name = (self.nowPage - 1) * 6 + k * 3 + j
+                    item.addEventListener("click",function(event){
+                        console.log(event.target.name);
+                    });
+                    if(j < 2){
+                        j++
+                    }else{
+                        j = 0;
+                        k++
+                    }
+                    self.itemBox.addChild(item);
+                }
+                var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
+                buttonRight.regX = 18;
+                buttonRight.x = 512 / 2 + 115;
+                buttonRight.y = 570;
+                buttonRight.addEventListener("click",function(){
+                    self.nowPage += 1;
+                    self.addItem(clickNum);
+                });
+                var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
+                buttonLeft.regX = 18;
+                buttonLeft.x = 512 / 2 - 115;
+                buttonLeft.y = 570;
+                buttonLeft.addEventListener("click",function(){
+                    self.nowPage -= 1;
+                    self.addItem(clickNum);
+                });
+                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
+                pageNum.textAlign = "center";
+                pageNum.x = 512 / 2;
+                pageNum.y = 580;
+                self.itemBox.addChild(buttonRight , buttonLeft , pageNum);
             break;
             //道具数量为6个以上，最后页
             case 3:
-                
+                for(let i = (self.nowPage - 1) * 6 ; i < self.itemNum ; i++){
+                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
+                    item.regX = 42.5;
+                    item.x = 512 / 2 + 115 * j - 115;
+                    item.y = 250 + 170 * k;
+                    item.name = (self.nowPage - 1) * 6 + k * 3 + j;
+                    item.addEventListener("click",function(event){
+                        console.log(event.target.name);
+                    });
+                    if(j < 2){
+                        j++
+                    }else{
+                        j = 0;
+                        k++
+                    }
+                    self.itemBox.addChild(item);
+                }
+                var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
+                buttonLeft.regX = 18;
+                buttonLeft.x = 512 / 2 - 115;
+                buttonLeft.y = 570;
+                buttonLeft.addEventListener("click",function(){
+                    self.nowPage -= 1;
+                    self.addItem(clickNum);
+                });
+                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
+                pageNum.textAlign = "center";
+                pageNum.x = 512 / 2;
+                pageNum.y = 580;
+                self.itemBox.addChild(buttonLeft , pageNum);
             break;
         }
     }

@@ -47,6 +47,11 @@
         {"name" : "shop_bg_button_3" , "url" : "images/shop_bg_button_3.png"},
         {"name" : "item_box_1" , "url" : "images/item_box_1.png"},
         {"name" : "item_box_2" , "url" : "images/item_box_2.png"},
+
+        {"name" : "shop_button_left_green" , "url" : "images/shop_button_left_green.png"},
+        {"name" : "shop_button_right_green" , "url" : "images/shop_button_right_green.png"},
+        {"name" : "shop_button_left_pink" , "url" : "images/shop_button_left_pink.png"},
+        {"name" : "shop_button_right_pink" , "url" : "images/shop_button_right_pink.png"},
         
         {"name" : "water_1" , "url" : "images/water_1.png"},
         {"name" : "water_2" , "url" : "images/water_2.png"}
