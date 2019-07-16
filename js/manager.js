@@ -8,12 +8,8 @@
         this.managerNum = 1;
         this.enter(1);
         this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","");
-        this.nowManager1 = new createjs.Text("1234567890asdefg  1 / 24 フラワー　結晶","15px UDDigiKyokashoN","");
-        game.stage.addChild(this.nowManager , this.nowManager1);
+        game.stage.addChild(this.nowManager);
         this.nowManager.x = this.nowManager.y = 10;
-        this.nowManager1.x = this.nowManager1.y = 20;
-
-  
     }
     
     Manager.prototype.enter = function(number){

@@ -74,7 +74,7 @@
                 this.addItem(clickNum);
             break;
             case 3:
-
+                this.addChange();
             break;
         }
     }
@@ -104,18 +104,19 @@
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
                     item.regX = 42.5;
                     item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 250 + 170 * k;
+                    item.y = 300 + 170 * k;
                     item.name = k * 3 + j
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
+                    this.itemBox.addChild(item);
+                    this.addMoney(item.x , item.y , item.name);
                     if(j < 2){
                         j++
                     }else{
                         j = 0;
                         k++
                     }
-                    self.itemBox.addChild(item);
                 }
             break;
             //道具数量为6个以上，第一页
@@ -123,28 +124,42 @@
                 for(let i = 0; i < 6 ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
                     item.regX = 42.5;
+                    item.regY = 60;
                     item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 250 + 170 * k;
+                    item.y = 300 + 170 * k;
                     item.name = k * 3 + j
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
+                    this.itemBox.addChild(item);
+                    this.addMoney(item.x , item.y , item.name);
                     if(j < 2){
                         j++
                     }else{
                         j = 0;
                         k++
                     }
-                    self.itemBox.addChild(item);
                 }
-                var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
-                buttonRight.regX = 18;
-                buttonRight.x = 512 / 2 + 115;
-                buttonRight.y = 570;
-                buttonRight.addEventListener("click",function(){
-                    self.nowPage += 1;
-                    self.addItem(clickNum);
-                });
+                if(clickNum == 1){
+                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
+                    buttonRight.regX = 18;
+                    buttonRight.x = 512 / 2 + 115;
+                    buttonRight.y = 570;
+                    buttonRight.addEventListener("click",function(){
+                        self.nowPage += 1;
+                        self.addItem(clickNum);
+                    });
+                }else{
+                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_pink);
+                    buttonRight.regX = 18;
+                    buttonRight.x = 512 / 2 + 115;
+                    buttonRight.y = 570;
+                    buttonRight.addEventListener("click",function(){
+                        self.nowPage += 1;
+                        self.addItem(clickNum);
+                    });
+                }
+
                 var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
                 pageNum.textAlign = "center";
                 pageNum.x = 512 / 2;
@@ -156,36 +171,58 @@
                 for(let i = self.nowPage * 6 ; i < self.nowPage * 6 + 6 ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
                     item.regX = 42.5;
+                    item.regY = 60;
                     item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 250 + 170 * k;
+                    item.y = 300 + 170 * k;
                     item.name = (self.nowPage - 1) * 6 + k * 3 + j
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
+                    this.itemBox.addChild(item);
+                    this.addMoney(item.x , item.y , item.name);
                     if(j < 2){
                         j++
                     }else{
                         j = 0;
                         k++
                     }
-                    self.itemBox.addChild(item);
                 }
-                var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
-                buttonRight.regX = 18;
-                buttonRight.x = 512 / 2 + 115;
-                buttonRight.y = 570;
-                buttonRight.addEventListener("click",function(){
-                    self.nowPage += 1;
-                    self.addItem(clickNum);
-                });
-                var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
-                buttonLeft.regX = 18;
-                buttonLeft.x = 512 / 2 - 115;
-                buttonLeft.y = 570;
-                buttonLeft.addEventListener("click",function(){
-                    self.nowPage -= 1;
-                    self.addItem(clickNum);
-                });
+                if(clickNum == 1){
+                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
+                    buttonRight.regX = 18;
+                    buttonRight.x = 512 / 2 + 115;
+                    buttonRight.y = 570;
+                    buttonRight.addEventListener("click",function(){
+                        self.nowPage += 1;
+                        self.addItem(clickNum);
+                    });
+                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
+                    buttonLeft.regX = 18;
+                    buttonLeft.x = 512 / 2 - 115;
+                    buttonLeft.y = 570;
+                    buttonLeft.addEventListener("click",function(){
+                        self.nowPage -= 1;
+                        self.addItem(clickNum);
+                    });
+                }else{
+                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_pink);
+                    buttonRight.regX = 18;
+                    buttonRight.x = 512 / 2 + 115;
+                    buttonRight.y = 570;
+                    buttonRight.addEventListener("click",function(){
+                        self.nowPage += 1;
+                        self.addItem(clickNum);
+                    });
+                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_pink);
+                    buttonLeft.regX = 18;
+                    buttonLeft.x = 512 / 2 - 115;
+                    buttonLeft.y = 570;
+                    buttonLeft.addEventListener("click",function(){
+                        self.nowPage -= 1;
+                        self.addItem(clickNum);
+                    });
+                }
+
                 var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
                 pageNum.textAlign = "center";
                 pageNum.x = 512 / 2;
@@ -197,28 +234,42 @@
                 for(let i = (self.nowPage - 1) * 6 ; i < self.itemNum ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
                     item.regX = 42.5;
+                    item.regY = 60;
                     item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 250 + 170 * k;
+                    item.y = 300 + 170 * k;
                     item.name = (self.nowPage - 1) * 6 + k * 3 + j;
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
+                    this.itemBox.addChild(item);
+                    this.addMoney(item.x , item.y , item.name);
                     if(j < 2){
                         j++
                     }else{
                         j = 0;
                         k++
                     }
-                    self.itemBox.addChild(item);
                 }
-                var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
-                buttonLeft.regX = 18;
-                buttonLeft.x = 512 / 2 - 115;
-                buttonLeft.y = 570;
-                buttonLeft.addEventListener("click",function(){
-                    self.nowPage -= 1;
-                    self.addItem(clickNum);
-                });
+                if(clickNum == 1){
+                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
+                    buttonLeft.regX = 18;
+                    buttonLeft.x = 512 / 2 - 115;
+                    buttonLeft.y = 570;
+                    buttonLeft.addEventListener("click",function(){
+                        self.nowPage -= 1;
+                        self.addItem(clickNum);
+                    });
+                }else{
+                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_pink);
+                    buttonLeft.regX = 18;
+                    buttonLeft.x = 512 / 2 - 115;
+                    buttonLeft.y = 570;
+                    buttonLeft.addEventListener("click",function(){
+                        self.nowPage -= 1;
+                        self.addItem(clickNum);
+                    });
+                }
+
                 var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
                 pageNum.textAlign = "center";
                 pageNum.x = 512 / 2;
@@ -226,6 +277,36 @@
                 self.itemBox.addChild(buttonLeft , pageNum);
             break;
         }
+    }
+    Shop.prototype.addChange = function(){
+        this.itemBox.removeAllChildren();
+        var item_chip_2 = new createjs.Bitmap(game.assets.images.item_chip_2);
+        item_chip_2.regX = 20;
+        item_chip_2.regY = 20;
+        item_chip_2.x = 512 / 2 - 100;
+        item_chip_2.y = 350;
+        item_chip_2.scale = 1.5;
+
+        var item_crystal_2 = new createjs.Bitmap(game.assets.images.item_crystal_2);
+        item_crystal_2.regX = 20;
+        item_crystal_2.regY = 20;
+        item_crystal_2.x = 512 / 2 + 100;
+        item_crystal_2.y = 350;
+        item_crystal_2.scale = 1.5;
+
+        var changeNum = new createjs.Text(" × 1000 = " ,"25px UDDigiKyokashoN","green");
+        changeNum.textAlign = "center";
+        changeNum.x = 512 / 2;
+        changeNum.y = 340;
+        this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum);
+    }
+
+    Shop.prototype.addMoney = function(itemX , itemY , itemId){
+        var money = new createjs.Text("5000" ,"18px UDDigiKyokashoN","");
+        money.textAlign = "right";
+        money.x = itemX + 30;
+        money.y = itemY + 36;
+        this.itemBox.addChild(money);
     }
 
     Shop.prototype.close = function(){

@@ -7,7 +7,7 @@
         this.buttonBg.scale = 0.8;
         this.iconObj.addChild(this.buttonBg);
 
-        this.addIcon("seedIcon" , "button_seed_" , -40 , 2);
+        this.addIcon("button_storehouse_" , "button_storehouse_" , -40 , 2);
         this.addIcon("waterIcon" , "button_water_" , -100 , 3);
         this.addIcon("handIcon" , "button_hand_" , -160 , 4);
         this.addIcon("shopIcon" , "button_shop_" , -game.canvas.width + 40 , 5);
