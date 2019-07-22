@@ -60,7 +60,7 @@
         function start(){
             self.gameObj.nowtime = new Date().getTime();
             self.manager.update();
-            game.stage.update();
+            self.stage.update();
         }
     }
 })()

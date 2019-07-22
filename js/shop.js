@@ -1,10 +1,18 @@
 (function(){
     var Shop = window.Shop = function(){
         game.stage.removeChild(game.gameicon.iconObj);
-        
+
+        //打开关闭状态开关
+        this.openState = false;
+        this.closeState = false;
+
         //创建商店全体框架
         this.shopObj = new createjs.Container();
-        
+        this.shopObj.alpha = 0;
+        this.shopObj.scale = 0.5;
+        this.shopObj.regX = this.shopObj.x = game.canvas.width / 2;
+        this.shopObj.regY = this.shopObj.y = game.canvas.height / 2;
+
         //创建黑色背景
         this.blackBg = new createjs.Shape();
         this.blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
@@ -20,7 +28,7 @@
         var self = this;
         this.addIcon("shopBg" , "shop_bg");
         this.addIcon("shopWord" , "shop_word" , 60 , 512 / 2 , 95 , false);
-        this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){game.manager.enter(1)});
+        this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){self.closeState = true});
         this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changeBg(1);self.changePage(1)});
         this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changeBg(2);;self.changePage(2)});
         this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changeBg(3);;self.changePage(3)});
@@ -31,12 +39,9 @@
 
         this.changePage(1);
     }
-
+    //添加图标方法
     Shop.prototype.addIcon = function(iconName , imgURL , regX , x , y , isHave , callback){
-        this[iconName] = new createjs.Bitmap(game.assets.images[imgURL]);
-        this[iconName].regX = regX;
-        this[iconName].x = x;
-        this[iconName].y = y;
+        this[iconName] = new createjs.Bitmap(game.assets.images[imgURL]).set({regX:regX , x:x , y:y});
         if(isHave){
             this[iconName].addEventListener("click",function(){
                 callback();
@@ -44,7 +49,7 @@
         }
         this.shopBox.addChild(this[iconName]);
     }
-
+    //点击标签后改变背景
     Shop.prototype.changeBg = function(imgUrl){
         switch(imgUrl){
             case 1:
@@ -59,7 +64,7 @@
         }
         
     }
-
+    //翻页方法
     Shop.prototype.changePage = function(clickNum){
         this.itemBox.removeAllChildren();
         this.itemNum = game.gameObj.itemNum;
@@ -78,7 +83,7 @@
             break;
         }
     }
-
+    //添加道具栏方法
     Shop.prototype.addItem = function(clickNum){
         this.itemBox.removeAllChildren();
         if(this.nowPage == 1 && this.allPage == 1){
@@ -102,10 +107,13 @@
             case 0:
                 for(let i = 0; i < self.itemNum ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.regX = 42.5;
-                    item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 300 + 170 * k;
-                    item.name = k * 3 + j
+                    item.set({
+                        regX : 42.5,
+                        regY : 60,
+                        x : 512 / 2 + 115 * j - 115,
+                        y : 300 + 170 * k,
+                        name : k * 3 + j
+                    });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
@@ -123,11 +131,13 @@
             case 1:
                 for(let i = 0; i < 6 ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.regX = 42.5;
-                    item.regY = 60;
-                    item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 300 + 170 * k;
-                    item.name = k * 3 + j
+                    item.set({
+                        regX : 42.5,
+                        regY : 60,
+                        x : 512 / 2 + 115 * j - 115,
+                        y : 300 + 170 * k,
+                        name : k * 3 + j
+                    });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
@@ -170,11 +180,13 @@
             case 2:
                 for(let i = self.nowPage * 6 ; i < self.nowPage * 6 + 6 ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.regX = 42.5;
-                    item.regY = 60;
-                    item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 300 + 170 * k;
-                    item.name = (self.nowPage - 1) * 6 + k * 3 + j
+                    item.set({
+                        regX : 42.5,
+                        regY : 60,
+                        x : 512 / 2 + 115 * j - 115,
+                        y : 300 + 170 * k,
+                        name : (self.nowPage - 1) * 6 + k * 3 + j
+                    });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
@@ -233,11 +245,13 @@
             case 3:
                 for(let i = (self.nowPage - 1) * 6 ; i < self.itemNum ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.regX = 42.5;
-                    item.regY = 60;
-                    item.x = 512 / 2 + 115 * j - 115;
-                    item.y = 300 + 170 * k;
-                    item.name = (self.nowPage - 1) * 6 + k * 3 + j;
+                    item.set({
+                        regX : 42.5,
+                        regY : 60,
+                        x : 512 / 2 + 115 * j - 115,
+                        y : 300 + 170 * k,
+                        name : (self.nowPage - 1) * 6 + k * 3 + j
+                    });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
                     });
@@ -278,29 +292,8 @@
             break;
         }
     }
-    Shop.prototype.addChange = function(){
-        this.itemBox.removeAllChildren();
-        var item_chip_2 = new createjs.Bitmap(game.assets.images.item_chip_2);
-        item_chip_2.regX = 20;
-        item_chip_2.regY = 20;
-        item_chip_2.x = 512 / 2 - 100;
-        item_chip_2.y = 350;
-        item_chip_2.scale = 1.5;
 
-        var item_crystal_2 = new createjs.Bitmap(game.assets.images.item_crystal_2);
-        item_crystal_2.regX = 20;
-        item_crystal_2.regY = 20;
-        item_crystal_2.x = 512 / 2 + 100;
-        item_crystal_2.y = 350;
-        item_crystal_2.scale = 1.5;
-
-        var changeNum = new createjs.Text(" × 1000 = " ,"25px UDDigiKyokashoN","green");
-        changeNum.textAlign = "center";
-        changeNum.x = 512 / 2;
-        changeNum.y = 340;
-        this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum);
-    }
-
+    //添加显示金钱
     Shop.prototype.addMoney = function(itemX , itemY , itemId){
         var money = new createjs.Text("5000" ,"18px UDDigiKyokashoN","");
         money.textAlign = "right";
@@ -309,10 +302,52 @@
         this.itemBox.addChild(money);
     }
 
-    Shop.prototype.close = function(){
-        if(game.manager.managerNum == 5){
-            game.stage.removeEvent(this.shopObj);
-            game.manager.enter(1);
+    //兑换栏
+    Shop.prototype.addChange = function(){
+        this.itemBox.removeAllChildren();
+        var item_chip_2 = new createjs.Bitmap(game.assets.images.item_chip_2);
+        item_chip_2.set({
+            regX : 20,
+            regY : 20,
+            x : 512 / 2 - 100,
+            y : 350,
+            scale : 1.5,
+        });
+
+        var item_crystal_2 = new createjs.Bitmap(game.assets.images.item_crystal_2);
+        item_crystal_2.set({
+            regX : 20,
+            regY : 20,
+            x : 512 / 2 + 100,
+            y : 350,
+            scale : 1.5,
+        });
+
+        var changeNum = new createjs.Text(" × 1000 = " ,"25px UDDigiKyokashoN","green");
+        changeNum.textAlign = "center";
+        changeNum.x = 512 / 2;
+        changeNum.y = 340;
+        this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum);
+    }
+
+    Shop.prototype.update = function(){
+        if(this.openState){
+            game.stage.addChild(this.shopObj);
+            this.shopObj.alpha += 0.2;
+            this.shopObj.scale += 0.1;
+            if(this.shopObj.alpha >= 1){
+                this.shopObj.scale = 1;
+                this.openState = false;
+            }
+        }
+        if(this.closeState){
+            this.shopObj.alpha -= 0.2;
+            this.shopObj.scale -= 0.1;
+            if(this.shopObj.alpha <= 0){
+                this.closeState = false;
+                game.stage.removeChild(this.shopObj);
+                game.manager.enter(1);
+            }
         }
     }
 })()

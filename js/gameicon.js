@@ -12,7 +12,7 @@
         this.addIcon("handIcon" , "button_hand_" , -160 , 4);
         this.addIcon("shopIcon" , "button_shop_" , -game.canvas.width + 40 , 5);
     }
-
+    
 
     Gameicon.prototype.addIcon = function(iconName , imgURL , x , goManagerNum){
         this[iconName] = new createjs.Bitmap(game.assets.images[imgURL + "1"]);

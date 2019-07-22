@@ -43,7 +43,7 @@
             case 5:
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
-                game.stage.addChild(game.shop.shopObj);
+                game.shop.openState = true;
             break;
         }
     }
@@ -68,6 +68,7 @@
             break;
             case 5:
                 game.flower.update();
+                game.shop.update();
             break;
 
         }
