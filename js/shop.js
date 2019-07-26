@@ -9,15 +9,15 @@
         //创建商店全体框架
         this.shopObj = new createjs.Container();
         this.shopObj.alpha = 0;
-        this.shopObj.scale = 0.5;
+        this.shopObj.scale = 0.55;
         this.shopObj.regX = this.shopObj.x = game.canvas.width / 2;
         this.shopObj.regY = this.shopObj.y = game.canvas.height / 2;
 
         //创建黑色背景
-        this.blackBg = new createjs.Shape();
-        this.blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
-        this.blackBg.alpha = 0.4;
-        this.shopObj.addChild(this.blackBg);
+        var blackBg = new createjs.Shape();
+        blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
+        blackBg.alpha = 0.4;
+        this.shopObj.addChild(blackBg);
         
         //创建商店内容框架
         this.shopBox = new createjs.Container();
@@ -330,11 +330,15 @@
         this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum);
     }
 
+    Shop.prototype.open = function(){
+        game.stage.addChild(this.shopObj);
+        this.openState = true;
+    }
+
     Shop.prototype.update = function(){
         if(this.openState){
-            game.stage.addChild(this.shopObj);
             this.shopObj.alpha += 0.2;
-            this.shopObj.scale += 0.1;
+            this.shopObj.scale = Number((this.shopObj.scale + 0.12).toFixed(2));
             if(this.shopObj.alpha >= 1){
                 this.shopObj.scale = 1;
                 this.openState = false;
@@ -342,10 +346,11 @@
         }
         if(this.closeState){
             this.shopObj.alpha -= 0.2;
-            this.shopObj.scale -= 0.1;
+            this.shopObj.scale = Number((this.shopObj.scale - 0.1).toFixed(2));
             if(this.shopObj.alpha <= 0){
+                this.shopObj.alpha = 0;
+                this.shopObj.scale = 0.55;
                 this.closeState = false;
-                game.stage.removeChild(this.shopObj);
                 game.manager.enter(1);
             }
         }

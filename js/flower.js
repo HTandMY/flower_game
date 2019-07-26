@@ -13,68 +13,65 @@
                 "wt":[0,12, ,0.5]
             }
         });
-        var self = this;
+
         for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
-            self.fw[i] = new createjs.Bitmap();
-            self.fw[i].regX = 50;
-            self.fw[i].regY = 100;
-            self.fw[i].scale = 0.6;
-            self.fw[i].x = game.flowerpot.fp[i].x;
-            self.fw[i].y = game.flowerpot.fp[i].y - 35;
-            self.flowerObj.addChild(self.fw[i]);
+            this.fw[i] = new createjs.Bitmap();
+            this.fw[i].regX = 50;
+            this.fw[i].regY = 100;
+            this.fw[i].scale = 0.6;
+            this.fw[i].x = game.flowerpot.fp[i].x;
+            this.fw[i].y = game.flowerpot.fp[i].y - 35;
+            this.flowerObj.addChild(this.fw[i]);
             if(game.gameObj.flowerpot[i].water){
-                self.wt[i] = new createjs.Sprite(this.waterData,"wt");
-                self.wt[i].x = self.fw[i].x;
-                self.wt[i].y = self.fw[i].y;
-                self.waterObj.addChild(self.wt[i]);
+                this.wt[i] = new createjs.Sprite(this.waterData,"wt");
+                this.wt[i].x = this.fw[i].x;
+                this.wt[i].y = this.fw[i].y;
+                this.waterObj.addChild(this.wt[i]);
                 game.gameObj.flowerpot[i].water = 1;
             }
         }
     }
 
     Flower.prototype.update = function(){
-        var self = this;
         for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
             if(game.gameObj.flowerpot[i].have){
                 if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 25){
-                    self.fw[i].image = game.assets.images.narcissus_5;
+                    this.fw[i].image = game.assets.images.narcissus_5;
                 }else if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 20){
-                    self.fw[i].image = game.assets.images.narcissus_4;
+                    this.fw[i].image = game.assets.images.narcissus_4;
                 }else if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 15){
-                    self.fw[i].image = game.assets.images.narcissus_3;
+                    this.fw[i].image = game.assets.images.narcissus_3;
                 }else if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 10){
-                    self.fw[i].image = game.assets.images.narcissus_2;
+                    this.fw[i].image = game.assets.images.narcissus_2;
                 }else if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 5){
-                    self.fw[i].image = game.assets.images.narcissus_1;
+                    this.fw[i].image = game.assets.images.narcissus_1;
                 }else if((game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 <= 5){
-                    self.fw[i].image = game.assets.images.narcissus_0;
+                    this.fw[i].image = game.assets.images.narcissus_0;
                 }
             }
             if((game.gameObj.nowtime - game.gameObj.flowerpot[i].watertime)/1000 > 10 && game.gameObj.flowerpot[i].water){
-                self.waterObj.removeChild(this.wt[i]);
+                this.waterObj.removeChild(this.wt[i]);
                 game.gameObj.flowerpot[i].water = 0;
             }
         }
     }
 
     Flower.prototype.watering = function(i){
-        var self = this;
         console.log(i);
         if(!game.gameObj.flowerpot[i].water){
             game.gameObj.flowerpot[i].watertime = new Date().getTime();
-            self.wt[i] = new createjs.Sprite(this.waterData,"wt");
-            self.wt[i].x = self.fw[i].x;
-            self.wt[i].y = self.fw[i].y;
-            self.waterObj.addChild(self.wt[i]);
+            this.wt[i] = new createjs.Sprite(this.waterData,"wt");
+            this.wt[i].x = this.fw[i].x;
+            this.wt[i].y = this.fw[i].y;
+            this.waterObj.addChild(this.wt[i]);
             game.gameObj.flowerpot[i].water = 1;
         }
     }
 
     Flower.prototype.harvest = function(i){
-        var self = this;
         if(game.gameObj.flowerpot[i].have && (game.gameObj.nowtime - game.gameObj.flowerpot[i].time)/1000 > 25){
             game.gameObj.flowerpot[i].have = 0;
-            self.fw[i].image = null;
+            this.fw[i].image = null;
         }
     }
 
@@ -84,7 +81,7 @@
             case "water":
                 for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
                     if(game.gameObj.flowerpot[i].have){
-                        self.fw[i].addEventListener("click",function(){
+                        this.fw[i].addEventListener("click",function(){
                             self.watering(i);
                         });
                     }
@@ -92,7 +89,7 @@
             break;
             case "harvest":
                     for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
-                        self.fw[i].addEventListener("click",function(){
+                        this.fw[i].addEventListener("click",function(){
                             self.harvest(i);
                         });
                     }
@@ -101,9 +98,8 @@
     }
 
     Flower.prototype.removeEvent = function(){
-        var self = this;
         for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
-            self.fw[i].removeAllEventListeners("click");
+            this.fw[i].removeAllEventListeners("click");
         }
     }
 })()
