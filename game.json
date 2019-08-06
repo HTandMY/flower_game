@@ -35,6 +35,7 @@
         {"name" : "button_storehouse_3" , "url" : "images/button_storehouse_3.png"},
         {"name" : "button_bg" , "url" : "images/button_bg.png"},
         {"name" : "button_close" , "url" : "images/button_close.png"},
+        {"name" : "button_gear" , "url" : "images/button_gear.png"},
         
         {"name" : "shop_bg" , "url" : "images/shop_bg.png"},
         {"name" : "shop_bg_1" , "url" : "images/shop_bg_1.png"},

@@ -32,7 +32,6 @@
 
     Flowerpot.prototype.flower = function(i){
         if(!game.gameObj.flowerpot[i].have){
-            game.gameObj.flowerpot[i].time = new Date().getTime();
             game.gameObj.flowerpot[i].have = 1;
         }
     }

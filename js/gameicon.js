@@ -7,47 +7,48 @@
         this.buttonBg.scale = 0.8;
         this.iconObj.addChild(this.buttonBg);
 
-        this.addIcon("button_storehouse_" , "button_storehouse_" , -40 , 2);
-        this.addIcon("waterIcon" , "button_water_" , -100 , 3);
-        this.addIcon("handIcon" , "button_hand_" , -160 , 4);
-        this.addIcon("shopIcon" , "button_shop_" , -game.canvas.width + 40 , 5);
+        this.addIcon("button_storehouse" , "button_storehouse_1" , -40 , true , "button_storehouse_3" , 2);
+        this.addIcon("waterIcon" , "button_water_1" , -100 , true , "button_water_3" , 3);
+        this.addIcon("handIcon" , "button_hand_1" , -160 , true , "button_hand_3" , 4);
+        this.addIcon("shopIcon" , "button_shop_1" , -game.canvas.width + 40 , true , "button_shop_3" , 5);
     }
-    
 
-    Gameicon.prototype.addIcon = function(iconName , imgURL , x , goManagerNum){
-        this[iconName] = new createjs.Bitmap(game.assets.images[imgURL + "1"]);
+    Gameicon.prototype.addIcon = function(iconName , imgURL_1 , x , haveListener , imgURL_2 , goManagerNum){
+        this[iconName] = new createjs.Bitmap(game.assets.images[imgURL_1]);
         this[iconName].regX = this[iconName].regY = 30;
         this[iconName].x = game.canvas.width + (x);
         this[iconName].y = game.canvas.height - 35;
         this[iconName].scale = 0.8;
-        this[iconName].name = imgURL;
-        var self = this;
-        this[iconName].addEventListener("click",function(){
-            self.clicked(iconName , imgURL , goManagerNum);
-        });
+        this[iconName].name = imgURL_1;
+        if(haveListener){
+            var self = this;
+            this[iconName].addEventListener("click",function(){
+                self.clicked(iconName , imgURL_1 , imgURL_2 , goManagerNum);
+            });
+        }
         this.iconObj.addChild(this[iconName]);
     }
 
 
-    Gameicon.prototype.clicked = function(iconName , imgURL , goManagerNum){
+    Gameicon.prototype.clicked = function(iconName , imgURL_1 , imgURL_2 , goManagerNum){
         if(goManagerNum != 5){
             for(let i = 0 ; i < this.iconObj.children.length ; i++){
-                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name + "1"];
+                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name];
             }
             if(game.manager.managerNum != goManagerNum){
                 this.buttonBg.image = game.assets.images.button_bg;
                 this.buttonBg.x = this[iconName].x;
                 this.buttonBg.y = this[iconName].y;
-                this[iconName].image = game.assets.images[imgURL + "3"];
+                this[iconName].image = game.assets.images[imgURL_2];
                 game.manager.enter(goManagerNum);
             }else{
                 this.buttonBg.image = null;
-                this[iconName].image = game.assets.images[imgURL + "1"];
+                this[iconName].image = game.assets.images[imgURL_1];
                 game.manager.enter(1);
             }
         }else{
             for(let i = 0 ; i < this.iconObj.children.length ; i++){
-                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name + "1"];
+                this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name];
             }
             game.stage.removeChild(this.iconObj)
             game.manager.enter(goManagerNum);

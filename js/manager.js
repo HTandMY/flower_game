@@ -5,6 +5,7 @@
         game.flower = new Flower();
         game.gameicon = new Gameicon();
         game.shop = new Shop();
+        game.settings = new Settings();
         this.managerNum = 1;
         this.enter(1);
         this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","");
@@ -19,7 +20,7 @@
             case 1:
                 game.stage.removeAllChildren();
 
-                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , this.nowManager);
+                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , this.nowManager);
 
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
@@ -53,17 +54,21 @@
         switch (this.managerNum) {
             case 1:
                 game.flower.update();
+                game.settings.update();
             break;
             case 2:
                 game.flower.update();
+                game.settings.update();
                 game.gameicon.rotate();
             break;
             case 3:
                 game.flower.update();
+                game.settings.update();
                 game.gameicon.rotate();
             break;
             case 4:
                 game.flower.update();
+                game.settings.update();
                 game.gameicon.rotate();
             break;
             case 5:
