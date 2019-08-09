@@ -1,22 +1,10 @@
 (function(){
-    var Game = window.Game = function(){
+    var Game = window.Game = function(playerData){
         this.canvas = document.getElementById("game");
         this.canvas.width = document.documentElement.clientWidth;
         this.canvas.height = document.documentElement.clientHeight;
         this.assets = {images:[],sounds:[]};
-        this.gameObj = {"playerdata" : {"playerid" : 123456 , "fpNum" : 9},
-                        "flowerpot" : [{"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0},
-                                       {"water" : 0 , "watertime" : 0 , "have" : 0 , "time" : 0}],
-                        "nowtime" : 0,
-                        "itemNum" : 20
-                    };
+        this.gameObj = playerData;
         this.stage = new createjs.Stage("game");
         var self = this;
         this.loading(function(){

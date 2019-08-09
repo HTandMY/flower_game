@@ -30,30 +30,23 @@
         this.settingsMenu.addChild(this.settingsBg);
         this.settingsObj.addChild(this.settingsMenu);
 
-        var hit1 = new createjs.Shape();
+        this.addText("zukan" , "図  鑑" , 20 , function(){console.log("図  鑑")});
+        this.addText("logout" , "ログアウト" , 65 , function(){console.log("ログアウト")})
+    }
+
+    Settings.prototype.addText = function(name ,text , y , doSome){
+        let hit1 = new createjs.Shape();
         hit1.graphics.beginFill("#555").drawRect(-50, -10, 100, 40);
-
-        this.zukan = new createjs.Text("図  鑑" ,"16px UDDigiKyokashoN","").set({
+        this[name] = new createjs.Text(text ,"16px UDDigiKyokashoN","").set({
             textAlign : "center",
             x : 50,
-            y : 20,
-            hitArea : hit1
-        });
-        this.zukan.addEventListener("click",function(){
-            console.log("図  鑑")
-        });
-
-        this.logout = new createjs.Text("ログアウト" ,"16px UDDigiKyokashoN","").set({
-            textAlign : "center",
-            x : 50,
-            y : 65,
+            y : y,
             hitArea : hit1,
         });
-        this.logout.addEventListener("click",function(){
-            console.log("ログアウト")
+        this.settingsMenu.addChild(this[name]);
+        this[name].addEventListener("click",function(){
+            doSome();
         });
-
-        this.settingsMenu.addChild(this.zukan , this.logout);
     }
 
     Settings.prototype.changeState = function(){

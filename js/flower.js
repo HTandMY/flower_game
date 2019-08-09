@@ -17,7 +17,7 @@
             }
         });
 
-        for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
+        for(let i = 0 ;i < game.gameObj.flowerpot.length ; i++){
             this.fw[i] = new createjs.Bitmap();
             this.fw[i].regX = 50;
             this.fw[i].regY = 100;
@@ -44,7 +44,7 @@
     }
 
     Flower.prototype.update = function(){
-        for(let i = 0 ;i < game.gameObj.playerdata.fpNum ; i++){
+        for(let i = 0 ;i < game.gameObj.flowerpot.length ; i++){
             if((game.gameObj.nowtime - game.gameObj.flowerpot[i].watertime)/1000 >= this.waterNum  && game.gameObj.flowerpot[i].water && game.gameObj.flowerpot[i].have && game.gameObj.flowerpot[i].watertime != 0){
                 this.time_1[i] += 1;
                 this.time_2[i] = 0;
@@ -100,7 +100,7 @@
         var self = this;
         switch(name){
             case "water":
-                for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+                for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
                     if(game.gameObj.flowerpot[i].have){
                         this.fw[i].addEventListener("click",function(){
                             self.watering(i);
@@ -109,7 +109,7 @@
                 }
             break;
             case "harvest":
-                    for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+                    for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
                         this.fw[i].addEventListener("click",function(){
                             self.harvest(i);
                         });
@@ -119,7 +119,7 @@
     }
 
     Flower.prototype.removeEvent = function(){
-        for (let i = 0 ; i < game.gameObj.playerdata.fpNum ; i++) {
+        for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
             this.fw[i].removeAllEventListeners("click");
         }
     }
