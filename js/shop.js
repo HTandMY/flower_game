@@ -1,9 +1,9 @@
 (function(){
     var Shop = window.Shop = function(){
         game.stage.removeChild(game.gameicon.iconObj);
-        let shopReadData = login.changeAddress("shop");
+        var shopReadData = firebase.database().ref('shop');
         var self = this;
-        shopReadData.on('value', function(data){
+        shopReadData.once('value', function(data){
             self.shopData = data.val();
             console.log(self.shopData);
             //打开关闭状态开关

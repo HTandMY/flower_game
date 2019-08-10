@@ -1,15 +1,21 @@
 (function(){
-    var Game = window.Game = function(playerData){
+    var Game = window.Game = function(){
         this.canvas = document.getElementById("game");
         this.canvas.width = document.documentElement.clientWidth;
         this.canvas.height = document.documentElement.clientHeight;
         this.assets = {images:[],sounds:[]};
-        this.gameObj = playerData;
+        console.log(login.userId);
+
         this.stage = new createjs.Stage("game");
         var self = this;
         this.loading(function(){
             console.log(self.assets);
-            self.startGame()
+            self.playerData = firebase.database().ref('playerdata/' + login.userId);
+            self.playerData.once('value', function(data) {
+                self.gameObj = data.val();
+                self.startGame();
+            });
+            
         });
     }
     
@@ -17,10 +23,9 @@
         var self = this;
         loadFont();
         function loadFont(){
-            document.fonts.load('12px "UDDigiKyokashoN"').then(
-                function(){
-                    loadImg();
-                });
+            document.fonts.load('12px "UDDigiKyokashoN"').then(function(){
+                loadImg();
+            });
         }
         function loadImg(){
             var readyNum = 0;
@@ -41,12 +46,15 @@
     }
     
     Game.prototype.startGame = function(){
-        this.manager = new Manager();
         var self = this;
+        this.playerData.on('value', function(data) {
+            self.gameObj = data.val();
+        });
+        this.manager = new Manager();
         createjs.Ticker.framerate = 30;
         createjs.Ticker.addEventListener("tick", start);
         function start(){
-            self.gameObj.nowtime = new Date().getTime();
+            self.nowtime = new Date().getTime();
             self.manager.update();
             self.stage.update();
         }

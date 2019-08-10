@@ -32,7 +32,9 @@
 
     Flowerpot.prototype.flower = function(i){
         if(!game.gameObj.flowerpot[i].have){
-            game.gameObj.flowerpot[i].have = 1;
+            game.playerData.child('flowerpot/' + i).update({
+                have : 1
+            });
         }
     }
 

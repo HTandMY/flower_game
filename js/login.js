@@ -17,7 +17,7 @@
     Login.prototype.check = function(){
         this.userId = document.getElementById("userId").value;
         let psd = document.getElementById("psd").value;
-        let userlist = this.changeAddress('playerdata');
+        let userlist = firebase.database().ref('playerdata/' + this.userId);
         if(this.userId == ""){
             console.log("请输入用户名");
             return;
@@ -26,8 +26,8 @@
             console.log("请输入密码");
             return;
         }
-        this.backData = userlist.child(this.userId);
-        this.backData.on('value', function(data){
+        this.backData = userlist;
+        this.backData.once('value', function(data){
             let playerData = data.val();
             if(playerData == null || playerData == undefined || playerData == ""){
                 console.log("用户名不存在");
@@ -44,18 +44,9 @@
                     console.log("密码正确");
                     this.loginBox.style.display = "none";
                     this.gameBox.style.display = "block";
-                    window.game = new Game(playerData);
+                    window.game = new Game();
                 }
             }
         });
-    }
-
-    Login.prototype.changeAddress = function(address){
-        return firebase.database().ref(address);
-    }
-
-    Login.prototype.readData = function(data){
-        var playerData = data.val();
-        console.log(playerData);
     }
 })()
