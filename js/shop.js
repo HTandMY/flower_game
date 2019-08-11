@@ -1,48 +1,40 @@
 (function(){
     var Shop = window.Shop = function(){
         game.stage.removeChild(game.gameicon.iconObj);
-        var shopReadData = firebase.database().ref('shop');
         var self = this;
-        shopReadData.once('value', function(data){
-            self.shopData = data.val();
-            console.log(self.shopData);
-            //打开关闭状态开关
-            self.openState = false;
-            self.closeState = false;
-            
-            //创建商店全体框架
-            self.shopObj = new createjs.Container();
-            self.shopObj.alpha = 0;
-            self.shopObj.scale = 0.55;
-            self.shopObj.regX = self.shopObj.x = game.canvas.width / 2;
-            self.shopObj.regY = self.shopObj.y = game.canvas.height / 2;
 
-            //创建黑色背景
-            var blackBg = new createjs.Shape();
-            blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
-            blackBg.alpha = 0.4;
-            self.shopObj.addChild(blackBg);
-            
-            //创建商店内容框架
-            self.shopBox = new createjs.Container();
-            self.shopBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 512 , game.canvas.width / 512 , 0 , 0 , 0 , 256 , 337);
-            self.shopObj.addChild(self.shopBox);
-
-            //商店背景、文字、按钮、标签
-            self.addIcon("shopBg" , "shop_bg");
-            self.addIcon("shopWord" , "shop_word" , 60 , 512 / 2 , 95 , false);
-            self.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){self.closeState = true});
-            self.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changeBg(1);self.changePage(1)});
-            self.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changeBg(2);;self.changePage(2)});
-            self.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changeBg(3);;self.changePage(3)});
-            self.addIcon("itemBg" , "shop_bg_1" , 180 , 512 / 2 , 190 ,false);
-            //插入道具框架
-            self.itemBox = new createjs.Container();
-            self.shopBox.addChild(self.itemBox);
-
-            self.changePage(1);
-        });
+        //打开关闭状态开关
+        this.openState = false;
+        this.closeState = false;
         
+        //创建商店全体框架
+        this.shopObj = new createjs.Container();
+        this.shopObj.alpha = 0;
+        this.shopObj.scale = 0.55;
+        this.shopObj.regX = this.shopObj.x = game.canvas.width / 2;
+        this.shopObj.regY = this.shopObj.y = game.canvas.height / 2;
+        //创建黑色背景
+        var blackBg = new createjs.Shape();
+        blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
+        blackBg.alpha = 0.4;
+        this.shopObj.addChild(blackBg);
+        
+        //创建商店内容框架
+        this.shopBox = new createjs.Container();
+        this.shopBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 512 , game.canvas.width / 512 , 0 , 0 , 0 , 256 , 337);
+        this.shopObj.addChild(this.shopBox);
+        //商店背景、文字、按钮、标签
+        this.addIcon("shopBg" , "shop_bg");
+        this.addIcon("shopWord" , "shop_word" , 60 , 512 / 2 , 95 , false);
+        this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){self.closeState = true});
+        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changeBg(1);self.changePage(1)});
+        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changeBg(2);self.changePage(2)});
+        this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changeBg(3);self.changePage(3)});
+        this.addIcon("itemBg" , "shop_bg_1" , 180 , 512 / 2 , 190 ,false);
+        //插入道具框架
+        this.itemBox = new createjs.Container();
+        this.shopBox.addChild(this.itemBox);
+        self.changePage(1);
     }
     Shop.prototype.readNetData = function(){
 
@@ -76,9 +68,9 @@
     Shop.prototype.changePage = function(clickNum){
         this.itemBox.removeAllChildren();
         if(clickNum == 1){
-            this.itemNum = this.shopData.seed.length;
+            this.itemNum = game.gameObj.plantData.length;
         }else if(clickNum == 2){
-            this.itemNum = this.shopData.ornament.length;
+            this.itemNum = game.gameObj.ornamentData.length;
         }
         
         this.state = 0;
@@ -310,15 +302,15 @@
     Shop.prototype.addMoney = function(itemX , itemY , clickNum , itemName){
         let clickName;
         if(clickNum == 1){
-            clickName = "seed";
+            clickName = "plantData";
         }else if(clickNum == 2){
-            clickName = "ornament";
+            clickName = "ornamentData";
         }
         var money = new createjs.Text("" ,"18px UDDigiKyokashoN","");
         money.textAlign = "right";
         money.x = itemX + 30;
         money.y = itemY + 36;
-        money.text = this.shopData[clickName][itemName].money
+        money.text = game.gameObj[clickName][itemName].buy
         this.itemBox.addChild(money);
     }
 

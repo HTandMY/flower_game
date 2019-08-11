@@ -6,20 +6,15 @@
         this.assets = {images:[],sounds:[]};
         console.log(login.userId);
 
+        this.playerData = firebase.database().ref('playerdata/' + login.userId);
+        this.gameData = firebase.database().ref('gameData');
+
         this.stage = new createjs.Stage("game");
         var self = this;
-        this.loading(function(){
-            console.log(self.assets);
-            self.playerData = firebase.database().ref('playerdata/' + login.userId);
-            self.playerData.once('value', function(data) {
-                self.gameObj = data.val();
-                self.startGame();
-            });
-            
-        });
+        this.loading();
     }
     
-    Game.prototype.loading = function(callback){
+    Game.prototype.loading = function(){
         var self = this;
         loadFont();
         function loadFont(){
@@ -37,20 +32,32 @@
                         self.assets.images[gameData.images[i].name] = new Image();
                         self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
                     }
-                    callback();
+                    loadGameData();
                 }
             }
             xhr.open("get","game.json",true);
             xhr.send(null);
+        }
+        function loadGameData(){
+            self.gameData.once('value', function(data) {
+                self.gameObj = data.val();
+                loadPlayerData()
+            });
+        }
+        function loadPlayerData(){
+            self.playerData.once('value', function(data) {
+                self.playerObj = data.val();
+                self.startGame();
+            });
         }
     }
     
     Game.prototype.startGame = function(){
         var self = this;
         this.playerData.on('value', function(data) {
-            self.gameObj = data.val();
+            self.playerObj = data.val();
         });
-        this.manager = new Manager();
+        self.manager = new Manager();
         createjs.Ticker.framerate = 30;
         createjs.Ticker.addEventListener("tick", start);
         function start(){

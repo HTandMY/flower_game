@@ -7,7 +7,7 @@
         var y = game.canvas.height / 4;
         var j = 0;
         var k = 0;
-        for(let i = 0 ;i < game.gameObj.flowerpot.length ; i++){
+        for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
  
             this.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_1);
 
@@ -31,9 +31,10 @@
     }
 
     Flowerpot.prototype.flower = function(i){
-        if(!game.gameObj.flowerpot[i].have){
+        if(!game.playerObj.flowerpot[i].have){
             game.playerData.child('flowerpot/' + i).update({
-                have : 1
+                have : 1,
+                id : Math.floor(Math.random()*7)
             });
         }
     }
@@ -42,8 +43,8 @@
         var self = this;
         switch(name){
             case "water":
-                for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
-                    if(game.gameObj.flowerpot[i].have){
+                for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
+                    if(game.playerObj.flowerpot[i].have){
                         self.fp[i].addEventListener("click",function(){
                             game.flower.watering(i);
                         });
@@ -51,7 +52,7 @@
                 }
             break;
             case "flower":
-                for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
+                for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
                     self.fp[i].addEventListener("click",function(){
                         self.flower(i);
                     });
@@ -61,7 +62,7 @@
     }
 
     Flowerpot.prototype.removeEvent = function(){
-        for (let i = 0 ; i < game.gameObj.flowerpot.length ; i++) {
+        for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
             this.fp[i].removeAllEventListeners("click");
         }
     }
