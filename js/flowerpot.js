@@ -34,7 +34,7 @@
         if(!game.playerObj.flowerpot[i].have){
             game.playerData.child('flowerpot/' + i).update({
                 have : 1,
-                id : Math.floor(Math.random()*7)
+                id : Math.floor(Math.random()*10)
             });
         }
     }

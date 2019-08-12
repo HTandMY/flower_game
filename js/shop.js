@@ -123,6 +123,8 @@
                         console.log(event.target.name);
                     });
                     this.itemBox.addChild(item);
+                    this.addItemIcon(item.x , item.y , clickNum , item.name);
+                    this.addItemName(item.x , item.y , clickNum , item.name);
                     this.addMoney(item.x , item.y , clickNum , item.name);
                     if(j < 2){
                         j++
@@ -147,6 +149,8 @@
                         console.log(event.target.name);
                     });
                     this.itemBox.addChild(item);
+                    this.addItemIcon(item.x , item.y , clickNum , item.name);
+                    this.addItemName(item.x , item.y , clickNum , item.name);
                     this.addMoney(item.x , item.y , clickNum , item.name);
                     if(j < 2){
                         j++
@@ -196,6 +200,8 @@
                         console.log(event.target.name);
                     });
                     this.itemBox.addChild(item);
+                    this.addItemIcon(item.x , item.y , clickNum , item.name);
+                    this.addItemName(item.x , item.y , clickNum , item.name);
                     this.addMoney(item.x , item.y , clickNum , item.name);
                     if(j < 2){
                         j++
@@ -261,6 +267,8 @@
                         console.log(event.target.name);
                     });
                     this.itemBox.addChild(item);
+                    this.addItemIcon(item.x , item.y , clickNum , item.name);
+                    this.addItemName(item.x , item.y , clickNum , item.name);
                     this.addMoney(item.x , item.y , clickNum , item.name);
                     if(j < 2){
                         j++
@@ -298,6 +306,37 @@
         }
     }
 
+    Shop.prototype.addItemIcon = function(itemX , itemY , clickNum , itemName){
+        let clickName;
+        if(clickNum == 1){
+            clickName = "plantData";
+        }else if(clickNum == 2){
+            clickName = "ornamentData";
+        }
+        var flowerIcon = new createjs.Bitmap(game.assets.images["flower_" + game.gameObj[clickName][itemName].name + "_bag"]);
+        flowerIcon.set({
+            regX : 42.5,
+            regY : 60,
+            x : itemX,
+            y : itemY,
+        });
+        this.itemBox.addChild(flowerIcon);
+    }
+
+    Shop.prototype.addItemName = function(itemX , itemY , clickNum , itemName){
+        let clickName;
+        if(clickNum == 1){
+            clickName = "plantData";
+        }else if(clickNum == 2){
+            clickName = "ornamentData";
+        }
+        var flowerName = new createjs.Text("" ,"15px UDDigiKyokashoN","");
+        flowerName.textAlign = "center";
+        flowerName.x = itemX;
+        flowerName.y = itemY - 80;
+        flowerName.text = game.gameObj[clickName][itemName].jpname
+        this.itemBox.addChild(flowerName);
+    }
     //添加显示金钱
     Shop.prototype.addMoney = function(itemX , itemY , clickNum , itemName){
         let clickName;
