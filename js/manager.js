@@ -4,6 +4,7 @@
         game.flowerpot = new Flowerpot();
         game.flower = new Flower();
         game.gameicon = new Gameicon();
+        game.depository = new Depository();
         game.shop = new Shop();
         game.settings = new Settings();
         this.managerNum = 1;
@@ -28,7 +29,7 @@
             case 2:
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
-                game.flowerpot.bindEvent("flower");
+                game.depository.open();
             break;
             case 3:
                 game.flowerpot.removeEvent();
@@ -58,8 +59,9 @@
             break;
             case 2:
                 game.flower.update();
-                game.settings.update();
-                game.gameicon.rotate();
+                game.depository.update();
+                // game.settings.update();
+                // game.gameicon.rotate();
             break;
             case 3:
                 game.flower.update();

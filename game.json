@@ -113,6 +113,10 @@
         {"name" : "item_box_1" , "url" : "images/item_box_1.png"},
         {"name" : "item_box_2" , "url" : "images/item_box_2.png"},
 
+        {"name" : "depository_bg" , "url" : "images/depository_bg.png"},
+        {"name" : "depository_bg_button_3" , "url" : "images/depository_bg_button_3.png"},
+        {"name" : "depository_word" , "url" : "images/depository_word.png"},
+
         {"name" : "shop_button_left_green" , "url" : "images/shop_button_left_green.png"},
         {"name" : "shop_button_right_green" , "url" : "images/shop_button_right_green.png"},
         {"name" : "shop_button_left_pink" , "url" : "images/shop_button_left_pink.png"},

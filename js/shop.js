@@ -1,6 +1,5 @@
 (function(){
     var Shop = window.Shop = function(){
-        game.stage.removeChild(game.gameicon.iconObj);
         var self = this;
 
         //打开关闭状态开关
@@ -36,9 +35,7 @@
         this.shopBox.addChild(this.itemBox);
         self.changePage(1);
     }
-    Shop.prototype.readNetData = function(){
-
-    }
+ 
     //添加图标方法
     Shop.prototype.addIcon = function(iconName , imgURL , regX , x , y , isHave , callback){
         this[iconName] = new createjs.Bitmap(game.assets.images[imgURL]).set({regX:regX , x:x , y:y});
@@ -108,7 +105,7 @@
         var k = 0;
         var self = this;
         switch(self.state){
-            //道具为6个一下
+            //道具为6个以下
             case 0:
                 for(let i = 0; i < self.itemNum ; i++){
                     var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
@@ -382,6 +379,7 @@
     }
 
     Shop.prototype.open = function(){
+        game.stage.removeChild(game.gameicon.iconObj);
         game.stage.addChild(this.shopObj);
         this.openState = true;
     }
