@@ -31,6 +31,11 @@
                 game.flower.removeEvent();
                 game.depository.open();
             break;
+                case 2.5:
+                    game.flowerpot.removeEvent();
+                    game.flowerpot.addArrow();
+                    game.flower.removeEvent();
+                break;
             case 3:
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
@@ -63,6 +68,10 @@
                 // game.settings.update();
                 // game.gameicon.rotate();
             break;
+                case 2.5:
+                    game.flower.update();
+                    game.flowerpot.arrowMove();
+                break;
             case 3:
                 game.flower.update();
                 game.settings.update();
@@ -77,7 +86,6 @@
                 game.flower.update();
                 game.shop.update();
             break;
-
         }
     }
 })()

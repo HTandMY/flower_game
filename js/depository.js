@@ -13,10 +13,10 @@
         this.depositoryObj.regX = this.depositoryObj.x = game.canvas.width / 2;
         this.depositoryObj.regY = this.depositoryObj.y = game.canvas.height / 2;
         //创建黑色背景
-        var blackBg = new createjs.Shape();
-        blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
-        blackBg.alpha = 0.4;
-        this.depositoryObj.addChild(blackBg);
+        this.blackBg = new createjs.Shape();
+        this.blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
+        this.blackBg.alpha = 0.4;
+        this.depositoryObj.addChild(this.blackBg);
         
         //创建商店内容框架
         this.depositoryBox = new createjs.Container();
@@ -70,10 +70,15 @@
     }
 
     Depository.prototype.updatePageContent = function(clickNum){
-        this.allPage = Math.floor(this.itemNum / 6);
-        var j = 0;
-        var k = 0;
-        var nowPageItemNum;
+        if(this.itemNum % 6 == 0){
+            this.allPage = Math.floor(this.itemNum / 6) - 1;
+        }else{
+            this.allPage = Math.floor(this.itemNum / 6);
+        }
+        
+        let j = 0;
+        let k = 0;
+        let nowPageItemNum;
 
         this.itemBox.removeAllChildren();
         
@@ -99,7 +104,7 @@
 
 
         for(let i = this.nowPage * 6 ; i < this.nowPage * 6 + nowPageItemNum ; i++){
-            this.addItem(clickNum , j , k , i);
+            this.addItemBox(clickNum , j , k , i);
             if(j < 2){
                 j++
             }else{
@@ -107,17 +112,18 @@
                 k++
             }
         }
-        var pageNum = new createjs.Text((this.nowPage + 1) + " / " + (this.allPage + 1) ,"20px UDDigiKyokashoN","");
+        let pageNum = new createjs.Text((this.nowPage + 1) + " / " + (this.allPage + 1) ,"20px UDDigiKyokashoN","");
         pageNum.textAlign = "center";
         pageNum.x = 425 / 2;
         pageNum.y = 600;
         this.itemBox.addChild(pageNum);
     }
 
-    Depository.prototype.addItem = function(clickNum , j , k , i){
-        var className = ["seed" , "ornament" , "exchange"];
-        var itemBoxName = ["item_box_1" , "item_box_2" , "item_box_3"];
-        var item = new createjs.Bitmap(game.assets.images[itemBoxName[clickNum]]);
+    Depository.prototype.addItemBox = function(clickNum , j , k , i){
+        let self = this;
+        let className = ["seed" , "ornament" , "exchange"];
+        let itemBoxName = ["item_box_1" , "item_box_2" , "item_box_3"];
+        let item = new createjs.Bitmap(game.assets.images[itemBoxName[clickNum]]);
         item.set({
             regX : 42.5,
             regY : 60,
@@ -126,15 +132,29 @@
             class : className[clickNum],
             name : i
         });
-        item.addEventListener("click",function(event){
-            console.log(event.target.name);
+        item.addEventListener("click",function(){
+            self.addFlower(game.playerObj.depository[className[clickNum]][i].id);
         });
         this.itemBox.addChild(item);
+        this.addItemIcon(className[clickNum] , item.x , item.y , i);
+    }
+
+    Depository.prototype.addItemIcon = function(class_Name , ItemBoxX , ItemBoxY , i){
+        let self = this;
+        let imageName = "flower_" + game.gameObj.plantData[game.playerObj.depository[class_Name][i].id].name + "_bag";
+        let itemIcon = new createjs.Bitmap(game.assets.images[imageName]);
+        itemIcon.set({
+            regX : 42.5,
+            regY : 60,
+            x : ItemBoxX,
+            y : ItemBoxY,
+        });
+        this.itemBox.addChild(itemIcon);
     }
 
     Depository.prototype.addButton = function(clickNum , state){
-        var self = this;
-        var buttonColor = ["green" , "pink"];
+        let self = this;
+        let buttonColor = ["green" , "pink"];
         switch(state){
             case 0:
                 var buttonRight = new createjs.Bitmap(game.assets.images["shop_button_right_" + buttonColor[clickNum]]);
@@ -179,13 +199,37 @@
                 this.itemBox.addChild(buttonLeft);
             break;
         }
+    }
 
-
+    Depository.prototype.addFlower = function(flowerId){
+        let self = this;
+        this.blackBg.visible = false;
+        this.depositoryBox.visible = false;
+        this.closeButton = new createjs.Bitmap(game.assets.images.button_back).set({
+            regX : 32,
+            regY : 32,
+            scale : 0.8,
+            x : game.canvas.width - 40,
+            y : game.canvas.height - 35,
+        });
+        this.closeButton.addEventListener("click",function(){
+            game.flowerpot.removeArrow();
+            self.depositoryObj.removeChild(self.closeButton);
+            game.manager.enter(1);
+        });
+        this.depositoryObj.addChild(this.closeButton);
+        game.manager.enter(2.5);
+                            
+        game.flowerpot.bindEvent("flower" , flowerId);
     }
 
     Depository.prototype.open = function(){
         game.stage.removeChild(game.gameicon.iconObj);
         game.stage.addChild(this.depositoryObj);
+        this.blackBg.visible = true;
+        this.depositoryBox.visible = true;
+        this.depositoryObj.alpha = 0;
+        this.depositoryObj.scale = 0.55;
         this.changePage(0);
         this.openState = true;
     }

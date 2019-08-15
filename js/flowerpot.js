@@ -2,13 +2,16 @@
     var Flowerpot = window.Flowerpot = function(){
         this.fpObj = new createjs.Container();
         this.fp = [];
+        this.arrowBox = [];
+        this.moveState = true;
+        this.movePx = 0;
 
         var x = game.canvas.width / 4;
         var y = game.canvas.height / 4;
         var j = 0;
         var k = 0;
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
- 
+
             this.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_1);
 
             this.fp[i].regX = 50;
@@ -27,19 +30,72 @@
                 j = 0;
                 k++;
             }
+
+            this.arrowBox[i] = new createjs.Bitmap(game.assets.images.flowerpot_arrow);
+            this.arrowBox[i].regX = 16;
+            this.arrowBox[i].x = this.fp[i].x;
+            this.arrowBox[i].y = this.fp[i].y - 60;
+            this.arrowBox[i].visible = false;
+            this.fpObj.addChild(this.arrowBox[i]);
         }
     }
 
-    Flowerpot.prototype.flower = function(i){
+    Flowerpot.prototype.flower = function(i , flowerId){
         if(!game.playerObj.flowerpot[i].have){
             game.playerData.child('flowerpot/' + i).update({
                 have : 1,
-                id : Math.floor(Math.random()*10)
+                id : flowerId
             });
         }
     }
 
-    Flowerpot.prototype.bindEvent = function(name){
+    Flowerpot.prototype.addArrow = function(){
+        for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
+            if(!game.playerObj.flowerpot[i].have){
+                this.arrowBox[i].visible = true;
+            }else{
+                this.arrowBox[i].visible = false;
+            }
+        }
+    }
+
+    Flowerpot.prototype.removeArrow = function(){
+        for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
+            if(!game.playerObj.flowerpot[i].have){
+                this.arrowBox[i].visible = false;
+            }
+        }
+    }
+
+    Flowerpot.prototype.arrowMove = function(){
+        if(this.moveState){
+            for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
+                this.arrowBox[i].y += 1
+                if(game.playerObj.flowerpot[i].have){
+                    this.arrowBox[i].visible = false;
+                }
+            }
+            if(this.movePx > 5){
+                this.moveState = false;
+            }else{
+                this.movePx++
+            }
+        }else{
+            for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
+                this.arrowBox[i].y -= 1
+                if(game.playerObj.flowerpot[i].have){
+                    this.arrowBox[i].visible = false;
+                }
+            }
+            if(this.movePx < 0){
+                this.moveState = true;
+            }else{
+                this.movePx--
+            }
+        }
+    }
+
+    Flowerpot.prototype.bindEvent = function(name , flowerId){
         var self = this;
         switch(name){
             case "water":
@@ -54,7 +110,7 @@
             case "flower":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
                     self.fp[i].addEventListener("click",function(){
-                        self.flower(i);
+                        self.flower(i , flowerId);
                     });
                 }
             break;

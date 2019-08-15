@@ -47,7 +47,7 @@
                 this[iconName].image = game.assets.images[imgURL_2];
                 game.manager.enter(goManagerNum);
             }else{
-                this.buttonBg.image = null;
+                this.buttonBg.image = undefined;
                 this[iconName].image = game.assets.images[imgURL_1];
                 game.manager.enter(1);
             }
