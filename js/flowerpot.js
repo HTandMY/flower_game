@@ -40,11 +40,28 @@
         }
     }
 
-    Flowerpot.prototype.flower = function(i , flowerId){
+    Flowerpot.prototype.flower = function(i , flowerId , j){
+        var self = this;
         if(!game.playerObj.flowerpot[i].have){
             game.playerData.child('flowerpot/' + i).update({
                 have : 1,
                 id : flowerId
+            },
+            function(){
+                game.playerData.child('depository/seed/' + j).update({
+                    num : game.playerObj.depository.seed[j].num - 1
+            },
+            function(){
+                if(game.playerObj.depository.seed[j].num <= 0){
+                    game.playerObj.depository.seed.splice(j, 1);
+                    game.playerData.set(game.playerObj , function(){
+                        self.removeArrow();
+                        game.depository.depositoryObj.removeChild(game.depository.closeButton);
+                        game.manager.enter(1);
+                    });
+                }
+            });
+            console.log(game.playerObj.depository.seed[j].num);
             });
         }
     }
@@ -95,7 +112,7 @@
         }
     }
 
-    Flowerpot.prototype.bindEvent = function(name , flowerId){
+    Flowerpot.prototype.bindEvent = function(name , flowerId , j){
         var self = this;
         switch(name){
             case "water":
@@ -110,7 +127,7 @@
             case "flower":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
                     self.fp[i].addEventListener("click",function(){
-                        self.flower(i , flowerId);
+                        self.flower(i , flowerId , j);
                     });
                 }
             break;

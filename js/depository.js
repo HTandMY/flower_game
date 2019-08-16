@@ -122,7 +122,7 @@
     Depository.prototype.addItemBox = function(clickNum , j , k , i){
         let self = this;
         let className = ["seed" , "ornament" , "exchange"];
-        let itemBoxName = ["item_box_1" , "item_box_2" , "item_box_3"];
+        let itemBoxName = ["depository_box_brown" , "depository_box_red" , "depository_box_blue"];
         let item = new createjs.Bitmap(game.assets.images[itemBoxName[clickNum]]);
         item.set({
             regX : 42.5,
@@ -132,16 +132,41 @@
             class : className[clickNum],
             name : i
         });
-        item.addEventListener("click",function(){
-            self.addFlower(game.playerObj.depository[className[clickNum]][i].id);
-        });
+        switch(clickNum){
+            case 0:
+                item.addEventListener("click",function(){
+                    self.addFlower(game.playerObj.depository[className[clickNum]][i].id , i);
+                });
+            break;
+            case 1:
+
+            break;
+            case 2:
+
+            break;
+        }
         this.itemBox.addChild(item);
-        this.addItemIcon(className[clickNum] , item.x , item.y , i);
+        this.addItemIcon(clickNum , className[clickNum] , item.x , item.y , i);
+        this.addNumber(className[clickNum] , item.x , item.y , i);
     }
 
-    Depository.prototype.addItemIcon = function(class_Name , ItemBoxX , ItemBoxY , i){
+    Depository.prototype.addItemIcon = function(clickNum , class_Name , ItemBoxX , ItemBoxY , i){
+        var imageName;
         let self = this;
-        let imageName = "flower_" + game.gameObj.plantData[game.playerObj.depository[class_Name][i].id].name + "_bag";
+        switch(clickNum){
+            //添加种子图标
+            case 0:
+                imageName = "flower_" + game.gameObj.plantData[game.playerObj.depository[class_Name][i].id].name + "_bag";
+            break;
+            //添加装饰图标
+            case 1:
+
+            break;
+            //添加果实图标
+            case 2:
+                imageName = "flower_" + game.gameObj.plantData[game.playerObj.depository[class_Name][i].id].name + "_ball";
+            break;
+        }
         let itemIcon = new createjs.Bitmap(game.assets.images[imageName]);
         itemIcon.set({
             regX : 42.5,
@@ -150,6 +175,15 @@
             y : ItemBoxY,
         });
         this.itemBox.addChild(itemIcon);
+    }
+
+    Depository.prototype.addNumber = function(class_Name , ItemBoxX , ItemBoxY , i){
+        let itemNumber = game.playerObj.depository[class_Name][i].num;
+        var numberText = new createjs.Text(itemNumber ,"18px UDDigiKyokashoN","#ffffff");
+        numberText.textAlign = "right";
+        numberText.x = ItemBoxX + 32;
+        numberText.y = ItemBoxY + 36;
+        this.itemBox.addChild(numberText);
     }
 
     Depository.prototype.addButton = function(clickNum , state){
@@ -201,7 +235,7 @@
         }
     }
 
-    Depository.prototype.addFlower = function(flowerId){
+    Depository.prototype.addFlower = function(flowerId , i){
         let self = this;
         this.blackBg.visible = false;
         this.depositoryBox.visible = false;
@@ -220,7 +254,7 @@
         this.depositoryObj.addChild(this.closeButton);
         game.manager.enter(2.5);
                             
-        game.flowerpot.bindEvent("flower" , flowerId);
+        game.flowerpot.bindEvent("flower" , flowerId , i);
     }
 
     Depository.prototype.open = function(){
