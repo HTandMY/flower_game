@@ -49,21 +49,28 @@
 
     //点击标签后的方法
     Depository.prototype.changePage = function(clickNum){
+        this.itemNum = 0;
         this.nowPage = 0;
         switch(clickNum){
             case 0:
                 this.itemBg.image = game.assets.images.shop_bg_1;
-                this.itemNum = game.playerObj.depository.seed.length;
+                if(game.playerObj.depository.seed != undefined){
+                    this.itemNum = game.playerObj.depository.seed.length;
+                }
                 this.updatePageContent(clickNum);
             break;
             case 1:
                 this.itemBg.image = game.assets.images.shop_bg_2;
-                this.itemNum = game.playerObj.depository.ornament.length;
+                if(game.playerObj.depository.ornament != undefined){
+                    this.itemNum = game.playerObj.depository.ornament.length;
+                }
                 this.updatePageContent(clickNum);
             break;
             case 2:
                 this.itemBg.image = game.assets.images.shop_bg_3;
-                this.itemNum = game.playerObj.depository.exchange.length;
+                if(game.playerObj.depository.exchange != undefined){
+                    this.itemNum = game.playerObj.depository.exchange.length;
+                }
                 this.updatePageContent(clickNum);
             break;
         }
@@ -92,9 +99,8 @@
             }
             
         }
-        console.log(nowPageItemNum);
 
-        if(this.nowPage == 0 && this.allPage != 0){
+        if(this.nowPage == 0 && this.allPage > 0){
             this.addButton(clickNum , 0);
         }else if(this.nowPage != 0 && this.allPage != 0 && this.nowPage != this.allPage){
             this.addButton(clickNum , 1);
@@ -130,19 +136,22 @@
             x : 425 / 2 + 115 * j - 115,
             y : 320 + 170 * k,
             class : className[clickNum],
-            name : i
+            name : i,
+            itemid : game.playerObj.depository[className[clickNum]][i].id
         });
         switch(clickNum){
             case 0:
-                item.addEventListener("click",function(){
-                    self.addFlower(game.playerObj.depository[className[clickNum]][i].id , i);
+                item.addEventListener("click",function(event){
+                    self.addFlower(event.target.itemid , event.target.name);
                 });
             break;
             case 1:
 
             break;
             case 2:
-
+                item.addEventListener("click",function(){
+                    
+                });
             break;
         }
         this.itemBox.addChild(item);
@@ -255,6 +264,10 @@
         game.manager.enter(2.5);
                             
         game.flowerpot.bindEvent("flower" , flowerId , i);
+    }
+
+    Depository.prototype.sell = function(itemId){
+
     }
 
     Depository.prototype.open = function(){

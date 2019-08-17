@@ -105,6 +105,7 @@
 
     Flower.prototype.harvest = function(i){
         var self = this;
+        var plantId = game.playerObj.flowerpot[i].id;
         if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25){
             game.playerData.child('flowerpot/' + i).update({
                 have : 0,
@@ -112,15 +113,40 @@
                 water : 0,
                 watertime : 0,
                 id : -1
-            },function(error) {
-                if(error) {
-
+            },function() {
+                if(game.playerObj.depository.exchange != undefined){
+                    for(let n = 0 ; n < game.playerObj.depository.exchange.length ; n++){
+                        if(game.playerObj.depository.exchange[n].id == plantId){
+                            game.playerData.child('depository/exchange/' + n).update({
+                                id : plantId,
+                                num : game.playerObj.depository.exchange[n].num + Math.ceil(Math.random() * 2)
+                            },function(){
+                                removeFlower(i);
+                            });
+                            return;
+                        }
+                    }
+                    game.playerData.child('depository/exchange/' + (game.playerObj.depository.exchange.length)).set({
+                        id : plantId,
+                        num : Math.ceil(Math.random() * 2)
+                    },function(){
+                        removeFlower(i);
+                    });
                 }else{
-                    self.waterObj.removeChild(self.wt[i]);
-                    self.fw[i].image = null;
-                    self.time_2[i] = 0;
+                    game.playerData.child('depository').update({
+                        'exchange' : [{
+                            id : plantId,
+                            num : Math.ceil(Math.random() * 2)}]
+                    },function(){
+                        removeFlower(i);
+                    });
                 }
             });
+        }
+        function removeFlower(i){
+            self.waterObj.removeChild(self.wt[i]);
+            self.fw[i].image = null;
+            self.time_2[i] = 0;
         }
     }
 
