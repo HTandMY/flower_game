@@ -6,6 +6,7 @@
         this.fwObj.addChild(this.flowerObj , this.waterObj);
         this.fw = [];
         this.wt = [];
+        this.state = true;
         this.time_2 = [0,0,0,0,0,0,0,0,0];
         this.waterNum = 10;
         this.waterData = new createjs.SpriteSheet({
@@ -85,20 +86,18 @@
     Flower.prototype.watering = function(i){
         console.log(i);
         var self = this;
-        if(!game.playerObj.flowerpot[i].water){
+        if(!game.playerObj.flowerpot[i].water && this.state == true){
             //浇水
+            this.state = false;
             game.playerData.child('flowerpot/' + i).update({
                 water : 1,
                 watertime : game.nowtime,
-            },function(error) {
-                if(error) {
-
-                }else{
-                    self.wt[i] = new createjs.Sprite(self.waterData,"wt");
-                    self.wt[i].x = self.fw[i].x;
-                    self.wt[i].y = self.fw[i].y;
-                    self.waterObj.addChild(self.wt[i]);
-                }
+            },function() {
+                self.wt[i] = new createjs.Sprite(self.waterData,"wt");
+                self.wt[i].x = self.fw[i].x;
+                self.wt[i].y = self.fw[i].y;
+                self.waterObj.addChild(self.wt[i]);
+                self.state = true;
             });
         }
     }
@@ -106,7 +105,8 @@
     Flower.prototype.harvest = function(i){
         var self = this;
         var plantId = game.playerObj.flowerpot[i].id;
-        if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25){
+        if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25 && this.state == true){
+            this.state = false;
             game.playerData.child('flowerpot/' + i).update({
                 have : 0,
                 time : 0,
@@ -147,6 +147,7 @@
             self.waterObj.removeChild(self.wt[i]);
             self.fw[i].image = null;
             self.time_2[i] = 0;
+            self.state = true;
         }
     }
 

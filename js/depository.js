@@ -197,7 +197,7 @@
 
     Depository.prototype.addButton = function(clickNum , state){
         let self = this;
-        let buttonColor = ["green" , "pink"];
+        let buttonColor = ["green" , "pink" , "blue"];
         switch(state){
             case 0:
                 var buttonRight = new createjs.Bitmap(game.assets.images["shop_button_right_" + buttonColor[clickNum]]);

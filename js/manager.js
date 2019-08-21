@@ -9,9 +9,15 @@
         game.settings = new Settings();
         this.managerNum = 1;
         this.enter(1);
-        this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","");
-        game.stage.addChild(this.nowManager);
-        this.nowManager.x = this.nowManager.y = 10;
+        this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","").set({
+            x : 10,
+            y : 10
+        });
+        this.money = new createjs.Text(game.playerObj.money,"15px UDDigiKyokashoN","").set({
+            x : 10,
+            y : 30
+        });
+        game.stage.addChild(this.nowManager , this.money);
     }
     
     Manager.prototype.enter = function(number){
@@ -21,7 +27,7 @@
             case 1:
                 game.stage.removeAllChildren();
 
-                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , this.nowManager);
+                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , this.nowManager , this.money);
 
                 game.flowerpot.removeEvent();
                 game.flower.removeEvent();
@@ -57,6 +63,7 @@
 
     Manager.prototype.update = function(){
         this.nowManager.text = this.managerNum;
+        this.money.text = game.playerObj.money;
         switch (this.managerNum) {
             case 1:
                 game.flower.update();

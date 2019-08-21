@@ -114,6 +114,11 @@
         {"name" : "button_close" , "url" : "images/button_close.png"},
         {"name" : "button_gear" , "url" : "images/button_gear.png"},
         {"name" : "button_back" , "url" : "images/button_back.png"},
+
+        {"name" : "button_brown" , "url" : "images/button_brown.png"},
+        {"name" : "button_gray" , "url" : "images/button_gray.png"},
+        {"name" : "button_green" , "url" : "images/button_green.png"},
+        {"name" : "button_orange" , "url" : "images/button_orange.png"},
         
         {"name" : "shop_bg" , "url" : "images/shop_bg.png"},
         {"name" : "shop_bg_1" , "url" : "images/shop_bg_1.png"},
@@ -125,7 +130,8 @@
         {"name" : "shop_bg_button_3" , "url" : "images/shop_bg_button_3.png"},
         {"name" : "item_box_1" , "url" : "images/item_box_1.png"},
         {"name" : "item_box_2" , "url" : "images/item_box_2.png"},
-
+        {"name" : "shop_buy_bg" , "url" : "images/shop_buy_bg.png"},
+        
         {"name" : "depository_bg" , "url" : "images/depository_bg.png"},
         {"name" : "depository_bg_button_3" , "url" : "images/depository_bg_button_3.png"},
         {"name" : "depository_word" , "url" : "images/depository_word.png"},
@@ -137,6 +143,8 @@
         {"name" : "shop_button_right_green" , "url" : "images/shop_button_right_green.png"},
         {"name" : "shop_button_left_pink" , "url" : "images/shop_button_left_pink.png"},
         {"name" : "shop_button_right_pink" , "url" : "images/shop_button_right_pink.png"},
+        {"name" : "shop_button_left_blue" , "url" : "images/shop_button_left_blue.png"},
+        {"name" : "shop_button_right_blue" , "url" : "images/shop_button_right_blue.png"},
 
         {"name" : "item_chip_2" , "url" : "images/item_chip_2.png"},
         {"name" : "item_crystal_2" , "url" : "images/item_crystal_2.png"},

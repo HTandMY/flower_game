@@ -5,6 +5,8 @@
         //打开关闭状态开关
         this.openState = false;
         this.closeState = false;
+
+        this.buyState = true;
         
         //创建商店全体框架
         this.shopObj = new createjs.Container();
@@ -33,6 +35,12 @@
         //插入道具框架
         this.itemBox = new createjs.Container();
         this.shopBox.addChild(this.itemBox);
+
+        this.buyBox = new createjs.Container();
+        this.buyBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 450 , game.canvas.width / 450 , 0 , 0 , 0 , 180 , 150);
+        
+        this.shopObj.addChild(this.buyBox);
+
         self.changePage(1);
     }
  
@@ -118,6 +126,7 @@
                     });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
+                        self.buyItem(event.target.name);
                     });
                     this.itemBox.addChild(item);
                     this.addItemIcon(item.x , item.y , clickNum , item.name);
@@ -144,6 +153,7 @@
                     });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
+                        self.buyItem(event.target.name);
                     });
                     this.itemBox.addChild(item);
                     this.addItemIcon(item.x , item.y , clickNum , item.name);
@@ -195,6 +205,7 @@
                     });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
+                        self.buyItem(event.target.name);
                     });
                     this.itemBox.addChild(item);
                     this.addItemIcon(item.x , item.y , clickNum , item.name);
@@ -262,6 +273,7 @@
                     });
                     item.addEventListener("click",function(event){
                         console.log(event.target.name);
+                        self.buyItem(event.target.name);
                     });
                     this.itemBox.addChild(item);
                     this.addItemIcon(item.x , item.y , clickNum , item.name);
@@ -382,6 +394,183 @@
         game.stage.removeChild(game.gameicon.iconObj);
         game.stage.addChild(this.shopObj);
         this.openState = true;
+    }
+
+    Shop.prototype.buyItem = function(itemId){
+        this.buyBox.visible = true;
+        this.shopBox.visible = false;
+        var self = this;
+        this.itemURL = "flower_" + game.gameObj.plantData[itemId].name + "_bag";
+        this.needMoney = game.gameObj.plantData[itemId].buy;
+        this.buyBox.removeAllChildren();
+            
+        this.buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
+        this.buyItemIcon = new createjs.Bitmap(game.assets.images[this.itemURL]).set({
+            regX : 42.5,
+            regY : 60,
+            x : 360 / 2,
+            y : 60
+        });
+
+        this.plusButton = new createjs.Bitmap(game.assets.images.shop_button_right_green).set({
+            regX : 18,
+            regY : 20,
+            x : 360 / 2 + 80,
+            y : 120,
+        });
+        this.minusButton = new createjs.Bitmap(game.assets.images.shop_button_left_green).set({
+            regX : 18,
+            regY : 20,
+            x : 360 / 2 - 80,
+            y : 120,
+        });
+        this.buyNumText = new createjs.Text("1" ,"24px UDDigiKyokashoN","#000000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 110
+        });
+
+        this.moneyIcon = new createjs.Bitmap(game.assets.images.item_chip_2).set({
+            regX : 20,
+            regY : 20,
+            x : 360 / 2 - 60,
+            y : 185,
+        });
+        this.money = new createjs.Text(this.needMoney ,"30px UDDigiKyokashoN","#000000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 170
+        });
+
+        this.cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2 - 80,
+            y : 250,
+        });
+        this.cancelText = new createjs.Text("キャンセル" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : this.cancelButton.x,
+            y : this.cancelButton.y - 10
+        });
+        this.buyButton = new createjs.Bitmap().set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2 + 80,
+            y : 250,
+        });
+        if(this.money.text <= game.playerObj.money){
+            this.buyButton.image = game.assets.images.button_green;
+        }else{
+            this.buyButton.image = game.assets.images.button_gray;
+        }
+        this.buyText = new createjs.Text("購入する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : this.buyButton.x,
+            y : this.buyButton.y - 10
+        });
+        this.buyBox.addChild(this.buyBg , this.buyItemIcon , this.plusButton , this.minusButton , this.buyNumText , this.moneyIcon , this.money , this.cancelButton , this.cancelText , this.buyButton , this.buyText);
+        
+        this.plusButton.addEventListener("click",function(){
+            self.buyNumText.text = Number(self.buyNumText.text) + 1;
+            self.money.text = Number(self.buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
+            if(self.money.text <= game.playerObj.money){
+                self.buyButton.image = game.assets.images.button_green;
+            }else{
+                self.buyButton.image = game.assets.images.button_gray;
+            }
+        });
+        this.minusButton.addEventListener("click",function(){
+            if(Number(self.buyNumText.text) > 1){
+                self.buyNumText.text = Number(self.buyNumText.text) - 1;
+                self.money.text = Number(self.buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
+                if(self.money.text <= game.playerObj.money){
+                    self.buyButton.image = game.assets.images.button_green;
+                }else{
+                    self.buyButton.image = game.assets.images.button_gray;
+                }
+            }
+        });
+        this.cancelButton.addEventListener("click",function(){
+            self.buyBox.visible = false;
+            self.shopBox.visible = true;
+        });
+        this.buyButton.addEventListener("click",function(){
+            if(self.money.text <= game.playerObj.money){
+                self.doBuyItem(itemId , self.buyNumText.text , self.money.text)
+            }else{
+                return;
+            }
+        })
+    }
+
+    Shop.prototype.doBuyItem = function(itemId , buyNum , moneyNum){
+        var self = this;
+        if(game.playerObj.depository.seed != undefined && this.buyState == true){
+            this.buyState = false;
+            for(let n = 0 ; n < game.playerObj.depository.seed.length ; n++){
+                if(game.playerObj.depository.seed[n].id == itemId){
+                    game.playerData.child('depository/seed/' + n).update({
+                        num : Number(game.playerObj.depository.seed[n].num) + Number(buyNum)
+                    },function(){
+                        game.playerData.update({
+                            money : Number(game.playerObj.money) - Number(moneyNum)
+                        });
+                        self.buySuccess();
+                    });
+                    return;
+                }
+            }
+            game.playerData.child('depository/seed/' + (game.playerObj.depository.seed.length)).set({
+                id : itemId,
+                num : buyNum
+            },function(){
+                game.playerData.update({
+                    money : Number(game.playerObj.money) - Number(moneyNum)
+                });
+                self.buySuccess();
+            });
+        }else{
+            game.playerData.child('depository').update({
+                'seed' : [{
+                    id : itemId,
+                    num : buyNum
+                }]
+            },function(){
+                game.playerData.update({
+                    money : Number(game.playerObj.money) - Number(moneyNum)
+                });
+                self.buySuccess();
+            });
+        }
+    }
+
+    Shop.prototype.buySuccess = function(){
+        var self = this;
+        this.buyBox.removeAllChildren();
+        var buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
+        var successText = new createjs.Text("購入成功しました!" ,"35px UDDigiKyokashoN","#16982b").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 100
+        });
+        var successButton = new createjs.Bitmap(game.assets.images.button_green).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2,
+            y : 200,
+        });
+        successButton.addEventListener("click",function(){
+            self.buyState = true;
+            self.buyBox.visible = false;
+            self.shopBox.visible = true;
+        })
+        var successButtonText = new createjs.Text("OK" ,"22px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : successButton.x,
+            y : successButton.y - 10
+        });
+        this.buyBox.addChild(buyBg , successText , successButton , successButtonText);
     }
 
     Shop.prototype.update = function(){

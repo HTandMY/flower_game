@@ -5,6 +5,7 @@
         this.arrowBox = [];
         this.moveState = true;
         this.movePx = 0;
+        this.state = true;
 
         var x = game.canvas.width / 4;
         var y = game.canvas.height / 4;
@@ -42,7 +43,9 @@
 
     Flowerpot.prototype.flower = function(i , flowerId , j){
         var self = this;
-        if(!game.playerObj.flowerpot[i].have){
+        if(!game.playerObj.flowerpot[i].have && this.state == true){
+            this.state = false;
+            
             game.playerData.child('flowerpot/' + i).update({
                 have : 1,
                 id : flowerId
@@ -57,9 +60,11 @@
                     game.playerData.set(game.playerObj , function(){
                         self.removeArrow();
                         game.depository.depositoryObj.removeChild(game.depository.closeButton);
+                        self.state = true;
                         game.manager.enter(1);
                     });
                 }
+                self.state = true;
             });
             console.log(game.playerObj.depository.seed[j].num);
             });
