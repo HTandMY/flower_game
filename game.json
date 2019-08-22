@@ -146,6 +146,12 @@
         {"name" : "shop_button_left_blue" , "url" : "images/shop_button_left_blue.png"},
         {"name" : "shop_button_right_blue" , "url" : "images/shop_button_right_blue.png"},
 
+        {"name" : "illustrate_bg_1" , "url" : "images/illustrate_bg_1.png"},
+        {"name" : "illustrate_bg_2" , "url" : "images/illustrate_bg_2.png"},
+        {"name" : "illustrate_bg_3" , "url" : "images/illustrate_bg_3.png"},
+        {"name" : "illustrate_border" , "url" : "images/illustrate_border.png"},
+        {"name" : "illustrate_word" , "url" : "images/illustrate_word.png"},
+        
         {"name" : "item_chip_2" , "url" : "images/item_chip_2.png"},
         {"name" : "item_crystal_2" , "url" : "images/item_crystal_2.png"},
 

@@ -114,7 +114,7 @@
                 watertime : 0,
                 id : -1
             },function() {
-                if(game.playerObj.depository.exchange != undefined){
+                if(game.playerObj.depository != undefined && game.playerObj.depository.exchange != undefined){
                     for(let n = 0 ; n < game.playerObj.depository.exchange.length ; n++){
                         if(game.playerObj.depository.exchange[n].id == plantId){
                             game.playerData.child('depository/exchange/' + n).update({

@@ -14,10 +14,12 @@
         this.shopObj.scale = 0.55;
         this.shopObj.regX = this.shopObj.x = game.canvas.width / 2;
         this.shopObj.regY = this.shopObj.y = game.canvas.height / 2;
+        this.shopObj.visible = false;
         //创建黑色背景
         var blackBg = new createjs.Shape();
         blackBg.graphics.beginFill("black").drawRect(0,0,game.canvas.width, game.canvas.height);
         blackBg.alpha = 0.4;
+        blackBg.addEventListener("click",function(){});
         this.shopObj.addChild(blackBg);
         
         //创建商店内容框架
@@ -37,7 +39,7 @@
         this.shopBox.addChild(this.itemBox);
 
         this.buyBox = new createjs.Container();
-        this.buyBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 450 , game.canvas.width / 450 , 0 , 0 , 0 , 180 , 150);
+        this.buyBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 450 , game.canvas.width / 450 , 0 , 0 , 0 , 180 , 180);
         
         this.shopObj.addChild(this.buyBox);
 
@@ -342,7 +344,7 @@
         var flowerName = new createjs.Text("" ,"15px UDDigiKyokashoN","");
         flowerName.textAlign = "center";
         flowerName.x = itemX;
-        flowerName.y = itemY - 80;
+        flowerName.y = itemY - 85;
         flowerName.text = game.gameObj[clickName][itemName].jpname
         this.itemBox.addChild(flowerName);
     }
@@ -390,12 +392,6 @@
         this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum);
     }
 
-    Shop.prototype.open = function(){
-        game.stage.removeChild(game.gameicon.iconObj);
-        game.stage.addChild(this.shopObj);
-        this.openState = true;
-    }
-
     Shop.prototype.buyItem = function(itemId){
         this.buyBox.visible = true;
         this.shopBox.visible = false;
@@ -405,72 +401,78 @@
         this.buyBox.removeAllChildren();
             
         this.buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
+        this.title = new createjs.Text("購入" ,"25px UDDigiKyokashoN","#000000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 30
+        });
         this.buyItemIcon = new createjs.Bitmap(game.assets.images[this.itemURL]).set({
             regX : 42.5,
             regY : 60,
             x : 360 / 2,
-            y : 60
+            y : 120
         });
 
         this.plusButton = new createjs.Bitmap(game.assets.images.shop_button_right_green).set({
             regX : 18,
             regY : 20,
             x : 360 / 2 + 80,
-            y : 120,
+            y : 180,
         });
         this.minusButton = new createjs.Bitmap(game.assets.images.shop_button_left_green).set({
             regX : 18,
             regY : 20,
             x : 360 / 2 - 80,
-            y : 120,
+            y : 180,
         });
         this.buyNumText = new createjs.Text("1" ,"24px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
-            y : 110
+            y : 170
         });
 
         this.moneyIcon = new createjs.Bitmap(game.assets.images.item_chip_2).set({
             regX : 20,
             regY : 20,
-            x : 360 / 2 - 60,
-            y : 185,
+            x : 360 / 2 - 70,
+            y : 245,
         });
         this.money = new createjs.Text(this.needMoney ,"30px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
-            y : 170
+            y : 230
         });
 
         this.cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
             regX : 53,
             regY : 18,
             x : 360 / 2 - 80,
-            y : 250,
+            y : 310,
         });
         this.cancelText = new createjs.Text("キャンセル" ,"16px UDDigiKyokashoN","#FFFFFF").set({
             textAlign : "center",
             x : this.cancelButton.x,
-            y : this.cancelButton.y - 10
+            y : this.cancelButton.y - 8
         });
         this.buyButton = new createjs.Bitmap().set({
             regX : 53,
             regY : 18,
             x : 360 / 2 + 80,
-            y : 250,
+            y : 310,
         });
+        this.buyText = new createjs.Text("購入する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : this.buyButton.x,
+            y : this.buyButton.y - 8
+        });
+        this.buyBox.addChild(this.buyBg , this.title , this.buyItemIcon , this.plusButton , this.minusButton , this.buyNumText , this.moneyIcon , this.money , this.cancelButton , this.cancelText , this.buyButton , this.buyText);
+        
         if(this.money.text <= game.playerObj.money){
             this.buyButton.image = game.assets.images.button_green;
         }else{
             this.buyButton.image = game.assets.images.button_gray;
         }
-        this.buyText = new createjs.Text("購入する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
-            textAlign : "center",
-            x : this.buyButton.x,
-            y : this.buyButton.y - 10
-        });
-        this.buyBox.addChild(this.buyBg , this.buyItemIcon , this.plusButton , this.minusButton , this.buyNumText , this.moneyIcon , this.money , this.cancelButton , this.cancelText , this.buyButton , this.buyText);
-        
+
         this.plusButton.addEventListener("click",function(){
             self.buyNumText.text = Number(self.buyNumText.text) + 1;
             self.money.text = Number(self.buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
@@ -506,42 +508,44 @@
 
     Shop.prototype.doBuyItem = function(itemId , buyNum , moneyNum){
         var self = this;
-        if(game.playerObj.depository.seed != undefined && this.buyState == true){
-            this.buyState = false;
-            for(let n = 0 ; n < game.playerObj.depository.seed.length ; n++){
-                if(game.playerObj.depository.seed[n].id == itemId){
-                    game.playerData.child('depository/seed/' + n).update({
-                        num : Number(game.playerObj.depository.seed[n].num) + Number(buyNum)
-                    },function(){
-                        game.playerData.update({
-                            money : Number(game.playerObj.money) - Number(moneyNum)
+        if(this.buyState == true){
+            if(game.playerObj.depository != undefined && game.playerObj.depository.seed != undefined){
+                this.buyState = false;
+                for(let n = 0 ; n < game.playerObj.depository.seed.length ; n++){
+                    if(game.playerObj.depository.seed[n].id == itemId){
+                        game.playerData.child('depository/seed/' + n).update({
+                            num : Number(game.playerObj.depository.seed[n].num) + Number(buyNum)
+                        },function(){
+                            game.playerData.update({
+                                money : Number(game.playerObj.money) - Number(moneyNum)
+                            });
+                            self.buySuccess();
                         });
-                        self.buySuccess();
-                    });
-                    return;
+                        return;
+                    }
                 }
-            }
-            game.playerData.child('depository/seed/' + (game.playerObj.depository.seed.length)).set({
-                id : itemId,
-                num : buyNum
-            },function(){
-                game.playerData.update({
-                    money : Number(game.playerObj.money) - Number(moneyNum)
-                });
-                self.buySuccess();
-            });
-        }else{
-            game.playerData.child('depository').update({
-                'seed' : [{
+                game.playerData.child('depository/seed/' + (game.playerObj.depository.seed.length)).set({
                     id : itemId,
                     num : buyNum
-                }]
-            },function(){
-                game.playerData.update({
-                    money : Number(game.playerObj.money) - Number(moneyNum)
+                },function(){
+                    game.playerData.update({
+                        money : Number(game.playerObj.money) - Number(moneyNum)
+                    });
+                    self.buySuccess();
                 });
-                self.buySuccess();
-            });
+            }else{
+                game.playerData.child('depository').update({
+                    'seed' : [{
+                        id : itemId,
+                        num : buyNum
+                    }]
+                },function(){
+                    game.playerData.update({
+                        money : Number(game.playerObj.money) - Number(moneyNum)
+                    });
+                    self.buySuccess();
+                });
+            }
         }
     }
 
@@ -552,13 +556,13 @@
         var successText = new createjs.Text("購入成功しました!" ,"35px UDDigiKyokashoN","#16982b").set({
             textAlign : "center",
             x : 360 / 2,
-            y : 100
+            y : 140
         });
         var successButton = new createjs.Bitmap(game.assets.images.button_green).set({
             regX : 53,
             regY : 18,
             x : 360 / 2,
-            y : 200,
+            y : 250,
         });
         successButton.addEventListener("click",function(){
             self.buyState = true;
@@ -571,6 +575,13 @@
             y : successButton.y - 10
         });
         this.buyBox.addChild(buyBg , successText , successButton , successButtonText);
+    }
+
+
+
+    Shop.prototype.open = function(){
+        this.shopObj.visible = true;
+        this.openState = true;
     }
 
     Shop.prototype.update = function(){
@@ -588,6 +599,7 @@
             if(this.shopObj.alpha <= 0){
                 this.shopObj.alpha = 0;
                 this.shopObj.scale = 0.55;
+                this.shopObj.visible = false;
                 this.closeState = false;
                 game.manager.enter(1);
             }

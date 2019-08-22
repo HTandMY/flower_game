@@ -7,8 +7,8 @@
         game.depository = new Depository();
         game.shop = new Shop();
         game.settings = new Settings();
+        game.illustrate = new Illustrate();
         this.managerNum = 1;
-        this.enter(1);
         this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","").set({
             x : 10,
             y : 10
@@ -17,46 +17,37 @@
             x : 10,
             y : 30
         });
-        game.stage.addChild(this.nowManager , this.money);
+        game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , game.depository.depositoryObj , game.shop.shopObj , game.illustrate.illustrateObj ,this.nowManager , this.money);
+        this.enter(1);
     }
     
     Manager.prototype.enter = function(number){
         var self = this;
         self.managerNum = number;
+        game.flowerpot.removeEvent();
+        game.flower.removeEvent();
         switch (this.managerNum) {
             case 1:
-                game.stage.removeAllChildren();
 
-                game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , this.nowManager , this.money);
-
-                game.flowerpot.removeEvent();
-                game.flower.removeEvent();
             break;
             case 2:
-                game.flowerpot.removeEvent();
-                game.flower.removeEvent();
                 game.depository.open();
             break;
                 case 2.5:
-                    game.flowerpot.removeEvent();
                     game.flowerpot.addArrow();
-                    game.flower.removeEvent();
                 break;
             case 3:
-                game.flowerpot.removeEvent();
-                game.flower.removeEvent();
                 game.flowerpot.bindEvent("water");
                 game.flower.bindEvent("water");
             break;
             case 4:
-                game.flowerpot.removeEvent();
-                game.flower.removeEvent();
                 game.flower.bindEvent("harvest");
             break;
             case 5:
-                game.flowerpot.removeEvent();
-                game.flower.removeEvent();
                 game.shop.open();
+            break;
+            case 6:
+                game.illustrate.open();
             break;
         }
     }
@@ -92,6 +83,11 @@
             case 5:
                 game.flower.update();
                 game.shop.update();
+            break;
+            case 6:
+                game.flower.update();
+                game.settings.update();
+                game.illustrate.update();
             break;
         }
     }

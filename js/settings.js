@@ -1,5 +1,6 @@
 (function(){
     var Settings = window.Settings = function(){
+        var self = this;
         this.settingsObj = new createjs.Container();
 
         this.state = false;
@@ -13,7 +14,7 @@
             regY : 16
         });
         this.SettingsIcon.addEventListener("click" , function(){
-            game.settings.changeState();
+            self.changeState();
         });
         this.settingsObj.addChild(this.SettingsIcon);
 
@@ -30,8 +31,14 @@
         this.settingsMenu.addChild(this.settingsBg);
         this.settingsObj.addChild(this.settingsMenu);
 
-        this.addText("zukan" , "図  鑑" , 20 , function(){console.log("図  鑑")});
-        this.addText("logout" , "ログアウト" , 65 , function(){console.log("ログアウト")})
+        this.addText("zukan" , "図  鑑" , 20 , function(){
+            console.log("図  鑑");
+            self.changeState();
+            game.manager.enter(6);
+        });
+        this.addText("logout" , "ログアウト" , 65 , function(){
+            console.log("ログアウト");
+        });
     }
 
     Settings.prototype.addText = function(name ,text , y , doSome){
