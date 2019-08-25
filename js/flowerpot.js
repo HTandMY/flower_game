@@ -45,29 +45,23 @@
         var self = this;
         if(!game.playerObj.flowerpot[i].have && this.state == true){
             this.state = false;
-            
-            game.playerData.child('flowerpot/' + i).update({
-                have : 1,
-                id : flowerId
-            },
-            function(){
-                game.playerData.child('depository/seed/' + j).update({
-                    num : game.playerObj.depository.seed[j].num - 1
-            },
-            function(){
-                if(game.playerObj.depository.seed[j].num <= 0){
-                    game.playerObj.depository.seed.splice(j, 1);
-                    game.playerData.set(game.playerObj , function(){
-                        self.removeArrow();
-                        game.depository.depositoryObj.removeChild(game.depository.closeButton);
-                        self.state = true;
-                        game.manager.enter(1);
-                    });
-                }
-                self.state = true;
-            });
-            console.log(game.playerObj.depository.seed[j].num);
-            });
+            game.playerObj.flowerpot[i].have = 1;
+            game.playerObj.flowerpot[i].id = flowerId;
+            game.playerObj.depository.seed[j].num -= 1;
+            if(game.playerObj.depository.seed[j].num <= 0){
+                game.playerObj.depository.seed.splice(j, 1);
+                game.playerData.set(game.playerObj , function(){
+                    self.removeArrow();
+                    game.depository.depositoryObj.removeChild(game.depository.closeButton);
+                    self.state = true;
+                    game.manager.enter(1);
+                    game.gameicon.iconObj.visible = true;
+                });
+            }else{
+                game.playerData.set(game.playerObj , function(){
+                    self.state = true;
+                })
+            }
         }
     }
 

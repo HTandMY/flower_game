@@ -8,16 +8,13 @@
         game.shop = new Shop();
         game.settings = new Settings();
         game.illustrate = new Illustrate();
+        game.player = new PlayerData();
         this.managerNum = 1;
         this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","").set({
             x : 10,
             y : 10
         });
-        this.money = new createjs.Text(game.playerObj.money,"15px UDDigiKyokashoN","").set({
-            x : 10,
-            y : 30
-        });
-        game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , game.depository.depositoryObj , game.shop.shopObj , game.illustrate.illustrateObj ,this.nowManager , this.money);
+        game.stage.addChild(game.background.bgObj , game.flowerpot.fpObj , game.flower.fwObj , game.gameicon.iconObj , game.settings.settingsObj , game.player.playerDataObj , game.depository.depositoryObj , game.shop.shopObj , game.illustrate.illustrateObj , this.nowManager );
         this.enter(1);
     }
     
@@ -34,6 +31,7 @@
                 game.depository.open();
             break;
                 case 2.5:
+                    game.gameicon.iconObj.visible = false;
                     game.flowerpot.addArrow();
                 break;
             case 3:
@@ -54,7 +52,7 @@
 
     Manager.prototype.update = function(){
         this.nowManager.text = this.managerNum;
-        this.money.text = game.playerObj.money;
+        game.player.update();
         switch (this.managerNum) {
             case 1:
                 game.flower.update();

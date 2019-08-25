@@ -22,7 +22,7 @@
         
         //创建商店内容框架
         this.depositoryBox = new createjs.Container();
-        this.depositoryBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 , game.canvas.width / 500 , game.canvas.width / 500 , 0 , 0 , 0 , 212.5 , 350);
+        this.depositoryBox.setTransform(game.canvas.width / 2 , game.canvas.height / 2 + 10 , game.canvas.width / 500 , game.canvas.width / 500 , 0 , 0 , 0 , 212.5 , 350);
         this.depositoryObj.addChild(this.depositoryBox);
         //商店背景、文字、按钮、标签
         this.addIcon("shopBg" , "depository_bg");
@@ -276,9 +276,11 @@
         this.closeButton.addEventListener("click",function(){
             game.flowerpot.removeArrow();
             self.depositoryObj.removeChild(self.closeButton);
+            game.gameicon.iconObj.visible = true;
             game.manager.enter(1);
         });
         this.depositoryObj.addChild(this.closeButton);
+        
         game.manager.enter(2.5);
                             
         game.flowerpot.bindEvent("flower" , flowerId , i);

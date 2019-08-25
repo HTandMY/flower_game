@@ -114,6 +114,7 @@
         {"name" : "button_close" , "url" : "images/button_close.png"},
         {"name" : "button_gear" , "url" : "images/button_gear.png"},
         {"name" : "button_back" , "url" : "images/button_back.png"},
+        {"name" : "button_change" , "url" : "images/button_change.png"},
 
         {"name" : "button_brown" , "url" : "images/button_brown.png"},
         {"name" : "button_gray" , "url" : "images/button_gray.png"},
@@ -154,6 +155,9 @@
         
         {"name" : "item_chip_2" , "url" : "images/item_chip_2.png"},
         {"name" : "item_crystal_2" , "url" : "images/item_crystal_2.png"},
+
+        {"name" : "player_bg" , "url" : "images/player_bg.png"},
+        {"name" : "player_exp" , "url" : "images/player_exp.png"},
 
         {"name" : "water_1" , "url" : "images/water_1.png"},
         {"name" : "water_2" , "url" : "images/water_2.png"}

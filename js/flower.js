@@ -105,49 +105,76 @@
     Flower.prototype.harvest = function(i){
         var self = this;
         var plantId = game.playerObj.flowerpot[i].id;
+        var plantExp = game.gameObj.plantData[plantId].exp;
+        var addNumber;
+        if(Math.random() < 0.2){
+            addNumber = 2;
+        }else{
+            addNumber = 1;
+        }
         if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25 && this.state == true){
             this.state = false;
-            game.playerData.child('flowerpot/' + i).update({
+            game.playerObj.flowerpot[i] = {
                 have : 0,
                 time : 0,
                 water : 0,
                 watertime : 0,
                 id : -1
-            },function() {
-                if(game.playerObj.depository != undefined && game.playerObj.depository.exchange != undefined){
-                    for(let n = 0 ; n < game.playerObj.depository.exchange.length ; n++){
-                        if(game.playerObj.depository.exchange[n].id == plantId){
-                            game.playerData.child('depository/exchange/' + n).update({
-                                id : plantId,
-                                num : game.playerObj.depository.exchange[n].num + Math.ceil(Math.random() * 2)
-                            },function(){
-                                removeFlower(i);
-                            });
-                            return;
-                        }
-                    }
-                    game.playerData.child('depository/exchange/' + (game.playerObj.depository.exchange.length)).set({
+            }
+            if(game.playerObj.depository == undefined){
+                game.playerObj.depository = {
+                    exchange : [{
                         id : plantId,
-                        num : Math.ceil(Math.random() * 2)
-                    },function(){
-                        removeFlower(i);
-                    });
-                }else{
-                    game.playerData.child('depository').update({
-                        'exchange' : [{
-                            id : plantId,
-                            num : Math.ceil(Math.random() * 2)}]
-                    },function(){
-                        removeFlower(i);
-                    });
+                        num : addNumber
+                    }]
                 }
-            });
+                this.expUp(plantExp);
+                game.playerData.set(game.playerObj ,function(){
+                    removeFlower(i);
+                });
+            }else if(game.playerObj.depository.exchange == undefined){
+                game.playerObj.depository.exchange = [{
+                    id : plantId,
+                    num : addNumber
+                }];
+                this.expUp(plantExp);
+                game.playerData.set(game.playerObj ,function(){
+                    removeFlower(i);
+                });
+            }else{
+                for(let n = 0 ; n < game.playerObj.depository.exchange.length ; n++){
+                    if(game.playerObj.depository.exchange[n].id == plantId){
+                        game.playerObj.depository.exchange[n].num += addNumber;
+                        this.expUp(plantExp);
+                        game.playerData.set(game.playerObj , function(){
+                            removeFlower(i);
+                        });
+                        return;
+                    }
+                }
+                game.playerObj.depository.exchange.push({
+                    id : plantId,
+                    num : addNumber
+                });
+                this.expUp(plantExp);
+                game.playerData.set(game.playerObj , function(){
+                    removeFlower(i);
+                });
+            }
         }
         function removeFlower(i){
             self.waterObj.removeChild(self.wt[i]);
             self.fw[i].image = null;
             self.time_2[i] = 0;
             self.state = true;
+        }
+    }
+
+    Flower.prototype.expUp = function(exp){
+        game.playerObj.exp += exp;
+        if(game.playerObj.exp >= game.gameObj.levelData[game.playerObj.level - 1]){
+            game.playerObj.exp -= game.gameObj.levelData[game.playerObj.level - 1];
+            game.playerObj.level += 1;
         }
     }
 

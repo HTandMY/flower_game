@@ -19,7 +19,7 @@
         this.settingsObj.addChild(this.SettingsIcon);
 
         this.settingsBg = new createjs.Shape();
-        this.settingsBg.graphics.beginFill("white").drawRoundRect(0,0,100,100,10);
+        this.settingsBg.graphics.beginFill("white").drawRoundRect(0,0,100,150,10);
         this.settingsBg.shadow = new createjs.Shadow("#aaaaaa", 0, 0, 4);
 
         this.settingsMenu = new createjs.Container().set({
@@ -36,7 +36,10 @@
             self.changeState();
             game.manager.enter(6);
         });
-        this.addText("logout" , "ログアウト" , 65 , function(){
+        this.addText("alarm" , "アラーム" , 65 , function(){
+            console.log("アラーム");
+        });
+        this.addText("logout" , "ログアウト" , 110 , function(){
             console.log("ログアウト");
         });
     }
