@@ -107,7 +107,7 @@
         var plantId = game.playerObj.flowerpot[i].id;
         var plantExp = game.gameObj.plantData[plantId].exp;
         var addNumber;
-        if(Math.random() < 0.2){
+        if(Math.random() < 0.1){
             addNumber = 2;
         }else{
             addNumber = 1;

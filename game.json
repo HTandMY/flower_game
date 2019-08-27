@@ -19,13 +19,13 @@
 
         {"name" : "flower_seed" , "url" : "images/flower_seed.png"},
         
-        {"name" : "flower_narcissus_1" , "url" : "images/flower_narcissus_1.png"},
-        {"name" : "flower_narcissus_2" , "url" : "images/flower_narcissus_2.png"},
-        {"name" : "flower_narcissus_3" , "url" : "images/flower_narcissus_3.png"},
-        {"name" : "flower_narcissus_4" , "url" : "images/flower_narcissus_4.png"},
-        {"name" : "flower_narcissus_5" , "url" : "images/flower_narcissus_5.png"},
-        {"name" : "flower_narcissus_bag" , "url" : "images/flower_narcissus_bag.png"},
-        {"name" : "flower_narcissus_ball" , "url" : "images/flower_narcissus_ball.png"},
+        {"name" : "flower_margaret_1" , "url" : "images/flower_margaret_1.png"},
+        {"name" : "flower_margaret_2" , "url" : "images/flower_margaret_2.png"},
+        {"name" : "flower_margaret_3" , "url" : "images/flower_margaret_3.png"},
+        {"name" : "flower_margaret_4" , "url" : "images/flower_margaret_4.png"},
+        {"name" : "flower_margaret_5" , "url" : "images/flower_margaret_5.png"},
+        {"name" : "flower_margaret_bag" , "url" : "images/flower_margaret_bag.png"},
+        {"name" : "flower_margaret_ball" , "url" : "images/flower_margaret_ball.png"},
         
         {"name" : "flower_carnation_1" , "url" : "images/flower_carnation_1.png"},
         {"name" : "flower_carnation_2" , "url" : "images/flower_carnation_2.png"},
