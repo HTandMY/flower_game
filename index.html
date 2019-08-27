@@ -12,6 +12,21 @@
         * {padding: 0; margin: 0}
         body {overflow: hidden;}
         canvas {display:block;}
+        #loginBox {
+            width: 100vw;
+            height: 100vh;
+            background-image: url("./images/login_bg.png");
+            background-position: bottom;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #loginLogoBox {
+            text-align: center;
+        }
+        #loginLogoBox img {
+            width: 60%;
+            margin-top: 30%;
+        }
         #gameBox {
             display: none;
         }
@@ -19,9 +34,10 @@
 </head>
 <body>
     <div id="loginBox">
+        <div id="loginLogoBox"><img src="./images/login_logo.png"></div>
         <form>
-            <p>ユーザーID :<input type="text" name="" id="userId"></p>
-            <p>パスワード :<input type="password" name="" id="psd"></p>
+            <p><input class="input" type="text" name="" id="userId"></p>
+            <p><input class="input" type="password" name="" id="psd"></p>
             <input id="loginBtn" type="button" value="ログイン" onclick="login.check()"><input type="button" value="新規作成">
         </form>
     </div>
