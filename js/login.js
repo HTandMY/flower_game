@@ -12,6 +12,11 @@
         firebase.initializeApp(this.firebaseConfig);
         this.loginBox = document.getElementById("loginBox");
         this.gameBox = document.getElementById("gameBox");
+        this.tips = document.getElementById("tips");
+    }
+
+    Login.prototype.tipsClear = function(){
+        this.tips.innerHTML = "";
     }
 
     Login.prototype.check = function(){
@@ -20,10 +25,12 @@
         let userlist = firebase.database().ref('playerdata/' + this.userId);
         if(this.userId == ""){
             console.log("请输入用户名");
+            this.tips.innerHTML = "＊ユーザーIDを入力してください。";
             return;
         }
         if(psd == ""){
             console.log("请输入密码");
+            this.tips.innerHTML = "＊パスワードを入力してください。";
             return;
         }
         this.backData = userlist;
@@ -31,6 +38,7 @@
             let playerData = data.val();
             if(playerData == null || playerData == undefined || playerData == ""){
                 console.log("用户名不存在");
+                this.tips.innerHTML = "＊ユーザー名が見つかりません";
                 return;
             }else{
                 let hash = md5(psd);
@@ -38,6 +46,7 @@
                     console.log(hash);
                     console.log(playerData.psd);
                     console.log("密码错误");
+                    this.tips.innerHTML = "＊パスワードを確認してください。";
                 }else{
                     console.log(hash);
                     console.log(playerData.psd);

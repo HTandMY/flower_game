@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録 | Wake up～妖精の花園～</title>
+    <script src="./js/firebase.js"></script>
+    <script src="./js/md5.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'UDDigiKyokashoN';
+            src: url('./fonts/UDDigiKyokashoN-B.ttc');
+        }
+        * {padding: 0; margin: 0;font-family: 'UDDigiKyokashoN'}
+        /* body {
+            overflow: hidden;
+        } */
+        #bg {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(255, 253, 223);
+        }
+        #goLogin {
+            display: inline-block;
+            height: 30px;
+            margin: 20px 0 0 20px;
+        }
+        #goLogin a {
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: rgb(102, 34, 30);
+        }
+        #goLogin img {
+            height: 100%;
+        }
+        #goLogin span {
+            position: relative;
+            top: -8px;
+            left: 8px;
+        }
+        #title {
+            margin-top: 25%;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        #title img {
+            width: 60px;
+            margin: 0 5px 0 5px;
+            position: relative;
+            top: 5px;
+        }
+        h2 {
+            display: inline-block;
+        }
+        form {
+            text-align: center;
+        }
+        .input {
+            background-image: url("./images/login_input.png");
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            height: 50px;
+            width: 200px;
+            margin: 8px 0 8px 0;
+            color: #fff;
+            padding: 0 18px 0 18px;
+            outline: none;
+            font-size: 1rem;
+        }
+        #signupBtn {
+            background-image: url("./images/login_signup.png");
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            height: 50px;
+            width: 120px;
+            outline: none;
+            font-size: 1rem;
+        }
+        #tips{
+            width: 250px;
+            height: 30px;
+            color: red;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg">
+        <div id="goLogin"><a href="./index.html"><img src="./images/shop_button_left_green.png"><span>ログインへ</span></a></div>
+        <div id="title"><img src="./images/login_left.png" alt=""><h2>新規登録</h2><img src="./images/login_right.png" alt=""></div>
+
+        <form>
+            <p><input class="input" type="text" name="" id="userName" placeholder="プレイヤー名" onclick="tipsClear()" maxlength="7"></p>
+            <p><input class="input" type="text" name="" id="userId" placeholder="ユーザーID" onclick="tipsClear()" onKeyUp="this.value=this.value.replace(/[^\w_]/g,'');" maxlength="20"></p>
+            <p><input class="input" type="password" name="" id="psd"　 placeholder="パスワード" onclick="tipsClear()" maxlength="10"></p>
+            <p id="tips"></p>
+            <input id="signupBtn" type="button" value="新規登録" onclick="signUp()">
+        </form>
+    </div>
+    <script src="./js/signup.js"></script>
+</body>
+</html>

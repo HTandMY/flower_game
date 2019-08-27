@@ -12195,22 +12195,36 @@ this.createjs = this.createjs||{};
 			
 			if (this.lineWidth != null && (w = ctx.measureText(str).width) > this.lineWidth) {
 				// text wrapping:
-				var words = str.split(/(\s)/);
+				var words = str.split(/(\s|[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+)/);
+				var splitChineseWords = [];
+				for(var wordIndex = 0; wordIndex < words.length; wordIndex++){
+					var chineseWordStr = words[wordIndex];
+                        if(chineseWordStr == ""){continue;}
+					if((/([\u4e00-\u9fa5]+)/).test(chineseWordStr)){
+						splitChineseWords = splitChineseWords.concat(chineseWordStr.split(""));//再把中文拆分成一个一个的
+					}else{
+						splitChineseWords.push(chineseWordStr);
+					}
+				}
+				words = splitChineseWords;
 				str = words[0];
 				w = ctx.measureText(str).width;
 				
 				for (var j=1, jl=words.length; j<jl; j+=2) {
-					// Line needs to wrap:
-					var wordW = ctx.measureText(words[j] + words[j+1]).width;
-					if (w + wordW > this.lineWidth) {
+					var nextStr = j+1 < jl ? words[j+1] : "";
+					var wordW = ctx.measureText(words[j] + nextStr).width;
+					if (w + wordW > this.lineWidth){
+						if(words[j] != "\s"){
+							str += words[j];
+						}
 						if (paint) { this._drawTextLine(ctx, str, count*lineHeight); }
 						if (lines) { lines.push(str); }
 						if (w > maxW) { maxW = w; }
-						str = words[j+1];
+						str = nextStr;
 						w = ctx.measureText(str).width;
 						count++;
-					} else {
-						str += words[j] + words[j+1];
+					}else{
+						str += words[j] + nextStr;
 						w += wordW;
 					}
 				}

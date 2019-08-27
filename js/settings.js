@@ -41,6 +41,7 @@
         });
         this.addText("logout" , "ログアウト" , 110 , function(){
             console.log("ログアウト");
+            self.logOut();
         });
     }
 
@@ -57,6 +58,23 @@
         this[name].addEventListener("click",function(){
             doSome();
         });
+    }
+
+    Settings.prototype.logOut = function(){
+        login.loginBox.style.display = "block";
+        login.gameBox.style.display = "none";
+        delete game.background;
+        delete game.flowerpot;
+        delete game.flower;
+        delete game.gameicon;
+        delete game.depository;
+        delete game.shop;
+        delete game.settings;
+        delete game.illustrate;
+        delete game.player;
+        delete game.manager;
+        delete game;
+        createjs.Ticker.removeAllEventListeners();
     }
 
     Settings.prototype.changeState = function(){

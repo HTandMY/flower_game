@@ -41,23 +41,37 @@
         });
         this.border = new createjs.Bitmap(game.assets.images.illustrate_border).set({
             x : 190,
-            y : 425
+            y : 435
         });
         this.buttonClose = new createjs.Bitmap(game.assets.images.button_close).set({
             regX : 18,
             x : 380,
             y : 40
         });
-        //花言叶
-        this.hanakotoba = new createjs.Text("" ,"14px UDDigiKyokashoN","#000000").set({
-            
+        
+        this.flowerIcon = new createjs.Bitmap().set({
+            regX : 43,
+            x : 290,
+            y : 130
+        });
+        this.flowerText = new createjs.Text("" ,"15px UDDigiKyokashoN","#000000").set({
+            x : 195,
+            y : 230,
+            lineWidth : 190,
+            lineHeight : 20
+        });;
+        this.flowerWord = new createjs.Text("" ,"16px UDDigiKyokashoN","#ffffff").set({
+            x : 205,
+            y : 470,
+            lineWidth : 160,
+            lineHeight : 24
         });
 
         this.buttonClose.addEventListener("click" , function(){
             self.closeState = true;
         })
 
-        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border , this.buttonClose);
+        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border , this.flowerIcon , this.flowerText , this.flowerWord , this.buttonClose);
         this.addButton();
         this.changePage(0);
     }
@@ -85,6 +99,13 @@
             this.button[i].image = game.assets.images.button_orange;
         }
         this.button[num].image = game.assets.images.button_brown;
+        this.flowerIcon.image = game.assets.images["flower_" + game.gameObj.plantData[num].name + "_ball"];
+        this.flowerText.text = "花名：" + game.gameObj.plantData[num].jpname + "\n" +
+                               "成長時間：" + game.gameObj.plantData[num].time + "秒\n" +
+                               "購入：欠片" + game.gameObj.plantData[num].buy + "個\n" +
+                               "放す：欠片" + game.gameObj.plantData[num].sell + "個\n" +
+                               game.gameObj.plantData[num].discription;
+        this.flowerWord.text = game.gameObj.plantData[num].flowerword;
     }
 
     Illustrate.prototype.open = function(){

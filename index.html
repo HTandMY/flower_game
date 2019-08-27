@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1">
-    <title>Document</title>
+    <title>Wake up～妖精の花園～</title>
     <style>
         @font-face {
             font-family: 'UDDigiKyokashoN';
-            src: url('./fonts/UDDigiKyokashoN-B.ttc');}
+            src: url('./fonts/UDDigiKyokashoN-B.ttc');
+        }
         * {padding: 0; margin: 0}
         body {overflow: hidden;}
         canvas {display:block;}
@@ -30,6 +31,62 @@
         form {
             text-align: center;
         }
+        .input {
+            background-image: url("./images/login_input.png");
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            height: 50px;
+            width: 200px;
+            color: #fff;
+            padding: 0 18px 0 18px;
+            outline: none;
+            font-size: 1rem;
+            font-family: 'UDDigiKyokashoN'
+        }
+        #userId {
+            margin: 30px 0 16px 0;
+        }
+        #psd {
+            margin: 0 0 10px 0;
+        }
+        #tips{
+            width: 250px;
+            height: 30px;
+            color: red;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            font-family: 'UDDigiKyokashoN';
+        }
+        #loginBtn {
+            background-image: url("./images/login_signup.png");
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            height: 50px;
+            width: 120px;
+            outline: none;
+            font-size: 1rem;
+            font-family: 'UDDigiKyokashoN'
+        }
+        #signupBtn {
+            background-image: url("./images/login_start.png");
+            background-position: center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            height: 50px;
+            width: 120px;
+            outline: none;
+            margin-top: 30px;
+            font-size: 1rem;
+            font-family: 'UDDigiKyokashoN'
+        }
         #gameBox {
             display: none;
         }
@@ -39,9 +96,11 @@
     <div id="loginBox">
         <div id="loginLogoBox"><img src="./images/login_logo.png"></div>
         <form>
-            <p><input class="input" type="text" name="" id="userId" placeholder="ユーザーID"></p>
-            <p><input class="input" type="password" name="" id="psd"　 placeholder="パスワード"></p>
-            <input id="loginBtn" type="button" value="ログイン" onclick="login.check()"><input type="button" value="新規作成">
+            <p><input class="input" type="text" name="" id="userId" placeholder="ユーザーID" onclick="login.tipsClear()"></p>
+            <p><input class="input" type="password" name="" id="psd"　 placeholder="パスワード" onclick="login.tipsClear()"></p>
+            <p id="tips"></p>
+            <input id="loginBtn" type="button" value="ログイン" onclick="login.check()"></br>
+            <input id="signupBtn" type="button" value="新規作成" onclick="window.location.href='signup.html'">
         </form>
     </div>
     <div id="gameBox">

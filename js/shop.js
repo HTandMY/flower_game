@@ -410,106 +410,117 @@
         this.needMoney = game.gameObj.plantData[itemId].buy;
         this.buyBox.removeAllChildren();
             
-        this.buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
-        this.title = new createjs.Text("購入" ,"25px UDDigiKyokashoN","#000000").set({
+        var buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
+        var title = new createjs.Text("購入" ,"25px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
             y : 30
         });
-        this.buyItemIcon = new createjs.Bitmap(game.assets.images[this.itemURL]).set({
+        var buyItemIcon = new createjs.Bitmap(game.assets.images[this.itemURL]).set({
             regX : 42.5,
             regY : 60,
             x : 360 / 2,
             y : 120
         });
 
-        this.plusButton = new createjs.Bitmap(game.assets.images.shop_button_right_green).set({
+        var plusButton = new createjs.Bitmap(game.assets.images.shop_button_right_green).set({
             regX : 18,
             regY : 20,
             x : 360 / 2 + 80,
             y : 180,
         });
-        this.minusButton = new createjs.Bitmap(game.assets.images.shop_button_left_green).set({
+        var minusButton = new createjs.Bitmap(game.assets.images.shop_button_left_green).set({
             regX : 18,
             regY : 20,
             x : 360 / 2 - 80,
             y : 180,
         });
-        this.buyNumText = new createjs.Text("1" ,"24px UDDigiKyokashoN","#000000").set({
+        var buyNumText = new createjs.Text("1" ,"24px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
             y : 170
         });
 
-        this.moneyIcon = new createjs.Bitmap(game.assets.images.item_chip_2).set({
+        var moneyIcon = new createjs.Bitmap(game.assets.images.item_chip_2).set({
             regX : 20,
             regY : 20,
             x : 360 / 2 - 70,
             y : 245,
         });
-        this.money = new createjs.Text(this.needMoney ,"30px UDDigiKyokashoN","#000000").set({
+        var money = new createjs.Text(this.needMoney ,"30px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
             y : 230
         });
 
-        this.cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
+        var cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
             regX : 53,
             regY : 18,
             x : 360 / 2 - 80,
             y : 310,
         });
-        this.cancelText = new createjs.Text("キャンセル" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+        var cancelText = new createjs.Text("キャンセル" ,"16px UDDigiKyokashoN","#FFFFFF").set({
             textAlign : "center",
-            x : this.cancelButton.x,
-            y : this.cancelButton.y - 8
+            x : cancelButton.x,
+            y : cancelButton.y - 8
         });
-        this.buyButton = new createjs.Bitmap().set({
+        var buyButton = new createjs.Bitmap().set({
             regX : 53,
             regY : 18,
             x : 360 / 2 + 80,
             y : 310,
         });
-        this.buyText = new createjs.Text("購入する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+        var buyText = new createjs.Text("購入する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
             textAlign : "center",
-            x : this.buyButton.x,
-            y : this.buyButton.y - 8
+            x : buyButton.x,
+            y : buyButton.y - 8
         });
-        this.buyBox.addChild(this.buyBg , this.title , this.buyItemIcon , this.plusButton , this.minusButton , this.buyNumText , this.moneyIcon , this.money , this.cancelButton , this.cancelText , this.buyButton , this.buyText);
+        this.buyBox.addChild(buyBg , title , buyItemIcon , plusButton , minusButton , buyNumText , moneyIcon , money , cancelButton , cancelText , buyButton , buyText);
         
-        if(this.money.text <= game.playerObj.money){
-            this.buyButton.image = game.assets.images.button_green;
+        minusButton.visible = false;
+        if(money.text <= game.playerObj.money){
+            buyButton.image = game.assets.images.button_green;
         }else{
-            this.buyButton.image = game.assets.images.button_gray;
+            buyButton.image = game.assets.images.button_gray;
         }
 
-        this.plusButton.addEventListener("click",function(){
-            self.buyNumText.text = Number(self.buyNumText.text) + 1;
-            self.money.text = Number(self.buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
-            if(self.money.text <= game.playerObj.money){
-                self.buyButton.image = game.assets.images.button_green;
+        plusButton.addEventListener("click",function(){
+            buyNumText.text = Number(buyNumText.text) + 1;
+            minusButton.visible = true;
+            money.text = Number(buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
+            if(money.text <= game.playerObj.money){
+                buyButton.image = game.assets.images.button_green;
             }else{
-                self.buyButton.image = game.assets.images.button_gray;
+                buyButton.image = game.assets.images.button_gray;
             }
         });
-        this.minusButton.addEventListener("click",function(){
-            if(Number(self.buyNumText.text) > 1){
-                self.buyNumText.text = Number(self.buyNumText.text) - 1;
-                self.money.text = Number(self.buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
-                if(self.money.text <= game.playerObj.money){
-                    self.buyButton.image = game.assets.images.button_green;
+        minusButton.addEventListener("click",function(){
+            buyNumText.text = Number(buyNumText.text) - 1;
+            if(Number(buyNumText.text) <= 1){
+                minusButton.visible = false;
+                money.text = Number(buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
+                if(money.text <= game.playerObj.money){
+                    buyButton.image = game.assets.images.button_green;
                 }else{
-                    self.buyButton.image = game.assets.images.button_gray;
+                    buyButton.image = game.assets.images.button_gray;
+                }
+            }else{
+                minusButton.visible = true;
+                money.text = Number(buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
+                if(money.text <= game.playerObj.money){
+                    buyButton.image = game.assets.images.button_green;
+                }else{
+                    buyButton.image = game.assets.images.button_gray;
                 }
             }
         });
-        this.cancelButton.addEventListener("click",function(){
+        cancelButton.addEventListener("click",function(){
             self.buyBox.visible = false;
             self.shopBox.visible = true;
         });
-        this.buyButton.addEventListener("click",function(){
-            if(self.money.text <= game.playerObj.money){
-                self.doBuyItem(itemId , self.buyNumText.text , self.money.text)
+        buyButton.addEventListener("click",function(){
+            if(money.text <= game.playerObj.money){
+                self.doBuyItem(itemId , buyNumText.text , money.text)
             }else{
                 return;
             }
@@ -605,7 +616,7 @@
         var changeItemIcon = new createjs.Bitmap(game.assets.images.item_crystal_2).set({
             regX : 20,
             x : 360 / 2,
-            y : 120
+            y : 100
         });
 
         var plusButton = new createjs.Bitmap(game.assets.images.shop_button_right_green).set({
@@ -660,7 +671,7 @@
             x : changeButton.x,
             y : changeButton.y - 8
         });
-
+        minusButton.visible = false;
         if(Number(money.text) + 30 < game.playerObj.money){
             changeButton.image = game.assets.images.button_green;
         }else{
@@ -668,6 +679,7 @@
         }
 
         plusButton.addEventListener("click",function(){
+            minusButton.visible = true;
             changeNumText.text = Number(changeNumText.text) + 1;
             money.text = Number(changeNumText.text) * 1000;
             if(Number(money.text) + 30 < game.playerObj.money){
@@ -677,8 +689,16 @@
             }
         });
         minusButton.addEventListener("click",function(){
-            if(Number(changeNumText.text) > 1){
-                changeNumText.text = Number(changeNumText.text) - 1;
+            changeNumText.text = Number(changeNumText.text) - 1;
+            if(Number(changeNumText.text) <= 1){
+                minusButton.visible = false;
+                money.text = Number(changeNumText.text) * 1000;
+                if(Number(money.text) + 30 < game.playerObj.money){
+                    changeButton.image = game.assets.images.button_green;
+                }else{
+                    changeButton.image = game.assets.images.button_gray;
+                }
+            }else{
                 money.text = Number(changeNumText.text) * 1000;
                 if(Number(money.text) + 30 < game.playerObj.money){
                     changeButton.image = game.assets.images.button_green;
