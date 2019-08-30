@@ -28,7 +28,7 @@
             if(game.playerObj.flowerpot[i].water){
                 this.wt[i] = new createjs.Sprite(this.waterData,"wt");
                 this.wt[i].x = this.fw[i].x;
-                this.wt[i].y = this.fw[i].y;
+                this.wt[i].y = this.fw[i].y + 20;
                 this.waterObj.addChild(this.wt[i]);
                 game.playerData.child('flowerpot/' + i).update({
                     water : 1
@@ -95,7 +95,7 @@
             },function() {
                 self.wt[i] = new createjs.Sprite(self.waterData,"wt");
                 self.wt[i].x = self.fw[i].x;
-                self.wt[i].y = self.fw[i].y;
+                self.wt[i].y = self.fw[i].y + 20;
                 self.waterObj.addChild(self.wt[i]);
                 self.state = true;
             });

@@ -105,7 +105,7 @@ function signUp(){
                 tips.innerHTML = "＊登録成功しました！";
             })
         }else{
-            tips.innerHTML = "＊ユーザー名が存在しました";
+            tips.innerHTML = "＊ユーザーIDが存在しました";
             return;
         }
     })

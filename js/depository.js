@@ -353,7 +353,7 @@
             x : 360 / 2 + 80,
             y : 310,
         });
-        var sellText = new createjs.Text("オーケー" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+        var sellText = new createjs.Text("OK" ,"16px UDDigiKyokashoN","#FFFFFF").set({
             textAlign : "center",
             x : sellButton.x,
             y : sellButton.y - 8

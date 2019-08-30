@@ -49,29 +49,36 @@
             y : 40
         });
         
+        this.flowerName = new createjs.Text("" ,"20px UDDigiKyokashoN","#000000").set({
+            x : 290,
+            y : 155,
+            textAlign : "center",
+            lineWidth : 190,
+            lineHeight : 20
+        });
         this.flowerIcon = new createjs.Bitmap().set({
             regX : 43,
             x : 290,
-            y : 130
+            y : 170
         });
-        this.flowerText = new createjs.Text("" ,"15px UDDigiKyokashoN","#000000").set({
+        this.flowerText = new createjs.Text("" ,"16px UDDigiKyokashoN","#000000").set({
             x : 195,
-            y : 230,
+            y : 280,
             lineWidth : 190,
             lineHeight : 20
-        });;
-        this.flowerWord = new createjs.Text("" ,"16px UDDigiKyokashoN","#ffffff").set({
-            x : 205,
+        });
+        this.flowerWord = new createjs.Text("" ,"14px UDDigiKyokashoN","#ffffff").set({
+            x : 202,
             y : 470,
-            lineWidth : 160,
-            lineHeight : 24
+            lineWidth : 155,
+            lineHeight : 20
         });
 
         this.buttonClose.addEventListener("click" , function(){
             self.closeState = true;
         })
 
-        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border , this.flowerIcon , this.flowerText , this.flowerWord , this.buttonClose);
+        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border, this.flowerName , this.flowerIcon , this.flowerText , this.flowerWord , this.buttonClose);
         this.addButton();
         this.changePage(0);
     }
@@ -99,13 +106,14 @@
             this.button[i].image = game.assets.images.button_orange;
         }
         this.button[num].image = game.assets.images.button_brown;
+        this.flowerName.text = game.gameObj.plantData[num].jpname;
         this.flowerIcon.image = game.assets.images["flower_" + game.gameObj.plantData[num].name + "_ball"];
-        this.flowerText.text = "花名：" + game.gameObj.plantData[num].jpname + "\n" +
-                               "成長時間：" + game.gameObj.plantData[num].time + "秒\n" +
+        this.flowerText.text = "育成時間：" + game.gameObj.plantData[num].time + "秒\n" +
                                "購入：欠片" + game.gameObj.plantData[num].buy + "個\n" +
                                "放す：欠片" + game.gameObj.plantData[num].sell + "個\n" +
-                               game.gameObj.plantData[num].discription;
-        this.flowerWord.text = game.gameObj.plantData[num].flowerword;
+                               "経験値：" + game.gameObj.plantData[num].exp + "Exp\n" +
+                               "花言葉：" + game.gameObj.plantData[num].flowerword;
+        this.flowerWord.text = game.gameObj.plantData[num].discription;
     }
 
     Illustrate.prototype.open = function(){

@@ -99,8 +99,8 @@
 
         <form>
             <p><input class="input" type="text" name="" id="userName" placeholder="プレイヤー名" onclick="tipsClear()" maxlength="7"></p>
-            <p><input class="input" type="text" name="" id="userId" placeholder="ユーザーID" onclick="tipsClear()" onKeyUp="this.value=this.value.replace(/[^\w_]/g,'');" maxlength="20"></p>
-            <p><input class="input" type="password" name="" id="psd"　 placeholder="パスワード" onclick="tipsClear()" maxlength="10"></p>
+            <p><input class="input" type="text" name="" id="userId" placeholder="ユーザーID" onclick="tipsClear()" onKeyUp="this.value=this.value.replace(/[^\w_]/g,'');" maxlength="16"></p>
+            <p><input class="input" type="password" name="" id="psd"　 placeholder="パスワード" onclick="tipsClear()" maxlength="16"></p>
             <p id="tips"></p>
             <input id="signupBtn" type="button" value="新規登録" onclick="signUp()">
         </form>
