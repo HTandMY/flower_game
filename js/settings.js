@@ -63,6 +63,9 @@
     Settings.prototype.logOut = function(){
         login.loginBox.style.display = "block";
         login.gameBox.style.display = "none";
+        createjs.Ticker.removeAllEventListeners();
+        login.userId = "";
+        game.stage.removeAllChildren();
         delete game.background;
         delete game.flowerpot;
         delete game.flower;
@@ -74,7 +77,6 @@
         delete game.player;
         delete game.manager;
         delete game;
-        createjs.Ticker.removeAllEventListeners();
     }
 
     Settings.prototype.changeState = function(){
