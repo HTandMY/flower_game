@@ -61,6 +61,11 @@
             x : 290,
             y : 170
         });
+        this.flowerIcon_min = new createjs.Bitmap().set({
+            regX : 98,
+            x : 380,
+            y : 395
+        });
         this.flowerText = new createjs.Text("" ,"16px UDDigiKyokashoN","#000000").set({
             x : 195,
             y : 280,
@@ -69,7 +74,7 @@
         });
         this.flowerWord = new createjs.Text("" ,"14px UDDigiKyokashoN","#ffffff").set({
             x : 202,
-            y : 470,
+            y : 450,
             lineWidth : 155,
             lineHeight : 20
         });
@@ -78,7 +83,7 @@
             self.closeState = true;
         })
 
-        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border, this.flowerName , this.flowerIcon , this.flowerText , this.flowerWord , this.buttonClose);
+        this.illustrateBox.addChild(this.illustrateBg_1 , this.illustrateBg_2 , this.illustrateBg_3 , this.title , this.border, this.flowerName , this.flowerIcon , this.flowerIcon_min , this.flowerText , this.flowerWord , this.buttonClose);
         this.addButton();
         this.changePage(0);
     }
@@ -87,7 +92,7 @@
         var self = this;
         this.button = []
         for(let i = 0 ; i < game.gameObj.plantData.length ; i++){
-            this.button[i] = new createjs.Bitmap(game.assets.images.button_orange)
+            this.button[i] = new createjs.Bitmap(game.assets.images.button_orange);
             this.button[i].x = 55;
             this.button[i].y = 135 + i * 47;
             this.button[i].addEventListener("click" , function(){
@@ -108,6 +113,7 @@
         this.button[num].image = game.assets.images.button_brown;
         this.flowerName.text = game.gameObj.plantData[num].jpname;
         this.flowerIcon.image = game.assets.images["flower_" + game.gameObj.plantData[num].name + "_ball"];
+        this.flowerIcon_min.image = game.assets.images["flower_" + game.gameObj.plantData[num].name + "_illustrate"];
         this.flowerText.text = "育成時間：" + game.gameObj.plantData[num].time + "秒\n" +
                                "購入：欠片" + game.gameObj.plantData[num].buy + "個\n" +
                                "放す：欠片" + game.gameObj.plantData[num].sell + "個\n" +

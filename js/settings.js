@@ -38,6 +38,8 @@
         });
         this.addText("alarm" , "アラーム" , 65 , function(){
             console.log("アラーム");
+            self.changeState();
+            game.alarm.setOpen();
         });
         this.addText("logout" , "ログアウト" , 110 , function(){
             console.log("ログアウト");

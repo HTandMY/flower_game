@@ -171,10 +171,17 @@
     }
 
     Flower.prototype.expUp = function(exp){
-        game.playerObj.exp += exp;
-        if(game.playerObj.exp >= game.gameObj.levelData[game.playerObj.level - 1]){
-            game.playerObj.exp -= game.gameObj.levelData[game.playerObj.level - 1];
-            game.playerObj.level += 1;
+        if(game.playerObj.level < 10){
+            game.playerObj.exp += exp;
+            if(game.playerObj.exp >= game.gameObj.levelData[game.playerObj.level - 1]){
+                game.playerObj.exp -= game.gameObj.levelData[game.playerObj.level - 1];
+                game.playerObj.level += 1;
+                if(game.playerObj.level >= 10){
+                    game.player.playerDataBg.image = game.assets.images.player_bg_10;
+                }else{
+                    game.player.playerDataBg.image = game.assets.images["player_bg_" + game.playerObj.level];
+                }
+            }
         }
     }
 

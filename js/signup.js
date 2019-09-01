@@ -78,7 +78,14 @@ function signUp(){
         "level" : 1,
         "money" : 30,
         "playername" : userName,
-        "psd" : md5psd
+        "psd" : md5psd,
+        "alarm" : {
+            "alarmOpen" : false,
+            "date" : 1,
+            "getup" : false,
+            "hour" : 0,
+            "minute" : 0
+        }
     }
     if(userName == ""){
         console.log("请输入用户名");

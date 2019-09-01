@@ -10,7 +10,10 @@
             font-family: 'UDDigiKyokashoN';
             src: url('./fonts/UDDigiKyokashoN-B.ttc');
         }
-        * {padding: 0; margin: 0}
+        * {
+            padding: 0;
+            margin: 0;
+        }
         body {overflow: hidden;}
         canvas {display:block;}
         #loginBox {
@@ -92,7 +95,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="doNothing()">
     <div id="loginBox">
         <div id="loginLogoBox"><img src="./images/login_logo.png"></div>
         <form>
@@ -121,8 +124,13 @@
     <script src="./js/settings.js"></script>
     <script src="./js/illustrate.js"></script>
     <script src="./js/playerdata.js"></script>
+    <script src="./js/alarm.js"></script>
     <script>
         var login = new Login();
+        function doNothing(){  
+            window.event.returnValue=false;  
+            return false;  
+        }
     </script>
 </body>
 </html>

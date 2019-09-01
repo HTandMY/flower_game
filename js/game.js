@@ -57,11 +57,13 @@
         this.playerData.on('value', function(data) {
             self.playerObj = data.val();
         });
-        self.manager = new Manager();
+        this.time = new Date();
+        this.manager = new Manager();
         createjs.Ticker.framerate = 30;
         createjs.Ticker.addEventListener("tick", start);
         function start(){
-            self.nowtime = new Date().getTime();
+            self.time = new Date();
+            self.nowtime = self.time.getTime();
             self.manager.update();
             self.stage.update();
         }

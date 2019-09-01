@@ -9,7 +9,7 @@
             y : 2,
         });
 
-        this.playerDataBg = new createjs.Bitmap(game.assets.images.player_bg);
+        this.playerDataBg = new createjs.Bitmap(game.assets.images["player_bg_" + game.playerObj.level]);
         this.expBg = new createjs.Bitmap(game.assets.images.player_exp).set({
             x : 86,
             y : 58
@@ -30,12 +30,12 @@
         this.money = new createjs.Text(game.playerObj.money ,"18px UDDigiKyokashoN","#ffffff").set({
             textAlign : "right",
             x : 165,
-            y : 97,
+            y : 96,
         });
         this.crystal = new createjs.Text(game.playerObj.crystal ,"18px UDDigiKyokashoN","#ffffff").set({
             textAlign : "right",
             x : 275,
-            y : 97,
+            y : 96,
         });
 
 

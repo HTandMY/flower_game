@@ -9,6 +9,11 @@
 
         {"name" : "wood_1" , "url" : "images/wood_1.png"},
         {"name" : "wood_2" , "url" : "images/wood_2.png"},
+        
+        {"name" : "alarm_bg_1" , "url" : "images/alarm_bg_1.png"},
+        {"name" : "alarm_bg_2" , "url" : "images/alarm_bg_2.png"},
+        {"name" : "alarm_button" , "url" : "images/login_start.png"},
+        {"name" : "alarm_cancel" , "url" : "images/login_signup.png"},
 
         {"name" : "flowerpot_1" , "url" : "images/flowerpot_1.png"},
         {"name" : "flowerpot_2" , "url" : "images/flowerpot_2.png"},
@@ -26,6 +31,7 @@
         {"name" : "flower_margaret_5" , "url" : "images/flower_margaret_5.png"},
         {"name" : "flower_margaret_bag" , "url" : "images/flower_margaret_bag.png"},
         {"name" : "flower_margaret_ball" , "url" : "images/flower_margaret_ball.png"},
+        {"name" : "flower_margaret_illustrate" , "url" : "images/flower_margaret_illustrate.png"},
         
         {"name" : "flower_carnation_1" , "url" : "images/flower_carnation_1.png"},
         {"name" : "flower_carnation_2" , "url" : "images/flower_carnation_2.png"},
@@ -34,6 +40,7 @@
         {"name" : "flower_carnation_5" , "url" : "images/flower_carnation_5.png"},
         {"name" : "flower_carnation_bag" , "url" : "images/flower_carnation_bag.png"},
         {"name" : "flower_carnation_ball" , "url" : "images/flower_carnation_ball.png"},
+        {"name" : "flower_carnation_illustrate" , "url" : "images/flower_carnation_illustrate.png"},
 
         {"name" : "flower_daffodil_1" , "url" : "images/flower_daffodil_1.png"},
         {"name" : "flower_daffodil_2" , "url" : "images/flower_daffodil_2.png"},
@@ -42,6 +49,7 @@
         {"name" : "flower_daffodil_5" , "url" : "images/flower_daffodil_5.png"},
         {"name" : "flower_daffodil_bag" , "url" : "images/flower_daffodil_bag.png"},
         {"name" : "flower_daffodil_ball" , "url" : "images/flower_daffodil_ball.png"},
+        {"name" : "flower_daffodil_illustrate" , "url" : "images/flower_daffodil_illustrate.png"},
 
         {"name" : "flower_morningglory_1" , "url" : "images/flower_morningglory_1.png"},
         {"name" : "flower_morningglory_2" , "url" : "images/flower_morningglory_2.png"},
@@ -50,6 +58,7 @@
         {"name" : "flower_morningglory_5" , "url" : "images/flower_morningglory_5.png"},
         {"name" : "flower_morningglory_bag" , "url" : "images/flower_morningglory_bag.png"},
         {"name" : "flower_morningglory_ball" , "url" : "images/flower_morningglory_ball.png"},
+        {"name" : "flower_morningglory_illustrate" , "url" : "images/flower_morningglory_illustrate.png"},
 
         {"name" : "flower_rose_1" , "url" : "images/flower_rose_1.png"},
         {"name" : "flower_rose_2" , "url" : "images/flower_rose_2.png"},
@@ -58,6 +67,7 @@
         {"name" : "flower_rose_5" , "url" : "images/flower_rose_5.png"},
         {"name" : "flower_rose_bag" , "url" : "images/flower_rose_bag.png"},
         {"name" : "flower_rose_ball" , "url" : "images/flower_rose_ball.png"},
+        {"name" : "flower_rose_illustrate" , "url" : "images/flower_rose_illustrate.png"},
 
         {"name" : "flower_sunflower_1" , "url" : "images/flower_sunflower_1.png"},
         {"name" : "flower_sunflower_2" , "url" : "images/flower_sunflower_2.png"},
@@ -66,6 +76,7 @@
         {"name" : "flower_sunflower_5" , "url" : "images/flower_sunflower_5.png"},
         {"name" : "flower_sunflower_bag" , "url" : "images/flower_sunflower_bag.png"},
         {"name" : "flower_sunflower_ball" , "url" : "images/flower_sunflower_ball.png"},
+        {"name" : "flower_sunflower_illustrate" , "url" : "images/flower_sunflower_illustrate.png"},
 
         {"name" : "flower_tulip_1" , "url" : "images/flower_tulip_1.png"},
         {"name" : "flower_tulip_2" , "url" : "images/flower_tulip_2.png"},
@@ -74,6 +85,7 @@
         {"name" : "flower_tulip_5" , "url" : "images/flower_tulip_5.png"},
         {"name" : "flower_tulip_bag" , "url" : "images/flower_tulip_bag.png"},
         {"name" : "flower_tulip_ball" , "url" : "images/flower_tulip_ball.png"},
+        {"name" : "flower_tulip_illustrate" , "url" : "images/flower_tulip_illustrate.png"},
 
         {"name" : "flower_bellorchid_1" , "url" : "images/flower_bellorchid_1.png"},
         {"name" : "flower_bellorchid_2" , "url" : "images/flower_bellorchid_2.png"},
@@ -82,6 +94,7 @@
         {"name" : "flower_bellorchid_5" , "url" : "images/flower_bellorchid_5.png"},
         {"name" : "flower_bellorchid_bag" , "url" : "images/flower_bellorchid_bag.png"},
         {"name" : "flower_bellorchid_ball" , "url" : "images/flower_bellorchid_ball.png"},
+        {"name" : "flower_bellorchid_illustrate" , "url" : "images/flower_bellorchid_illustrate.png"},
 
         {"name" : "flower_balloonflower_1" , "url" : "images/flower_balloonflower_1.png"},
         {"name" : "flower_balloonflower_2" , "url" : "images/flower_balloonflower_2.png"},
@@ -90,6 +103,7 @@
         {"name" : "flower_balloonflower_5" , "url" : "images/flower_balloonflower_5.png"},
         {"name" : "flower_balloonflower_bag" , "url" : "images/flower_balloonflower_bag.png"},
         {"name" : "flower_balloonflower_ball" , "url" : "images/flower_balloonflower_ball.png"},
+        {"name" : "flower_balloonflower_illustrate" , "url" : "images/flower_balloonflower_illustrate.png"},
 
         {"name" : "flower_hydrangea_1" , "url" : "images/flower_hydrangea_1.png"},
         {"name" : "flower_hydrangea_2" , "url" : "images/flower_hydrangea_2.png"},
@@ -98,6 +112,7 @@
         {"name" : "flower_hydrangea_5" , "url" : "images/flower_hydrangea_5.png"},
         {"name" : "flower_hydrangea_bag" , "url" : "images/flower_hydrangea_bag.png"},
         {"name" : "flower_hydrangea_ball" , "url" : "images/flower_hydrangea_ball.png"},
+        {"name" : "flower_hydrangea_illustrate" , "url" : "images/flower_hydrangea_illustrate.png"},
 
         {"name" : "button_water_1" , "url" : "images/button_water_1.png"},
         {"name" : "button_water_3" , "url" : "images/button_water_3.png"},
@@ -156,7 +171,16 @@
         {"name" : "item_chip_2" , "url" : "images/item_chip_2.png"},
         {"name" : "item_crystal_2" , "url" : "images/item_crystal_2.png"},
 
-        {"name" : "player_bg" , "url" : "images/player_bg.png"},
+        {"name" : "player_bg_1" , "url" : "images/player_bg_1.png"},
+        {"name" : "player_bg_2" , "url" : "images/player_bg_2.png"},
+        {"name" : "player_bg_3" , "url" : "images/player_bg_3.png"},
+        {"name" : "player_bg_4" , "url" : "images/player_bg_4.png"},
+        {"name" : "player_bg_5" , "url" : "images/player_bg_5.png"},
+        {"name" : "player_bg_6" , "url" : "images/player_bg_6.png"},
+        {"name" : "player_bg_7" , "url" : "images/player_bg_7.png"},
+        {"name" : "player_bg_8" , "url" : "images/player_bg_8.png"},
+        {"name" : "player_bg_9" , "url" : "images/player_bg_9.png"},
+        {"name" : "player_bg_10" , "url" : "images/player_bg_10.png"},
         {"name" : "player_exp" , "url" : "images/player_exp.png"},
 
         {"name" : "water_1" , "url" : "images/water_1.png"},
