@@ -25,60 +25,70 @@ function signUp(){
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
-            "watertime" : 0
+            "watertime" : 0,
+            "flowerpot" : "decoration_flowerpot_1"
         } ],
         "level" : 1,
         "money" : 30,
         "playername" : userName,
         "psd" : md5psd,
+        "wallpaper" : "decoration_bg_1",
         "alarm" : {
             "alarmOpen" : false,
             "date" : 1,
@@ -109,9 +119,11 @@ function signUp(){
             console.log(md5psd);
             var addData = firebase.database().ref('playerdata');
             addData.child(userId).set(gameJson , function(){
+                tips.style.color = "green";
                 tips.innerHTML = "＊登録成功しました！";
-            })
+            });
         }else{
+            tips.style.color = "red";
             tips.innerHTML = "＊ユーザーIDが存在しました";
             return;
         }

@@ -12,8 +12,7 @@
         var j = 0;
         var k = 0;
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
-
-            this.fp[i] = new createjs.Bitmap(game.assets.images.flowerpot_1);
+            this.fp[i] = new createjs.Bitmap(game.assets.images[game.gameObj.decorationData[game.playerObj.flowerpot[i].flowerpot].itemname]);
 
             this.fp[i].regX = 50;
             this.fp[i].regY = 50;
@@ -65,6 +64,14 @@
         }
     }
 
+    Flowerpot.prototype.changePot = function(i , potName){
+        var self = this;
+        game.playerObj.flowerpot[i].flowerpot = potName;
+        game.playerData.set(game.playerObj , function(){
+            self.fp[i].image = game.assets.images[game.gameObj.decorationData[potName].itemname];
+        });
+    }
+
     Flowerpot.prototype.addArrow = function(){
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
             if(!game.playerObj.flowerpot[i].have){
@@ -111,7 +118,7 @@
         }
     }
 
-    Flowerpot.prototype.bindEvent = function(name , flowerId , j){
+    Flowerpot.prototype.bindEvent = function(name , par , j){
         var self = this;
         switch(name){
             case "water":
@@ -126,7 +133,14 @@
             case "flower":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
                     self.fp[i].addEventListener("click",function(){
-                        self.flower(i , flowerId , j);
+                        self.flower(i , par , j);
+                    });
+                }
+            break;
+            case "pot":
+                for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
+                    self.fp[i].addEventListener("click",function(){
+                        self.changePot(i , par);
                     });
                 }
             break;

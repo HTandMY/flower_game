@@ -107,11 +107,9 @@
         var plantId = game.playerObj.flowerpot[i].id;
         var plantExp = game.gameObj.plantData[plantId].exp;
         var addNumber;
-        if(Math.random() < 0.1){
-            addNumber = 2;
-        }else{
-            addNumber = 1;
-        }
+
+        Math.random() < 0.05 ? addNumber = 2 : addNumber = 1;
+        
         if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25 && this.state == true){
             this.state = false;
             game.playerObj.flowerpot[i] = {

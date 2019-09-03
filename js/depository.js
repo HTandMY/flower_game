@@ -69,10 +69,10 @@
             break;
             case 1:
                 this.itemBg.image = game.assets.images.shop_bg_2;
-                if(game.playerObj.depository != undefined && game.playerObj.depository.ornament != undefined){
-                    this.itemNum = game.playerObj.depository.ornament.length;
+                if(game.playerObj.depository != undefined && game.playerObj.depository.decoration != undefined){
+                    this.itemNum = Object.keys(game.playerObj.depository.decoration).length;
                 }
-                // this.updatePageContent(clickNum);
+                this.updatePageContent(clickNum);
             break;
             case 2:
                 this.itemBg.image = game.assets.images.shop_bg_3;
@@ -137,35 +137,64 @@
         let self = this;
         let className = ["seed" , "decoration" , "exchange"];
         let itemBoxName = ["depository_box_brown" , "depository_box_red" , "depository_box_blue"];
-        let item = new createjs.Bitmap(game.assets.images[itemBoxName[clickNum]]);
-        item.set({
-            regX : 42.5,
-            regY : 60,
-            x : 425 / 2 + 115 * j - 115,
-            y : 320 + 170 * k,
-            number : game.playerObj.depository[className[clickNum]][i].num,
-            name : i,
-            itemid : game.playerObj.depository[className[clickNum]][i].id
-        });
+        let item = new createjs.Bitmap();
+        
         switch(clickNum){
             case 0:
+                item.set({
+                    image : game.assets.images[itemBoxName[clickNum]],
+                    regX : 42.5,
+                    regY : 60,
+                    x : 425 / 2 + 115 * j - 115,
+                    y : 320 + 170 * k,
+                    number : game.playerObj.depository.seed[i].num,
+                    itemN : i,
+                    name : game.gameObj.plantData[game.playerObj.depository.seed[i].id].name,
+                    jpname : game.gameObj.plantData[game.playerObj.depository.seed[i].id].jpname,
+                    itemid : game.playerObj.depository.seed[i].id
+                });
                 item.addEventListener("click",function(event){
-                    self.addFlower(event.target.itemid , event.target.name);
+                    self.addFlower(event.target.itemid , event.target.itemN);
                 });
             break;
             case 1:
-
+                item.set({
+                    image : game.assets.images[itemBoxName[clickNum]],
+                    regX : 42.5,
+                    regY : 60,
+                    x : 425 / 2 + 115 * j - 115,
+                    y : 320 + 170 * k,
+                    itemN : i,
+                    name : Object.keys(game.playerObj.depository.decoration)[i],
+                    jpname : game.gameObj.decorationData[Object.keys(game.playerObj.depository.decoration)[i]].jpname,
+                    class : game.playerObj.depository.decoration[Object.keys(game.playerObj.depository.decoration)[i]].class
+                });
+                item.addEventListener("click",function(event){
+                    self.decorationBox(event.target.name , event.target.jpname , event.target.class);
+                });
             break;
             case 2:
+                item.set({
+                    image : game.assets.images[itemBoxName[clickNum]],
+                    regX : 42.5,
+                    regY : 60,
+                    x : 425 / 2 + 115 * j - 115,
+                    y : 320 + 170 * k,
+                    number : game.playerObj.depository.exchange[i].num,
+                    itemN : i,
+                    name : game.gameObj.plantData[game.playerObj.depository.exchange[i].id].name,
+                    jpname : game.gameObj.plantData[game.playerObj.depository.exchange[i].id].jpname,
+                    itemid : game.playerObj.depository.exchange[i].id
+                });
                 item.addEventListener("click",function(event){
-                    self.sell(event.target.itemid , event.target.number , event.target.name);
+                    self.sell(event.target.itemid , event.target.number , event.target.itemN);
                 });
             break;
         }
         this.itemBox.addChild(item);
         this.addItemIcon(clickNum , className[clickNum] , item.x , item.y , i);
-        this.addNumber(className[clickNum] , item.x , item.y , i);
-        this.addItemName(className[clickNum] , item.x , item.y , i)
+        this.addNumber(clickNum , item.number , item.x , item.y , i);
+        this.addItemName(item.jpname , item.x , item.y , i);
     }
 
     Depository.prototype.addItemIcon = function(clickNum , class_Name , ItemBoxX , ItemBoxY , i){
@@ -178,7 +207,7 @@
             break;
             //添加装饰图标
             case 1:
-
+                imageName = Object.keys(game.playerObj.depository.decoration)[i];
             break;
             //添加果实图标
             case 2:
@@ -195,8 +224,8 @@
         this.itemBox.addChild(itemIcon);
     }
 
-    Depository.prototype.addNumber = function(class_Name , ItemBoxX , ItemBoxY , i){
-        let itemNumber = game.playerObj.depository[class_Name][i].num;
+    Depository.prototype.addNumber = function(clickNum , itemNumber , ItemBoxX , ItemBoxY , i){
+        clickNum == 1 ? itemNumber = 1 : itemNumber;
         var numberText = new createjs.Text(itemNumber ,"18px UDDigiKyokashoN","#ffffff");
         numberText.textAlign = "right";
         numberText.x = ItemBoxX + 32;
@@ -204,8 +233,7 @@
         this.itemBox.addChild(numberText);
     }
 
-    Depository.prototype.addItemName = function(class_name , ItemBoxX , ItemBoxY , i){
-        let itemName = game.gameObj.plantData[game.playerObj.depository[class_name][i].id].jpname
+    Depository.prototype.addItemName = function(itemName , ItemBoxX , ItemBoxY , i){
         var itemNameText = new createjs.Text(itemName ,"15px UDDigiKyokashoN","#000000");
         itemNameText.textAlign = "center";
         itemNameText.x = ItemBoxX;
@@ -284,6 +312,81 @@
         game.manager.enter(2.5);
                             
         game.flowerpot.bindEvent("flower" , flowerId , i);
+    }
+
+    Depository.prototype.decorationBox = function(itenName , jpname , itemClass){
+        var self = this;
+        this.depositoryBox.visible = false;
+        this.sellBox.visible = true;
+
+        this.sellBox.removeAllChildren();
+
+        var sellBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
+        var title = new createjs.Text(jpname ,"30px UDDigiKyokashoN","#000000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 30
+        });
+        var ItemIcon = new createjs.Bitmap(game.assets.images[itenName]).set({
+            regX : 42.5,
+            regY : 60,
+            x : 360 / 2,
+            y : 150,
+            scale : 1.2
+        });
+        var moneyIcon = new createjs.Bitmap(game.assets.images.item_crystal_2).set({
+            regX : 20,
+            regY : 20,
+            x : 360 / 2 - 70,
+            y : 215,
+        });
+        var money = new createjs.Text(game.gameObj.decorationData[itenName].sell ,"30px UDDigiKyokashoN","#000000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 200
+        });
+        var recoveryButton = new createjs.Bitmap(game.assets.images.button_orange).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2,
+            y : 310,
+        });
+        var recoveryText = new createjs.Text("回収する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : recoveryButton.x,
+            y : recoveryButton.y - 8
+        });
+        var cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2 - 110,
+            y : 310,
+        });
+        var cancelText = new createjs.Text("キャンセル" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : cancelButton.x,
+            y : cancelButton.y - 8
+        });
+        var useButton = new createjs.Bitmap(game.assets.images.button_green).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2 + 110,
+            y : 310,
+        });
+        var useText = new createjs.Text("使用する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : useButton.x,
+            y : useButton.y - 8
+        });
+        this.sellBox.addChild(sellBg , title , ItemIcon , moneyIcon , money , recoveryButton , recoveryText , cancelButton , cancelText , useButton , useText);
+        cancelButton.addEventListener("click" , function(){
+            self.sellBox.visible = false;
+            self.depositoryBox.visible = true;
+        });
+        recoveryButton.addEventListener("click" , function(){
+            
+        })
+
     }
 
     Depository.prototype.sell = function(itemId , itemNumber , itemBoxId){
