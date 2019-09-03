@@ -30,9 +30,9 @@
         this.addIcon("shopBg" , "shop_bg");
         this.addIcon("shopWord" , "shop_word" , 60 , 512 / 2 , 95 , false);
         this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){self.closeState = true});
-        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changeBg(1);self.changePage(1)});
-        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changeBg(2);self.changePage(2)});
-        this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changeBg(3);self.changePage(3)});
+        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changePage(0)});
+        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changePage(1)});
+        this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changePage(2)});
         this.addIcon("itemBg" , "shop_bg_1" , 180 , 512 / 2 , 190 ,false);
         //插入道具框架
         this.itemBox = new createjs.Container();
@@ -43,7 +43,7 @@
         
         this.shopObj.addChild(this.buyBox);
 
-        self.changePage(1);
+        self.changePage(0);
     }
  
     //添加图标方法
@@ -56,312 +56,214 @@
         }
         this.shopBox.addChild(this[iconName]);
     }
-    //点击标签后改变背景
-    Shop.prototype.changeBg = function(imgUrl){
-        switch(imgUrl){
-            case 1:
-                this.itemBg.image = game.assets.images["shop_bg_" + imgUrl];
-            break;
-            case 2:
-                this.itemBg.image = game.assets.images["shop_bg_" + imgUrl];
-            break;
-            case 3:
-                this.itemBg.image = game.assets.images["shop_bg_" + imgUrl];
-            break;
-        }
-        
-    }
-    //翻页方法
+    //点击标签后的方法
     Shop.prototype.changePage = function(clickNum){
-        this.itemBox.removeAllChildren();
-        if(clickNum == 1){
-            this.itemNum = game.gameObj.plantData.length;
-        }else if(clickNum == 2){
-            this.itemNum = game.gameObj.ornamentData.length;
-        }
-        
-        this.state = 0;
-        this.allPage = Math.ceil(this.itemNum / 6);
-        this.nowPage = 1;
+        this.itemNum = 0;
+        this.nowPage = 0;
         switch(clickNum){
+            case 0:
+                this.itemBg.image = game.assets.images.shop_bg_1;
+                this.itemNum = game.gameObj.plantData.length;
+                this.updatePageContent(clickNum);
+            break;
             case 1:
-                this.addItem(clickNum);
+                this.itemBg.image = game.assets.images.shop_bg_2;
+                this.itemNum = Object.keys(game.gameObj.decorationData).length;
+                // this.updatePageContent(clickNum);
             break;
             case 2:
-                this.addItem(clickNum);
-            break;
-            case 3:
+                this.itemBg.image = game.assets.images.shop_bg_3;
                 this.addChange();
             break;
         }
     }
-    //添加道具栏方法
-    Shop.prototype.addItem = function(clickNum){
-        this.itemBox.removeAllChildren();
-        if(this.nowPage == 1 && this.allPage == 1){
-            this.state = 0;
-            this.allPage = Math.ceil(this.itemNum / 6);
-        }else if(this.nowPage == 1 && this.allPage > 1){
-            this.state = 1;
-            this.allPage = Math.ceil(this.itemNum / 6);
-        }else if(this.nowPage != 1 && this.nowPage != this.allPage){
-            this.state = 2;
-            this.allPage = Math.ceil(this.itemNum / 6);
+
+    Shop.prototype.updatePageContent = function(clickNum){
+        if(this.itemNum % 6 == 0){
+            this.allPage = Math.floor(this.itemNum / 6) - 1;
         }else{
-            this.state = 3;
-            this.allPage = Math.ceil(this.itemNum / 6);
+            this.allPage = Math.floor(this.itemNum / 6);
         }
-        var j = 0;
-        var k = 0;
-        var self = this;
-        switch(self.state){
-            //道具为6个以下
-            case 0:
-                for(let i = 0; i < self.itemNum ; i++){
-                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.set({
-                        regX : 42.5,
-                        regY : 60,
-                        x : 512 / 2 + 115 * j - 115,
-                        y : 300 + 170 * k,
-                        name : k * 3 + j
-                    });
-                    item.addEventListener("click",function(event){
-                        console.log(event.target.name);
-                        self.buyItem(event.target.name);
-                    });
-                    this.itemBox.addChild(item);
-                    this.addItemIcon(item.x , item.y , clickNum , item.name);
-                    this.addItemName(item.x , item.y , clickNum , item.name);
-                    this.addMoney(item.x , item.y , clickNum , item.name);
-                    if(j < 2){
-                        j++
-                    }else{
-                        j = 0;
-                        k++
-                    }
-                }
-            break;
-            //道具数量为6个以上，第一页
-            case 1:
-                for(let i = 0; i < 6 ; i++){
-                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.set({
-                        regX : 42.5,
-                        regY : 60,
-                        x : 512 / 2 + 115 * j - 115,
-                        y : 300 + 170 * k,
-                        name : k * 3 + j
-                    });
-                    item.addEventListener("click",function(event){
-                        console.log(event.target.name);
-                        self.buyItem(event.target.name);
-                    });
-                    this.itemBox.addChild(item);
-                    this.addItemIcon(item.x , item.y , clickNum , item.name);
-                    this.addItemName(item.x , item.y , clickNum , item.name);
-                    this.addMoney(item.x , item.y , clickNum , item.name);
-                    if(j < 2){
-                        j++
-                    }else{
-                        j = 0;
-                        k++
-                    }
-                }
-                if(clickNum == 1){
-                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
-                    buttonRight.regX = 18;
-                    buttonRight.x = 512 / 2 + 115;
-                    buttonRight.y = 570;
-                    buttonRight.addEventListener("click",function(){
-                        self.nowPage += 1;
-                        self.addItem(clickNum);
-                    });
-                }else{
-                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_pink);
-                    buttonRight.regX = 18;
-                    buttonRight.x = 512 / 2 + 115;
-                    buttonRight.y = 570;
-                    buttonRight.addEventListener("click",function(){
-                        self.nowPage += 1;
-                        self.addItem(clickNum);
-                    });
-                }
+        
+        let j = 0;
+        let k = 0;
+        let nowPageItemNum;
 
-                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
-                pageNum.textAlign = "center";
-                pageNum.x = 512 / 2;
-                pageNum.y = 580;
-                self.itemBox.addChild(pageNum,buttonRight);
-            break;
-            //道具数量为6个以上，中间页
-            case 2:
-                for(let i = self.nowPage * 6 ; i < self.nowPage * 6 + 6 ; i++){
-                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.set({
-                        regX : 42.5,
-                        regY : 60,
-                        x : 512 / 2 + 115 * j - 115,
-                        y : 300 + 170 * k,
-                        name : (self.nowPage - 1) * 6 + k * 3 + j
-                    });
-                    item.addEventListener("click",function(event){
-                        console.log(event.target.name);
-                        self.buyItem(event.target.name);
-                    });
-                    this.itemBox.addChild(item);
-                    this.addItemIcon(item.x , item.y , clickNum , item.name);
-                    this.addItemName(item.x , item.y , clickNum , item.name);
-                    this.addMoney(item.x , item.y , clickNum , item.name);
-                    if(j < 2){
-                        j++
-                    }else{
-                        j = 0;
-                        k++
-                    }
-                }
-                if(clickNum == 1){
-                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_green);
-                    buttonRight.regX = 18;
-                    buttonRight.x = 512 / 2 + 115;
-                    buttonRight.y = 570;
-                    buttonRight.addEventListener("click",function(){
-                        self.nowPage += 1;
-                        self.addItem(clickNum);
-                    });
-                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
-                    buttonLeft.regX = 18;
-                    buttonLeft.x = 512 / 2 - 115;
-                    buttonLeft.y = 570;
-                    buttonLeft.addEventListener("click",function(){
-                        self.nowPage -= 1;
-                        self.addItem(clickNum);
-                    });
-                }else{
-                    var buttonRight = new createjs.Bitmap(game.assets.images.shop_button_right_pink);
-                    buttonRight.regX = 18;
-                    buttonRight.x = 512 / 2 + 115;
-                    buttonRight.y = 570;
-                    buttonRight.addEventListener("click",function(){
-                        self.nowPage += 1;
-                        self.addItem(clickNum);
-                    });
-                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_pink);
-                    buttonLeft.regX = 18;
-                    buttonLeft.x = 512 / 2 - 115;
-                    buttonLeft.y = 570;
-                    buttonLeft.addEventListener("click",function(){
-                        self.nowPage -= 1;
-                        self.addItem(clickNum);
-                    });
-                }
-
-                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
-                pageNum.textAlign = "center";
-                pageNum.x = 512 / 2;
-                pageNum.y = 580;
-                self.itemBox.addChild(buttonRight , buttonLeft , pageNum);
-            break;
-            //道具数量为6个以上，最后页
-            case 3:
-                for(let i = (self.nowPage - 1) * 6 ; i < self.itemNum ; i++){
-                    var item = new createjs.Bitmap(game.assets.images["item_box_" + clickNum]);
-                    item.set({
-                        regX : 42.5,
-                        regY : 60,
-                        x : 512 / 2 + 115 * j - 115,
-                        y : 300 + 170 * k,
-                        name : (self.nowPage - 1) * 6 + k * 3 + j
-                    });
-                    item.addEventListener("click",function(event){
-                        console.log(event.target.name);
-                        self.buyItem(event.target.name);
-                    });
-                    this.itemBox.addChild(item);
-                    this.addItemIcon(item.x , item.y , clickNum , item.name);
-                    this.addItemName(item.x , item.y , clickNum , item.name);
-                    this.addMoney(item.x , item.y , clickNum , item.name);
-                    if(j < 2){
-                        j++
-                    }else{
-                        j = 0;
-                        k++
-                    }
-                }
-                if(clickNum == 1){
-                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_green);
-                    buttonLeft.regX = 18;
-                    buttonLeft.x = 512 / 2 - 115;
-                    buttonLeft.y = 570;
-                    buttonLeft.addEventListener("click",function(){
-                        self.nowPage -= 1;
-                        self.addItem(clickNum);
-                    });
-                }else{
-                    var buttonLeft = new createjs.Bitmap(game.assets.images.shop_button_left_pink);
-                    buttonLeft.regX = 18;
-                    buttonLeft.x = 512 / 2 - 115;
-                    buttonLeft.y = 570;
-                    buttonLeft.addEventListener("click",function(){
-                        self.nowPage -= 1;
-                        self.addItem(clickNum);
-                    });
-                }
-
-                var pageNum = new createjs.Text(self.nowPage + " / " + self.allPage ,"20px UDDigiKyokashoN","");
-                pageNum.textAlign = "center";
-                pageNum.x = 512 / 2;
-                pageNum.y = 580;
-                self.itemBox.addChild(buttonLeft , pageNum);
-            break;
+        this.itemBox.removeAllChildren();
+        
+        if(this.itemNum - this.nowPage * 6 >= 6){
+            nowPageItemNum = 6;
+        }else{
+            if(this.nowPage * 6 == 0){
+                nowPageItemNum = this.itemNum;
+            }else{
+                nowPageItemNum = this.itemNum % (this.nowPage * 6);
+            }
+            
         }
+
+        if(this.nowPage == 0 && this.allPage > 0){
+            this.addButton(clickNum , 0);
+        }else if(this.nowPage != 0 && this.allPage != 0 && this.nowPage != this.allPage){
+            this.addButton(clickNum , 1);
+        }else if(this.nowPage == this.allPage && this.allPage != 0){
+            this.addButton(clickNum , 2);
+        }
+
+
+        for(let i = this.nowPage * 6 ; i < this.nowPage * 6 + nowPageItemNum ; i++){
+            this.addItemBox(clickNum , j , k , i);
+            if(j < 2){
+                j++
+            }else{
+                j = 0;
+                k++
+            }
+        }
+        let pageNum = new createjs.Text((this.nowPage + 1) + " / " + (this.allPage + 1) ,"20px UDDigiKyokashoN","");
+        pageNum.textAlign = "center";
+        pageNum.x = 512 / 2;
+        pageNum.y = 600;
+        this.itemBox.addChild(pageNum);
     }
 
-    Shop.prototype.addItemIcon = function(itemX , itemY , clickNum , itemName){
-        let clickName;
-        if(clickNum == 1){
-            clickName = "plantData";
-        }else if(clickNum == 2){
-            clickName = "ornamentData";
+    Shop.prototype.addItemBox = function(clickNum , j , k , i){
+        let self = this;
+        let itemBoxName = ["item_box_1" , "item_box_2"];
+        let item = new createjs.Bitmap();
+        switch(clickNum){
+            case 0:
+                item.set({
+                    image : game.assets.images[itemBoxName[clickNum]],
+                    regX : 42.5,
+                    regY : 60,
+                    x : 512 / 2 + 115 * j - 115,
+                    y : 320 + 170 * k,
+                    itemid : i
+                });
+                item.addEventListener("click",function(event){
+                    self.buyItem(event.target.itemid);
+                });
+            break;
+            case 1:
+
+            break;
         }
-        var flowerIcon = new createjs.Bitmap(game.assets.images["flower_" + game.gameObj[clickName][itemName].name + "_bag"]);
-        flowerIcon.set({
+        this.itemBox.addChild(item);
+        this.addItemIcon(clickNum , item.x , item.y , i);
+        this.addMoney(clickNum , item.x , item.y , i);
+        this.addItemName(clickNum , item.x , item.y , i)
+    }
+
+    Shop.prototype.addItemIcon = function(clickNum , ItemBoxX , ItemBoxY , i){
+        var imageName;
+        let self = this;
+        switch(clickNum){
+            //添加种子图标
+            case 0:
+                imageName = "flower_" + game.gameObj.plantData[i].name + "_bag";
+            break;
+            //添加装饰图标
+            case 1:
+
+            break;
+        }
+        let itemIcon = new createjs.Bitmap(game.assets.images[imageName]);
+        itemIcon.set({
             regX : 42.5,
             regY : 60,
-            x : itemX,
-            y : itemY,
+            x : ItemBoxX,
+            y : ItemBoxY,
         });
-        this.itemBox.addChild(flowerIcon);
+        this.itemBox.addChild(itemIcon);
     }
 
-    Shop.prototype.addItemName = function(itemX , itemY , clickNum , itemName){
-        let clickName;
-        if(clickNum == 1){
-            clickName = "plantData";
-        }else if(clickNum == 2){
-            clickName = "ornamentData";
+    Shop.prototype.addMoney = function(clickNum , ItemBoxX , ItemBoxY , i){
+        var itemMoney;
+        switch(clickNum){
+            //添加种子图标
+            case 0:
+                itemMoney = game.gameObj.plantData[i].buy;
+            break;
+            //添加装饰图标
+            case 1:
+
+            break;
         }
-        var flowerName = new createjs.Text("" ,"15px UDDigiKyokashoN","");
-        flowerName.textAlign = "center";
-        flowerName.x = itemX;
-        flowerName.y = itemY - 85;
-        flowerName.text = game.gameObj[clickName][itemName].jpname
-        this.itemBox.addChild(flowerName);
+        
+        var numberText = new createjs.Text(itemMoney ,"18px UDDigiKyokashoN","#000000");
+        numberText.textAlign = "right";
+        numberText.x = ItemBoxX + 32;
+        numberText.y = ItemBoxY + 36;
+        this.itemBox.addChild(numberText);
     }
-    //添加显示金钱
-    Shop.prototype.addMoney = function(itemX , itemY , clickNum , itemName){
-        let clickName;
-        if(clickNum == 1){
-            clickName = "plantData";
-        }else if(clickNum == 2){
-            clickName = "ornamentData";
+
+    Shop.prototype.addItemName = function(clickNum , ItemBoxX , ItemBoxY , i){
+        var itemName;
+        switch(clickNum){
+            //添加种子图标
+            case 0:
+                itemName = game.gameObj.plantData[i].jpname;
+            break;
+            //添加装饰图标
+            case 1:
+
+            break;
         }
-        var money = new createjs.Text("" ,"18px UDDigiKyokashoN","");
-        money.textAlign = "right";
-        money.x = itemX + 30;
-        money.y = itemY + 36;
-        money.text = game.gameObj[clickName][itemName].buy
-        this.itemBox.addChild(money);
+        var itemNameText = new createjs.Text(itemName ,"15px UDDigiKyokashoN","#000000");
+        itemNameText.textAlign = "center";
+        itemNameText.x = ItemBoxX;
+        itemNameText.y = ItemBoxY - 85;
+        this.itemBox.addChild(itemNameText);
+    }
+
+    Shop.prototype.addButton = function(clickNum , state){
+        let self = this;
+        let buttonColor = ["green" , "pink"];
+        switch(state){
+            case 0:
+                var buttonRight = new createjs.Bitmap(game.assets.images["shop_button_right_" + buttonColor[clickNum]]);
+                buttonRight.regX = 18;
+                buttonRight.x = 512 / 2 + 115;
+                buttonRight.y = 590;
+                buttonRight.addEventListener("click",function(){
+                    self.nowPage += 1;
+                    self.updatePageContent(clickNum);
+                });
+                this.itemBox.addChild(buttonRight);
+            break;
+            case 1:
+                var buttonLeft = new createjs.Bitmap(game.assets.images["shop_button_left_" + buttonColor[clickNum]]);
+                buttonLeft.regX = 18;
+                buttonLeft.x = 512 / 2 - 115;
+                buttonLeft.y = 590;
+                buttonLeft.addEventListener("click",function(){
+                    self.nowPage -= 1;
+                    self.updatePageContent(clickNum);
+                });
+                
+                var buttonRight = new createjs.Bitmap(game.assets.images["shop_button_right_" + buttonColor[clickNum]]);
+                buttonRight.regX = 18;
+                buttonRight.x = 512 / 2 + 115;
+                buttonRight.y = 590;
+                buttonRight.addEventListener("click",function(){
+                    self.nowPage += 1;
+                    self.updatePageContent(clickNum);
+                });
+                this.itemBox.addChild(buttonLeft , buttonRight);
+            break;
+            case 2:
+                var buttonLeft = new createjs.Bitmap(game.assets.images["shop_button_left_" + buttonColor[clickNum]]);
+                buttonLeft.regX = 18;
+                buttonLeft.x = 512 / 2 - 115;
+                buttonLeft.y = 590;
+                buttonLeft.addEventListener("click",function(){
+                    self.nowPage -= 1;
+                    self.updatePageContent(clickNum);
+                });
+                this.itemBox.addChild(buttonLeft);
+            break;
+        }
     }
 
     //兑换栏

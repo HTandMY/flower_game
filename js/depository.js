@@ -135,7 +135,7 @@
 
     Depository.prototype.addItemBox = function(clickNum , j , k , i){
         let self = this;
-        let className = ["seed" , "ornament" , "exchange"];
+        let className = ["seed" , "decoration" , "exchange"];
         let itemBoxName = ["depository_box_brown" , "depository_box_red" , "depository_box_blue"];
         let item = new createjs.Bitmap(game.assets.images[itemBoxName[clickNum]]);
         item.set({

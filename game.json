@@ -5,7 +5,19 @@
         {"name" : "bg_3" , "url" : "images/bg_3.png"},
         {"name" : "bg_4" , "url" : "images/bg_4.png"},
         {"name" : "bg_5" , "url" : "images/bg_5.png"},
-        {"name" : "bg_window" , "url" : "images/bg_window.png"},
+
+        {"name" : "flowerpot_1" , "url" : "images/flowerpot_1.png"},
+        {"name" : "flowerpot_2" , "url" : "images/flowerpot_2.png"},
+        {"name" : "flowerpot_3" , "url" : "images/flowerpot_3.png"},
+        {"name" : "flowerpot_4" , "url" : "images/flowerpot_4.png"},
+
+        {"name" : "decoration_flowerpot_1" , "url" : "images/decoration_flowerpot_1.png"},
+        {"name" : "decoration_flowerpot_2" , "url" : "images/decoration_flowerpot_2.png"},
+        {"name" : "decoration_flowerpot_3" , "url" : "images/decoration_flowerpot_3.png"},
+        {"name" : "decoration_flowerpot_4" , "url" : "images/decoration_flowerpot_4.png"},
+        {"name" : "decoration_bg_1" , "url" : "images/decoration_bg_1.png"},
+        {"name" : "decoration_bg_2" , "url" : "images/decoration_bg_2.png"},
+        {"name" : "decoration_bg_3" , "url" : "images/decoration_bg_3.png"},
 
         {"name" : "wood_1" , "url" : "images/wood_1.png"},
         {"name" : "wood_2" , "url" : "images/wood_2.png"},
@@ -14,11 +26,6 @@
         {"name" : "alarm_bg_2" , "url" : "images/alarm_bg_2.png"},
         {"name" : "alarm_button" , "url" : "images/login_start.png"},
         {"name" : "alarm_cancel" , "url" : "images/login_signup.png"},
-
-        {"name" : "flowerpot_1" , "url" : "images/flowerpot_1.png"},
-        {"name" : "flowerpot_2" , "url" : "images/flowerpot_2.png"},
-        {"name" : "flowerpot_3" , "url" : "images/flowerpot_3.png"},
-        {"name" : "flowerpot_4" , "url" : "images/flowerpot_4.png"},
 
         {"name" : "flowerpot_arrow" , "url" : "images/flowerpot_arrow.png"},
 
