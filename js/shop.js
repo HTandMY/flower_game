@@ -69,7 +69,7 @@
             case 1:
                 this.itemBg.image = game.assets.images.shop_bg_2;
                 this.itemNum = Object.keys(game.gameObj.decorationData).length;
-                // this.updatePageContent(clickNum);
+                this.updatePageContent(clickNum);
             break;
             case 2:
                 this.itemBg.image = game.assets.images.shop_bg_3;
@@ -129,12 +129,11 @@
 
     Shop.prototype.addItemBox = function(clickNum , j , k , i){
         let self = this;
-        let itemBoxName = ["item_box_1" , "item_box_2"];
         let item = new createjs.Bitmap();
         switch(clickNum){
             case 0:
                 item.set({
-                    image : game.assets.images[itemBoxName[clickNum]],
+                    image : game.assets.images.item_box_1,
                     regX : 42.5,
                     regY : 60,
                     x : 512 / 2 + 115 * j - 115,
@@ -146,7 +145,17 @@
                 });
             break;
             case 1:
-
+                item.set({
+                    image : game.assets.images.item_box_2,
+                    regX : 42.5,
+                    regY : 60,
+                    x : 512 / 2 + 115 * j - 115,
+                    y : 320 + 170 * k,
+                    itemid : i
+                });
+                item.addEventListener("click",function(event){
+                    console.log("装饰品");
+                });
             break;
         }
         this.itemBox.addChild(item);
@@ -165,7 +174,7 @@
             break;
             //添加装饰图标
             case 1:
-
+                imageName = game.gameObj.decorationData[Object.keys(game.gameObj.decorationData)[i]].name;
             break;
         }
         let itemIcon = new createjs.Bitmap(game.assets.images[imageName]);
@@ -181,13 +190,13 @@
     Shop.prototype.addMoney = function(clickNum , ItemBoxX , ItemBoxY , i){
         var itemMoney;
         switch(clickNum){
-            //添加种子图标
+            //添加种子价格
             case 0:
                 itemMoney = game.gameObj.plantData[i].buy;
             break;
-            //添加装饰图标
+            //添加装饰价格
             case 1:
-
+                itemMoney = game.gameObj.decorationData[Object.keys(game.gameObj.decorationData)[i]].buy;
             break;
         }
         
@@ -207,7 +216,7 @@
             break;
             //添加装饰图标
             case 1:
-
+                itemName = game.gameObj.decorationData[Object.keys(game.gameObj.decorationData)[i]].jpname
             break;
         }
         var itemNameText = new createjs.Text(itemName ,"15px UDDigiKyokashoN","#000000");
