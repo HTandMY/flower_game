@@ -590,16 +590,12 @@
             self.shopBox.visible = true;
         });
         buyButton.addEventListener("click",function(){
-            if(money.text <= game.playerObj.money){
-                if(Number(money.text) <= game.playerObj.crystal){
-                    if(game.playerObj.depository && game.playerObj.depository.decoration && game.playerObj.depository.decoration[itemId]){
-                        tipsText.text = "この装飾品が存在しました";
-                        return;
-                    }else{
-                        self.doBuyDecoration(itemId , Number(money.text) , itemClass);
-                    }
-                }else{
+            if(Number(money.text) <= game.playerObj.crystal){
+                if(game.playerObj.depository && game.playerObj.depository.decoration && game.playerObj.depository.decoration[itemId]){
+                    tipsText.text = "この装飾品が存在しました";
                     return;
+                }else{
+                    self.doBuyDecoration(itemId , Number(money.text) , itemClass);
                 }
             }else{
                 return;
