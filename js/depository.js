@@ -382,6 +382,7 @@
         switch(itemClass){
             //更变花盆
             case 0:
+                this.sellBox.visible = false;
                 this.depositoryObj.visible = false;
                 game.flowerpot.changePot(itemName);
             break;
