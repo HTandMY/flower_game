@@ -112,13 +112,11 @@
         
         if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25 && this.state == true){
             this.state = false;
-            game.playerObj.flowerpot[i] = {
-                have : 0,
-                time : 0,
-                water : 0,
-                watertime : 0,
-                id : -1
-            }
+            game.playerObj.flowerpot[i].have = 0;
+            game.playerObj.flowerpot[i].time = 0;
+            game.playerObj.flowerpot[i].water = 0;
+            game.playerObj.flowerpot[i].watertime = 0;
+            game.playerObj.flowerpot[i].id = -1;
             if(game.playerObj.depository == undefined){
                 game.playerObj.depository = {
                     exchange : [{

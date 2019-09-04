@@ -23,8 +23,4 @@
         }
 
     }
-
-    Background.prototype.update = function(){
-
-    }
 })()

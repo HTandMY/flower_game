@@ -154,7 +154,8 @@
                     itemid : game.playerObj.depository.seed[i].id
                 });
                 item.addEventListener("click",function(event){
-                    self.addFlower(event.target.itemid , event.target.itemN);
+                    self.depositoryObj.visible = false;
+                    game.flowerpot.addFlower(event.target.itemid , event.target.itemN);
                 });
             break;
             case 1:
@@ -290,31 +291,7 @@
         }
     }
 
-    Depository.prototype.addFlower = function(flowerId , i){
-        let self = this;
-        this.blackBg.visible = false;
-        this.depositoryBox.visible = false;
-        this.closeButton = new createjs.Bitmap(game.assets.images.button_back).set({
-            regX : 32,
-            regY : 32,
-            scale : 0.8,
-            x : game.canvas.width - 40,
-            y : game.canvas.height - 35,
-        });
-        this.closeButton.addEventListener("click",function(){
-            game.flowerpot.removeArrow();
-            self.depositoryObj.removeChild(self.closeButton);
-            game.gameicon.iconObj.visible = true;
-            game.manager.enter(1);
-        });
-        this.depositoryObj.addChild(this.closeButton);
-        
-        game.manager.enter(2.5);
-                            
-        game.flowerpot.bindEvent("flower" , flowerId , i);
-    }
-
-    Depository.prototype.decorationBox = function(itenName , jpname , itemClass){
+    Depository.prototype.decorationBox = function(itemName , jpname , itemClass){
         var self = this;
         this.depositoryBox.visible = false;
         this.sellBox.visible = true;
@@ -327,7 +304,7 @@
             x : 360 / 2,
             y : 30
         });
-        var ItemIcon = new createjs.Bitmap(game.assets.images[itenName]).set({
+        var ItemIcon = new createjs.Bitmap(game.assets.images[itemName]).set({
             regX : 42.5,
             regY : 60,
             x : 360 / 2,
@@ -340,7 +317,7 @@
             x : 360 / 2 - 70,
             y : 215,
         });
-        var money = new createjs.Text(game.gameObj.decorationData[itenName].sell ,"30px UDDigiKyokashoN","#000000").set({
+        var money = new createjs.Text(game.gameObj.decorationData[itemName].sell ,"30px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
             y : 200
@@ -384,10 +361,45 @@
             self.depositoryBox.visible = true;
         });
         recoveryButton.addEventListener("click" , function(){
-            
+            self.recovery(Number(money.text) , itemName);
+        });
+        useButton.addEventListener("click" , function(){
+            self.useDecoration(itemClass , itemName);
         })
-
     }
+
+    Depository.prototype.recovery = function(money , itemName){
+        var self = this;
+        game.playerObj.crystal += money;
+        delete game.playerObj.depository.decoration[itemName];
+        game.playerData.update(game.playerObj , function(){
+            self.sellSuccess("回収しました!" , 1);
+        });
+    }
+
+    Depository.prototype.useDecoration = function(itemClass , itemName){
+        var self = this;
+        switch(itemClass){
+            //更变花盆
+            case 0:
+                this.depositoryObj.visible = false;
+                game.flowerpot.changePot(itemName);
+            break;
+            //更变背景
+            case 1:
+                game.playerData.update({
+                    wallpaper : itemName
+                } , function(){
+                    game.background.bg.image = game.assets.images[game.gameObj.decorationData[game.playerObj.wallpaper].itemname];
+                    self.sellSuccess("壁紙を変更しました!" , 1);
+                });
+            break;
+            //更变音乐
+            case 2:
+
+            break;
+        }
+    } 
 
     Depository.prototype.sell = function(itemId , itemNumber , itemBoxId){
         this.depositoryBox.visible = false;
@@ -512,17 +524,17 @@
             }
             game.playerObj.money += Number(moneyNum);
             game.playerData.set(game.playerObj , function(){
-                self.sellSuccess();
+                self.sellSuccess("妖精を森に放しました!" , 2);
             });
         }
     }
 
-    Depository.prototype.sellSuccess = function(){
+    Depository.prototype.sellSuccess = function(successText , backNum){
         var self = this;
         this.sellBox.removeAllChildren();
 
         var sellBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
-        var successText = new createjs.Text("妖精を森に放しました!" ,"30px UDDigiKyokashoN","#16982b").set({
+        var successText = new createjs.Text(successText ,"30px UDDigiKyokashoN","#16982b").set({
             textAlign : "center",
             x : 360 / 2,
             y : 140
@@ -536,7 +548,7 @@
         successButton.addEventListener("click",function(){
             self.state = true;
             self.sellBox.visible = false;
-            self.changePage(2);
+            self.changePage(backNum);
             self.depositoryBox.visible = true;
         })
         var successButtonText = new createjs.Text("OK" ,"22px UDDigiKyokashoN","#FFFFFF").set({

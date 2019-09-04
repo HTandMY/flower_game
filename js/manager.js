@@ -24,8 +24,10 @@
         self.managerNum = number;
         game.flowerpot.removeEvent();
         game.flower.removeEvent();
+        game.settings.settingsObj.visible = false;
         switch (this.managerNum) {
             case 1:
+                game.settings.settingsObj.visible = true;
                 game.shop.shopObj.visible = false;
                 game.depository.depositoryObj.visible = false;
                 game.illustrate.illustrateObj.visible = false;
@@ -50,6 +52,10 @@
             break;
             case 6:
                 game.illustrate.open();
+            break;
+            case 7:
+                game.gameicon.iconObj.visible = false;
+                game.flowerpot.addArrow();
             break;
         }
     }
@@ -81,6 +87,9 @@
             break;
             case 6:
                 game.illustrate.update();
+            break;
+            case 7:
+                game.flowerpot.arrowMove();
             break;
         }
     }
