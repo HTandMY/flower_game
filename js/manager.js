@@ -10,6 +10,7 @@
         game.illustrate = new Illustrate();
         game.player = new PlayerData();
         game.alarm = new Alarm();
+        game.sounds = new Sounds();
         this.managerNum = 1;
         this.nowManager = new createjs.Text("","15px UDDigiKyokashoN","").set({
             x : 10,
@@ -62,10 +63,6 @@
 
     Manager.prototype.update = function(){
         this.nowManager.text = this.managerNum;
-        game.flower.update();
-        game.player.update();
-        game.settings.update();
-        game.alarm.update();
         switch (this.managerNum) {
             case 1:
                 
@@ -92,5 +89,9 @@
                 game.flowerpot.arrowMove(1);
             break;
         }
+        game.flower.update();
+        game.player.update();
+        game.settings.update();
+        game.alarm.update();
     }
 })()

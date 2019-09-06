@@ -16,6 +16,7 @@
 
             this.fp[i].regX = 50;
             this.fp[i].regY = 50;
+            this.fp[i].num = i;
             if(game.canvas.width > 768){
                 this.fp[i].x = game.canvas.width / 2 - 192 + 192 * j;
             }else{
@@ -48,6 +49,7 @@
         });
         this.closeButton.addEventListener("click",function(){
             self.removeAllArrow();
+            self.removeEvent();
             self.closeButton.visible = false;
             game.gameicon.iconObj.visible = true;
             game.manager.enter(1);
@@ -57,7 +59,7 @@
 
     Flowerpot.prototype.flower = function(i , flowerId , j){
         var self = this;
-        if(!game.playerObj.flowerpot[i].have && this.state == true){
+        if(this.state == true){
             this.state = false;
             game.playerObj.flowerpot[i].have = 1;
             game.playerObj.flowerpot[i].id = flowerId;
@@ -93,12 +95,12 @@
 
     Flowerpot.prototype.doChangePot = function(i , potName){
         var self = this;
-        if(this.state = true){
+        if(this.state == true){
             this.state = false;
             game.playerObj.flowerpot[i].flowerpot = potName;
             game.playerData.set(game.playerObj , function(){
                 self.fp[i].image = game.assets.images[game.gameObj.decorationData[potName].itemname];
-                this.state = true;
+                self.state = true;
             }); 
         }
     }
@@ -168,23 +170,25 @@
         switch(name){
             case "water":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-                    if(game.playerObj.flowerpot[i].have){
-                        self.fp[i].addEventListener("click",function(){
+                    this.fp[i].addEventListener("click",function(){
+                        if(game.playerObj.flowerpot[i].have && !game.playerObj.flowerpot[i].water){
                             game.flower.watering(i);
-                        });
-                    }
+                        }
+                    });
                 }
             break;
             case "flower":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-                    self.fp[i].addEventListener("click",function(){
-                        self.flower(i , par , j);
+                    this.fp[i].addEventListener("click",function(){
+                        if(!game.playerObj.flowerpot[i].have){
+                            self.flower(i , par , j);
+                        }
                     });
                 }
             break;
             case "pot":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-                    self.fp[i].addEventListener("click",function(){
+                    this.fp[i].addEventListener("click",function(){
                         self.doChangePot(i , par);
                     });
                 }
@@ -194,7 +198,7 @@
 
     Flowerpot.prototype.removeEvent = function(){
         for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-            this.fp[i].removeAllEventListeners("click");
+            this.fp[i].removeAllEventListeners();
         }
     }
 

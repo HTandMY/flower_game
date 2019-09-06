@@ -86,7 +86,7 @@
     Flower.prototype.watering = function(i){
         console.log(i);
         var self = this;
-        if(!game.playerObj.flowerpot[i].water && this.state == true){
+        if(this.state == true){
             //浇水
             this.state = false;
             game.playerData.child('flowerpot/' + i).update({
@@ -186,11 +186,11 @@
         switch(name){
             case "water":
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-                    if(game.playerObj.flowerpot[i].have){
-                        this.fw[i].addEventListener("click",function(){
+                    this.fw[i].addEventListener("click",function(){
+                        if(game.playerObj.flowerpot[i].have && !game.playerObj.flowerpot[i].water){
                             self.watering(i);
-                        });
-                    }
+                        }
+                    });
                 }
             break;
             case "harvest":
@@ -205,7 +205,7 @@
 
     Flower.prototype.removeEvent = function(){
         for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
-            this.fw[i].removeAllEventListeners("click");
+            this.fw[i].removeAllEventListeners();
         }
     }
 })()

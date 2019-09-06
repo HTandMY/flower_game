@@ -32,6 +32,10 @@
                         self.assets.images[gameData.images[i].name] = new Image();
                         self.assets.images[gameData.images[i].name].src = gameData.images[i].url;
                     }
+                    for(let i = 0; i < gameData.sounds.length; i++){
+                        self.assets.sounds[gameData.sounds[i].name] = new Audio();
+                        self.assets.sounds[gameData.sounds[i].name].src = gameData.sounds[i].url;
+                    }
                     loadGameData();
                 }
             }

@@ -194,6 +194,6 @@
         {"name" : "water_2" , "url" : "images/water_2.png"}
     ],
     "sounds" : [
-        {"name" : "bgm" , "url" : "sounds/bg.mp3"}
+        {"name" : "bgm_1" , "url" : "sounds/bgm_1.mp3"}
     ]
 }
