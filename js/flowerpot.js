@@ -47,7 +47,7 @@
             visible : false
         });
         this.closeButton.addEventListener("click",function(){
-            self.removeArrow();
+            self.removeAllArrow();
             self.closeButton.visible = false;
             game.gameicon.iconObj.visible = true;
             game.manager.enter(1);
@@ -103,13 +103,23 @@
         }
     }
 
-    Flowerpot.prototype.addArrow = function(){
+    Flowerpot.prototype.addArrow = function(state){
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
-            if(!game.playerObj.flowerpot[i].have){
-                this.arrowBox[i].visible = true;
+            if(state == 0){
+                if(game.playerObj.flowerpot[i].have){
+                    this.arrowBox[i].visible = false;
+                }else{
+                    this.arrowBox[i].visible = true;
+                }
             }else{
-                this.arrowBox[i].visible = false;
+                this.arrowBox[i].visible = true;
             }
+        }
+    }
+
+    Flowerpot.prototype.removeAllArrow = function(){
+        for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
+            this.arrowBox[i].visible = false;
         }
     }
 
@@ -121,12 +131,14 @@
         }
     }
 
-    Flowerpot.prototype.arrowMove = function(){
+    Flowerpot.prototype.arrowMove = function(state){
         if(this.moveState){
             for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
                 this.arrowBox[i].y += 1
-                if(game.playerObj.flowerpot[i].have){
-                    this.arrowBox[i].visible = false;
+                if(state == 0){
+                    if(game.playerObj.flowerpot[i].have){
+                        this.arrowBox[i].visible = false;
+                    }
                 }
             }
             if(this.movePx > 5){
@@ -137,8 +149,10 @@
         }else{
             for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
                 this.arrowBox[i].y -= 1
-                if(game.playerObj.flowerpot[i].have){
-                    this.arrowBox[i].visible = false;
+                if(state == 0){
+                    if(game.playerObj.flowerpot[i].have){
+                        this.arrowBox[i].visible = false;
+                    }
                 }
             }
             if(this.movePx < 0){

@@ -38,7 +38,7 @@
             break;
                 case 2.5:
                     game.gameicon.iconObj.visible = false;
-                    game.flowerpot.addArrow();
+                    game.flowerpot.addArrow(0);
                 break;
             case 3:
                 game.flowerpot.bindEvent("water");
@@ -55,7 +55,7 @@
             break;
             case 7:
                 game.gameicon.iconObj.visible = false;
-                game.flowerpot.addArrow();
+                game.flowerpot.addArrow(1);
             break;
         }
     }
@@ -74,7 +74,7 @@
                 game.depository.update();
             break;
                 case 2.5:
-                    game.flowerpot.arrowMove();
+                    game.flowerpot.arrowMove(0);
                 break;
             case 3:
                 game.gameicon.rotate();
@@ -89,7 +89,7 @@
                 game.illustrate.update();
             break;
             case 7:
-                game.flowerpot.arrowMove();
+                game.flowerpot.arrowMove(1);
             break;
         }
     }

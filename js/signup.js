@@ -20,6 +20,12 @@ function signUp(){
     var gameJson = {
         "crystal" : 0,
         "exp" : 0,
+        "depository" : {
+            "decoration" : {
+                "decoration_bg_1" : {"class" : 1},
+                "decoration_flowerpot_1" : {"class" : 0}
+            }
+        },
         "flowerpot" : [ {
             "have" : 0,
             "id" : -1,

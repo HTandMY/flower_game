@@ -298,7 +298,7 @@
             scale : 1.5,
         });
 
-        var changeNum = new createjs.Text(" × 1000 = " ,"25px UDDigiKyokashoN","green");
+        var changeNum = new createjs.Text(" × 1000 = " ,"25px UDDigiKyokashoN","#5c190f");
         changeNum.textAlign = "center";
         changeNum.x = 512 / 2;
         changeNum.y = 340;
@@ -592,7 +592,7 @@
         buyButton.addEventListener("click",function(){
             if(Number(money.text) <= game.playerObj.crystal){
                 if(game.playerObj.depository && game.playerObj.depository.decoration && game.playerObj.depository.decoration[itemId]){
-                    tipsText.text = "この装飾品が存在しました";
+                    tipsText.text = "この装飾品は既に存在します";
                     return;
                 }else{
                     self.doBuyDecoration(itemId , Number(money.text) , itemClass);

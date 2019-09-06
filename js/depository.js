@@ -322,13 +322,18 @@
             x : 360 / 2,
             y : 200
         });
+        var tips = new createjs.Text("" ,"16px UDDigiKyokashoN","#FF0000").set({
+            textAlign : "center",
+            x : 360 / 2,
+            y : 250
+        });
         var recoveryButton = new createjs.Bitmap(game.assets.images.button_orange).set({
             regX : 53,
             regY : 18,
             x : 360 / 2,
             y : 310,
         });
-        var recoveryText = new createjs.Text("回収する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+        var recoveryText = new createjs.Text("売却する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
             textAlign : "center",
             x : recoveryButton.x,
             y : recoveryButton.y - 8
@@ -355,26 +360,52 @@
             x : useButton.x,
             y : useButton.y - 8
         });
-        this.sellBox.addChild(sellBg , title , ItemIcon , moneyIcon , money , recoveryButton , recoveryText , cancelButton , cancelText , useButton , useText);
+        this.sellBox.addChild(sellBg , title , ItemIcon , moneyIcon , money , tips , recoveryButton , recoveryText , cancelButton , cancelText , useButton , useText);
         cancelButton.addEventListener("click" , function(){
             self.sellBox.visible = false;
             self.depositoryBox.visible = true;
         });
         recoveryButton.addEventListener("click" , function(){
-            self.recovery(Number(money.text) , itemName);
+            self.recovery(itemClass , Number(money.text) , itemName , tips);
         });
         useButton.addEventListener("click" , function(){
             self.useDecoration(itemClass , itemName);
         })
     }
 
-    Depository.prototype.recovery = function(money , itemName){
+    Depository.prototype.recovery = function(itemClass , money , itemName , tips){
         var self = this;
-        game.playerObj.crystal += money;
-        delete game.playerObj.depository.decoration[itemName];
-        game.playerData.update(game.playerObj , function(){
-            self.sellSuccess("回収しました!" , 1);
-        });
+        switch(itemClass){
+            case 0:
+                for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
+                    if(game.playerObj.flowerpot[i].flowerpot == itemName){
+                        tips.text = "この装飾品は現在使用中です";
+                        return;
+                    }
+                }
+                game.playerObj.crystal += money;
+                delete game.playerObj.depository.decoration[itemName];
+                game.playerData.update(game.playerObj , function(){
+                    self.sellSuccess("売却しました!" , 1);
+                });
+            break;
+            case 1:
+                if(game.playerObj.wallpaper == itemName){
+                    tips.text = "この装飾品は現在使用中です";
+                }else{
+                    game.playerObj.crystal += money;
+                    delete game.playerObj.depository.decoration[itemName];
+                    game.playerData.update(game.playerObj , function(){
+                        self.sellSuccess("売却しました!" , 1);
+                    });
+                }
+            break;
+            case 2:
+
+            break;
+        }
+
+
     }
 
     Depository.prototype.useDecoration = function(itemClass , itemName){
@@ -538,7 +569,8 @@
         var successText = new createjs.Text(successText ,"30px UDDigiKyokashoN","#16982b").set({
             textAlign : "center",
             x : 360 / 2,
-            y : 140
+            y : 140,
+            lineHeight : 40
         });
         var successButton = new createjs.Bitmap(game.assets.images.button_green).set({
             regX : 53,
