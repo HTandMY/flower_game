@@ -131,7 +131,7 @@ function signUp(){
             });
         }else{
             tips.style.color = "red";
-            tips.innerHTML = "＊ユーザーIDが存在しました";
+            tips.innerHTML = "＊ユーザーIDは既に存在します";
             return;
         }
     })
