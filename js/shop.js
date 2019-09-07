@@ -29,10 +29,10 @@
         //商店背景、文字、按钮、标签
         this.addIcon("shopBg" , "shop_bg");
         this.addIcon("shopWord" , "shop_word" , 60 , 512 / 2 , 95 , false);
-        this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){self.closeState = true});
-        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){self.changePage(0)});
-        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){self.changePage(1)});
-        this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){self.changePage(2)});
+        this.addIcon("buttonClose" , "button_close" , 18 , 512 - 100 , 95 , true , function(){game.sounds.playSound_1("close");self.closeState = true});
+        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 512 / 2 - 120 , 150 , true , function(){game.sounds.playSound_1("click");self.changePage(0)});
+        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 512 / 2 , 150 , true , function(){game.sounds.playSound_1("click");self.changePage(1)});
+        this.addIcon("buttonExchange" , "shop_bg_button_3" , 60 , 512 / 2 + 120 , 150 , true , function(){game.sounds.playSound_1("click");self.changePage(2)});
         this.addIcon("itemBg" , "shop_bg_1" , 180 , 512 / 2 , 190 ,false);
         //插入道具框架
         this.itemBox = new createjs.Container();
@@ -141,6 +141,7 @@
                     itemid : i
                 });
                 item.addEventListener("click",function(event){
+                    game.sounds.playSound_1("button");
                     self.buyItem(event.target.itemid);
                 });
             break;
@@ -155,6 +156,7 @@
                     class : game.gameObj.decorationData[Object.keys(game.gameObj.decorationData)[i]].class
                 });
                 item.addEventListener("click",function(event){
+                    game.sounds.playSound_1("button");
                     self.buyDecoration(Object.keys(game.gameObj.decorationData)[i] , game.gameObj.decorationData[Object.keys(game.gameObj.decorationData)[i]].jpname , event.target.class);
                 });
             break;
@@ -237,6 +239,7 @@
                 buttonRight.x = 512 / 2 + 115;
                 buttonRight.y = 570;
                 buttonRight.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage += 1;
                     self.updatePageContent(clickNum);
                 });
@@ -248,6 +251,7 @@
                 buttonLeft.x = 512 / 2 - 115;
                 buttonLeft.y = 570;
                 buttonLeft.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage -= 1;
                     self.updatePageContent(clickNum);
                 });
@@ -257,6 +261,7 @@
                 buttonRight.x = 512 / 2 + 115;
                 buttonRight.y = 570;
                 buttonRight.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage += 1;
                     self.updatePageContent(clickNum);
                 });
@@ -268,6 +273,7 @@
                 buttonLeft.x = 512 / 2 - 115;
                 buttonLeft.y = 570;
                 buttonLeft.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage -= 1;
                     self.updatePageContent(clickNum);
                 });
@@ -309,6 +315,7 @@
             y : 450
         });
         changeButton.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             self.changeMoney();
         });
         this.itemBox.addChild(item_chip_2 , item_crystal_2 , changeNum , changeButton);
@@ -397,6 +404,7 @@
         }
 
         plusButton.addEventListener("click",function(){
+            game.sounds.playSound_1("numbutton");
             buyNumText.text = Number(buyNumText.text) + 1;
             minusButton.visible = true;
             money.text = Number(buyNumText.text) * Number(game.gameObj.plantData[itemId].buy);
@@ -407,6 +415,7 @@
             }
         });
         minusButton.addEventListener("click",function(){
+            game.sounds.playSound_1("numbutton");
             buyNumText.text = Number(buyNumText.text) - 1;
             if(Number(buyNumText.text) <= 1){
                 minusButton.visible = false;
@@ -427,6 +436,7 @@
             }
         });
         cancelButton.addEventListener("click",function(){
+            game.sounds.playSound_1("button");
             self.buyBox.visible = false;
             self.shopBox.visible = true;
         });
@@ -434,6 +444,7 @@
             if(money.text <= game.playerObj.money){
                 self.doBuyItem(itemId , Number(buyNumText.text) , Number(money.text))
             }else{
+                game.sounds.playSound_1("not");
                 return;
             }
         })
@@ -452,6 +463,7 @@
                 }
                 game.playerObj.money -= moneyNum;
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("buy");
                     self.buySuccess();
                 });
             }else if(game.playerObj.depository.seed == undefined){
@@ -461,6 +473,7 @@
                 }];
                 game.playerObj.money -= moneyNum;
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("buy");
                     self.buySuccess();
                 });
             }else{
@@ -469,6 +482,7 @@
                         game.playerObj.depository.seed[n].num += buyNum;
                         game.playerObj.money -= moneyNum;
                         game.playerData.set(game.playerObj , function(){
+                            game.sounds.playSound_1("buy");
                             self.buySuccess();
                         });
                         return;
@@ -480,6 +494,7 @@
                 });
                 game.playerObj.money -= moneyNum;
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("buy");
                     self.buySuccess();
                 });
             }
@@ -502,6 +517,7 @@
             y : 250,
         });
         successButton.addEventListener("click",function(){
+            game.sounds.playSound_1("button");
             self.buyState = true;
             self.buyBox.visible = false;
             self.shopBox.visible = true;
@@ -586,12 +602,14 @@
 
         
         cancelButton.addEventListener("click",function(){
+            game.sounds.playSound_1("button");
             self.buyBox.visible = false;
             self.shopBox.visible = true;
         });
         buyButton.addEventListener("click",function(){
             if(Number(money.text) <= game.playerObj.crystal){
                 if(game.playerObj.depository && game.playerObj.depository.decoration && game.playerObj.depository.decoration[itemId]){
+                    game.sounds.playSound_1("not");
                     tipsText.text = "この装飾品は既に存在します";
                     return;
                 }else{
@@ -628,6 +646,7 @@
             }
             game.playerObj.crystal -= Number(money);
             game.playerData.set(game.playerObj , function(){
+                game.sounds.playSound_1("buy");
                 self.buySuccess();
             })
 
@@ -710,7 +729,8 @@
             changeButton.image = game.assets.images.button_gray;
         }
 
-        plusButton.addEventListener("click",function(){
+        plusButton.addEventListener("mousedown",function(){
+            game.sounds.playSound_1("numbutton");
             minusButton.visible = true;
             changeNumText.text = Number(changeNumText.text) + 1;
             money.text = Number(changeNumText.text) * 1000;
@@ -720,7 +740,8 @@
                 changeButton.image = game.assets.images.button_gray;
             }
         });
-        minusButton.addEventListener("click",function(){
+        minusButton.addEventListener("mousedown",function(){
+            game.sounds.playSound_1("numbutton");
             changeNumText.text = Number(changeNumText.text) - 1;
             if(Number(changeNumText.text) <= 1){
                 minusButton.visible = false;
@@ -740,6 +761,7 @@
             }
         });
         cancelButton.addEventListener("click",function(){
+            game.sounds.playSound_1("button");
             self.buyBox.visible = false;
             self.shopBox.visible = true;
         });
@@ -747,6 +769,7 @@
             if(Number(money.text) + 30 <= game.playerObj.money){
                 self.doChangeMoney(money.text , changeNumText.text);
             }else{
+                game.sounds.playSound_1("not");
                 return;
             }
         });
@@ -760,6 +783,7 @@
             game.playerObj.money = Number(game.playerObj.money) - Number(changeNum);
             game.playerObj.crystal = Number(game.playerObj.crystal) + Number(addNum);
             game.playerData.set(game.playerObj , function(){
+                game.sounds.playSound_1("buy");
                 self.ChangeMoneySuccess(addNum);
             });
         }
@@ -781,6 +805,7 @@
             y : 250,
         });
         successButton.addEventListener("click",function(){
+            game.sounds.playSound_1("button");
             self.buyState = true;
             self.buyBox.visible = false;
             self.shopBox.visible = true;

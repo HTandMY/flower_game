@@ -27,10 +27,10 @@
         //商店背景、文字、按钮、标签
         this.addIcon("shopBg" , "depository_bg");
         this.addIcon("shopWord" , "depository_word" , 60 , 425 / 2 , 115);
-        this.addIcon("buttonClose" , "button_close" , 18 , 425 - 60 , 115 , true , function(){self.closeState = true});
-        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 425 / 2 - 120 , 170 , true , function(){self.changePage(0)});
-        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 425 / 2 , 170 , true , function(){self.changePage(1)});
-        this.addIcon("buttonExchange" , "depository_bg_button_3" , 60 , 425 / 2 + 120 , 170 , true , function(){self.changePage(2)});
+        this.addIcon("buttonClose" , "button_close" , 18 , 425 - 60 , 115 , true , function(){game.sounds.playSound_1("close");self.closeState = true});
+        this.addIcon("buttonSeed" , "shop_bg_button_1" , 60 , 425 / 2 - 120 , 170 , true , function(){game.sounds.playSound_1("click");self.changePage(0)});
+        this.addIcon("buttonDecorate" , "shop_bg_button_2" , 60 , 425 / 2 , 170 , true , function(){game.sounds.playSound_1("click");self.changePage(1)});
+        this.addIcon("buttonExchange" , "depository_bg_button_3" , 60 , 425 / 2 + 120 , 170 , true , function(){game.sounds.playSound_1("click");self.changePage(2)});
         this.addIcon("itemBg" , "shop_bg_1" , 180 , 425 / 2 , 210 ,false);
         //插入道具框架
         this.itemBox = new createjs.Container();
@@ -154,6 +154,7 @@
                     itemid : game.playerObj.depository.seed[i].id
                 });
                 item.addEventListener("click",function(event){
+                    game.sounds.playSound_1("button");
                     self.depositoryObj.visible = false;
                     game.flowerpot.addFlower(event.target.itemid , event.target.itemN);
                 });
@@ -171,6 +172,7 @@
                     class : game.playerObj.depository.decoration[Object.keys(game.playerObj.depository.decoration)[i]].class
                 });
                 item.addEventListener("click",function(event){
+                    game.sounds.playSound_1("button");
                     self.decorationBox(event.target.name , event.target.jpname , event.target.class);
                 });
             break;
@@ -188,6 +190,7 @@
                     itemid : game.playerObj.depository.exchange[i].id
                 });
                 item.addEventListener("click",function(event){
+                    game.sounds.playSound_1("button");
                     self.sell(event.target.itemid , event.target.number , event.target.itemN);
                 });
             break;
@@ -252,6 +255,7 @@
                 buttonRight.x = 425 / 2 + 115;
                 buttonRight.y = 590;
                 buttonRight.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage += 1;
                     self.updatePageContent(clickNum);
                 });
@@ -263,6 +267,7 @@
                 buttonLeft.x = 425 / 2 - 115;
                 buttonLeft.y = 590;
                 buttonLeft.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage -= 1;
                     self.updatePageContent(clickNum);
                 });
@@ -272,6 +277,7 @@
                 buttonRight.x = 425 / 2 + 115;
                 buttonRight.y = 590;
                 buttonRight.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage += 1;
                     self.updatePageContent(clickNum);
                 });
@@ -283,6 +289,7 @@
                 buttonLeft.x = 425 / 2 - 115;
                 buttonLeft.y = 590;
                 buttonLeft.addEventListener("click",function(){
+                    game.sounds.playSound_1("button");
                     self.nowPage -= 1;
                     self.updatePageContent(clickNum);
                 });
@@ -362,6 +369,7 @@
         });
         this.sellBox.addChild(sellBg , title , ItemIcon , moneyIcon , money , tips , recoveryButton , recoveryText , cancelButton , cancelText , useButton , useText);
         cancelButton.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             self.sellBox.visible = false;
             self.depositoryBox.visible = true;
         });
@@ -379,6 +387,7 @@
             case 0:
                 for(let i = 0 ; i < game.playerObj.flowerpot.length ; i++){
                     if(game.playerObj.flowerpot[i].flowerpot == itemName){
+                        game.sounds.playSound_1("not");
                         tips.text = "この装飾品は現在使用中です";
                         return;
                     }
@@ -386,16 +395,19 @@
                 game.playerObj.crystal += money;
                 delete game.playerObj.depository.decoration[itemName];
                 game.playerData.update(game.playerObj , function(){
+                    game.sounds.playSound_1("buy");
                     self.sellSuccess("売却しました!" , 1);
                 });
             break;
             case 1:
                 if(game.playerObj.wallpaper == itemName){
+                    game.sounds.playSound_1("not");
                     tips.text = "この装飾品は現在使用中です";
                 }else{
                     game.playerObj.crystal += money;
                     delete game.playerObj.depository.decoration[itemName];
                     game.playerData.update(game.playerObj , function(){
+                        game.sounds.playSound_1("buy");
                         self.sellSuccess("売却しました!" , 1);
                     });
                 }
@@ -413,6 +425,7 @@
         switch(itemClass){
             //更变花盆
             case 0:
+                game.sounds.playSound_1("button");
                 this.sellBox.visible = false;
                 this.depositoryObj.visible = false;
                 game.flowerpot.changePot(itemName);
@@ -422,6 +435,7 @@
                 game.playerData.update({
                     wallpaper : itemName
                 } , function(){
+                    game.sounds.playSound_1("buy");
                     game.background.bg.image = game.assets.images[game.gameObj.decorationData[game.playerObj.wallpaper].itemname];
                     self.sellSuccess("壁紙を変更しました!" , 1);
                 });
@@ -514,6 +528,7 @@
         }
         
         plusButton.addEventListener("click" , function(){
+            game.sounds.playSound_1("numbutton");
             sellNumText.text = Number(sellNumText.text) + 1;
             money.text = Number(sellNumText.text) * Number(game.gameObj.plantData[itemId].sell);
             if(sellNumText.text <= itemNumber){
@@ -523,6 +538,7 @@
             }
         });
         minusButton.addEventListener("click" , function(){
+            game.sounds.playSound_1("numbutton");
             if(sellNumText.text > 1){
                 sellNumText.text = Number(sellNumText.text) - 1;
             }
@@ -534,6 +550,7 @@
             }
         });
         cancelButton.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             self.sellBox.visible = false;
             self.depositoryBox.visible = true;
         });
@@ -541,6 +558,7 @@
             if(sellNumText.text <= itemNumber){
                 self.doSellItem(itemBoxId , sellNumText.text , money.text)
             }else{
+                game.sounds.playSound_1("not");
                 return;
             }
         })
@@ -556,6 +574,7 @@
             }
             game.playerObj.money += Number(moneyNum);
             game.playerData.set(game.playerObj , function(){
+                game.sounds.playSound_1("buy");
                 self.sellSuccess("妖精を森に放しました!" , 2);
             });
         }
@@ -581,6 +600,7 @@
         successButton.addEventListener("click",function(){
             self.state = true;
             self.sellBox.visible = false;
+            game.sounds.playSound_1("button");
             self.changePage(backNum);
             self.depositoryBox.visible = true;
         })

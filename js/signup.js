@@ -22,8 +22,8 @@ function signUp(){
         "exp" : 0,
         "depository" : {
             "decoration" : {
-                "decoration_bg_1" : {"class" : 1},
-                "decoration_flowerpot_1" : {"class" : 0}
+                "decoration_bg_01" : {"class" : 1},
+                "decoration_flowerpot_01" : {"class" : 0}
             }
         },
         "flowerpot" : [ {
@@ -32,69 +32,70 @@ function signUp(){
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         }, {
             "have" : 0,
             "id" : -1,
             "time" : 0,
             "water" : 0,
             "watertime" : 0,
-            "flowerpot" : "decoration_flowerpot_1"
+            "flowerpot" : "decoration_flowerpot_01"
         } ],
+        "bgm" : "decoration_sound_01",
         "level" : 1,
         "money" : 30,
         "playername" : userName,
         "psd" : md5psd,
-        "wallpaper" : "decoration_bg_1",
+        "wallpaper" : "decoration_bg_01",
         "alarm" : {
             "alarmOpen" : false,
             "date" : 1,

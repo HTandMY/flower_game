@@ -35,18 +35,21 @@
             for(let i = 0 ; i < this.iconObj.children.length ; i++){
                 this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name];
             }
+            game.sounds.playSound_1("open");
             game.manager.enter(goManagerNum);
         }else{
             for(let i = 0 ; i < this.iconObj.children.length ; i++){
                 this.iconObj.children[i].image = game.assets.images[this.iconObj.children[i].name];
             }
             if(game.manager.managerNum != goManagerNum){
+                game.sounds.playSound_1("open");
                 this.buttonBg.image = game.assets.images.button_bg;
                 this.buttonBg.x = this[iconName].x;
                 this.buttonBg.y = this[iconName].y;
                 this[iconName].image = game.assets.images[imgURL_2];
                 game.manager.enter(goManagerNum);
             }else{
+                game.sounds.playSound_1("close");
                 this.buttonBg.image = undefined;
                 this[iconName].image = game.assets.images[imgURL_1];
                 game.manager.enter(1);

@@ -33,15 +33,18 @@
 
         this.addText("zukan" , "図  鑑" , 20 , function(){
             console.log("図  鑑");
+            game.sounds.playSound_1("open");
             self.changeState();
             game.manager.enter(6);
         });
         this.addText("alarm" , "アラーム" , 65 , function(){
+            game.sounds.playSound_1("open");
             console.log("アラーム");
             self.changeState();
             game.alarm.setOpen();
         });
         this.addText("logout" , "ログアウト" , 110 , function(){
+            game.sounds.stopAll();
             console.log("ログアウト");
             self.logOut();
         });
@@ -78,6 +81,7 @@
         delete game.illustrate;
         delete game.player;
         delete game.manager;
+        delete game.sounds;
         delete game;
     }
 

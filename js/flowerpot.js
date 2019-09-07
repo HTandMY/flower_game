@@ -48,6 +48,7 @@
             visible : false
         });
         this.closeButton.addEventListener("click",function(){
+            game.sounds.playSound_1("close");
             self.removeAllArrow();
             self.removeEvent();
             self.closeButton.visible = false;
@@ -67,6 +68,7 @@
             if(game.playerObj.depository.seed[j].num <= 0){
                 game.playerObj.depository.seed.splice(j, 1);
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("button");
                     self.removeArrow();
                     self.closeButton.visible = false;
                     self.state = true;
@@ -75,6 +77,7 @@
                 });
             }else{
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("button");
                     self.state = true;
                 });
             }
@@ -99,6 +102,7 @@
             this.state = false;
             game.playerObj.flowerpot[i].flowerpot = potName;
             game.playerData.set(game.playerObj , function(){
+                game.sounds.playSound_1("button");
                 self.fp[i].image = game.assets.images[game.gameObj.decorationData[potName].itemname];
                 self.state = true;
             }); 

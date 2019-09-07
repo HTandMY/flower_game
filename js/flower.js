@@ -93,6 +93,7 @@
                 water : 1,
                 watertime : game.nowtime,
             },function() {
+                game.sounds.playSound_1("water");
                 self.wt[i] = new createjs.Sprite(self.waterData,"wt");
                 self.wt[i].x = self.fw[i].x;
                 self.wt[i].y = self.fw[i].y + 20;
@@ -126,6 +127,7 @@
                 }
                 this.expUp(plantExp);
                 game.playerData.set(game.playerObj ,function(){
+                    game.sounds.playSound_1("get");
                     removeFlower(i);
                 });
             }else if(game.playerObj.depository.exchange == undefined){
@@ -135,6 +137,7 @@
                 }];
                 this.expUp(plantExp);
                 game.playerData.set(game.playerObj ,function(){
+                    game.sounds.playSound_1("get");
                     removeFlower(i);
                 });
             }else{
@@ -143,6 +146,7 @@
                         game.playerObj.depository.exchange[n].num += addNumber;
                         this.expUp(plantExp);
                         game.playerData.set(game.playerObj , function(){
+                            game.sounds.playSound_1("get");
                             removeFlower(i);
                         });
                         return;
@@ -154,6 +158,7 @@
                 });
                 this.expUp(plantExp);
                 game.playerData.set(game.playerObj , function(){
+                    game.sounds.playSound_1("get");
                     removeFlower(i);
                 });
             }
@@ -169,7 +174,10 @@
     Flower.prototype.expUp = function(exp){
         if(game.playerObj.level < 10){
             game.playerObj.exp += exp;
-            if(game.playerObj.exp >= game.gameObj.levelData[game.playerObj.level - 1]){
+            while(game.playerObj.exp >= game.gameObj.levelData[game.playerObj.level - 1]){
+                if(game.sounds.sound_2.paused == true){
+                    game.sounds.playSound_2("levelup");
+                }
                 game.playerObj.exp -= game.gameObj.levelData[game.playerObj.level - 1];
                 game.playerObj.level += 1;
                 if(game.playerObj.level >= 10){

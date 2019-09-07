@@ -80,6 +80,7 @@
         });
 
         this.buttonClose.addEventListener("click" , function(){
+            game.sounds.playSound_1("close");
             self.closeState = true;
         })
 
@@ -96,6 +97,7 @@
             this.button[i].x = 55;
             this.button[i].y = 135 + i * 47;
             this.button[i].addEventListener("click" , function(){
+                game.sounds.playSound_1("button");
                 self.changePage(i);
             });
             var text = new createjs.Text(game.gameObj.plantData[i].jpname ,"14px UDDigiKyokashoN","#000000");

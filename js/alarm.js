@@ -129,12 +129,14 @@
             y : 70
         });
         buttonClose.addEventListener("click" , function(){
+            game.sounds.playSound_1("close");
             self.windowState = false;
             self.closeState = true;
         });
         this.alarmSetObj.addChild(alarmBg , this.hour , this.point , this.minute , hourPlus , hourMinus , minutePlus , minuteMinus , buttonCancel , buttonCancelText , buttonOk , buttonOkText , buttonClose); 
         
         buttonCancel.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             game.playerData.child("alarm").update({
                 alarmOpen : false,
             } , function(){
@@ -143,6 +145,7 @@
             });
         });
         buttonOk.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             game.playerData.child("alarm").update({
                 alarmOpen : true,
                 hour : Number(self.hour.text),
@@ -153,10 +156,10 @@
             });
         });
 
-        hourPlus.addEventListener("click" , function(){touchstart(1,1)});
-        hourMinus.addEventListener("click" , function(){touchstart(1,2)});
-        minutePlus.addEventListener("click" , function(){touchstart(2,1)});
-        minuteMinus.addEventListener("click" , function(){touchstart(2,2)});
+        hourPlus.addEventListener("click" , function(){game.sounds.playSound_1("numbutton");touchstart(1,1)});
+        hourMinus.addEventListener("click" , function(){game.sounds.playSound_1("numbutton");touchstart(1,2)});
+        minutePlus.addEventListener("click" , function(){game.sounds.playSound_1("numbutton");touchstart(2,1)});
+        minuteMinus.addEventListener("click" , function(){game.sounds.playSound_1("numbutton");touchstart(2,2)});
 
         function touchstart(time , state){
             let number;
@@ -220,7 +223,7 @@
     Alarm.prototype.alarmOnAddChild = function(){
         var self = this;
         this.alarmOnObj.removeAllChildren();
-
+        
         var alarmBg = new createjs.Bitmap(game.assets.images.alarm_bg_2);
         var title = new createjs.Text("アラーム" ,"30px UDDigiKyokashoN","#5c190f").set({
             x : 180,
@@ -253,6 +256,7 @@
             scale : 0.7
         });
         buttonOk.addEventListener("click" , function(){
+            
             if(self.netState == true){
                 self.netState = false;
                 self.getItem();
@@ -283,6 +287,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj , function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(1 , num_2 , addItenNum);
                 });
             }else if(game.playerObj.depository.seed == undefined){
@@ -293,6 +298,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj , function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(1 , num_2 , addItenNum);
                 });
             }else{
@@ -302,6 +308,7 @@
                         game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                         game.playerData.set(game.playerObj , function(){
                             self.netState = true;
+                            game.sounds.playSound_1("get");
                             self.success(1 , num_2 , addItenNum);
                         });
                         return;
@@ -314,6 +321,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj , function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(1 , num_2 , addItenNum);
                 });
             }
@@ -329,6 +337,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj ,function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(2 , num_2 , addItenNum);
                 });
             }else if(game.playerObj.depository.exchange == undefined){
@@ -339,6 +348,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj ,function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(2 , num_2 , addItenNum);
                 });
             }else{
@@ -348,6 +358,7 @@
                         game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                         game.playerData.set(game.playerObj , function(){
                             self.netState = true;
+                            game.sounds.playSound_1("get");
                             self.success(2 , num_2 , addItenNum);
                         });
                         return;
@@ -360,6 +371,7 @@
                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
                 game.playerData.set(game.playerObj , function(){
                     self.netState = true;
+                    game.sounds.playSound_1("get");
                     self.success(2 , num_2 , addItenNum);
                 });
             }
@@ -369,6 +381,7 @@
             game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
             game.playerData.set(game.playerObj , function(){
                 self.netState = true;
+                game.sounds.playSound_1("get");
                 self.success(3 , "item_chip_2" , addMoneyNum);
             });
         }else if(num_1 < 1){
@@ -376,6 +389,7 @@
             game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
             game.playerData.set(game.playerObj , function(){
                 self.netState = true;
+                game.sounds.playSound_1("get");
                 self.success(4);
             });
         }
@@ -432,6 +446,7 @@
             scale : 0.7
         });
         buttonOk.addEventListener("click" , function(){
+            game.sounds.playSound_1("button");
             self.windowState = false;
             self.closeState = true;
         });
@@ -477,6 +492,7 @@
         if(game.playerObj.alarm.alarmOpen == true && game.playerObj.alarm.getup == false && this.alarmState == false && game.time.getDate() == game.playerObj.alarm.date && game.time.getHours() == game.playerObj.alarm.hour && game.time.getMinutes() == game.playerObj.alarm.minute){
             console.log("timeNow");
             this.alarmState = true;
+            game.sounds.playSound_1("clock");
             this.alarmOnAddChild();
             if(this.windowState == false){
                 this.alarmObj.visible = true;
