@@ -8,7 +8,7 @@
         this.wt = [];
         this.state = true;
         this.time_2 = [0,0,0,0,0,0,0,0,0];
-        this.waterNum = 10;
+        this.waterNum = 20;
         this.waterData = new createjs.SpriteSheet({
             "images": [game.assets.images.water_2],
             "frames": {"width": 100 , "height": 150, "regX": 50, "regY": 100 , "count": 12},
@@ -16,7 +16,7 @@
                 "wt":[0,12, ,0.5]
             }
         });
-
+        var self = this;
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
             this.fw[i] = new createjs.Bitmap();
             this.fw[i].regX = 50;
@@ -30,20 +30,7 @@
                 this.wt[i].x = this.fw[i].x;
                 this.wt[i].y = this.fw[i].y + 20;
                 this.waterObj.addChild(this.wt[i]);
-                game.playerData.child('flowerpot/' + i).update({
-                    water : 1
-                });
-            }
-            if((game.nowtime - game.playerObj.flowerpot[i].watertime)/1000 > this.waterNum && game.playerObj.flowerpot[i].water){
-                game.playerData.child('flowerpot/' + i).update({
-                    time : game.playerObj.flowerpot[i].time + 1,
-                });
-                // this.time_1[i] += 1;
-            }else{
-                game.playerData.child('flowerpot/' + i).update({
-                    time : game.playerObj.flowerpot[i].time + 0,
-                });
-                // this.time_1[i] = parseInt(this.time_1[i] + 0);
+                // this.time_2[i] = parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime) / 1000);
             }
             if(game.playerObj.flowerpot[i].watertime <= 0){
                 this.time_2[i] = 0;
@@ -52,17 +39,19 @@
     }
 
     Flower.prototype.update = function(){
+        var self = this;
         for(let i = 0 ;i < game.playerObj.flowerpot.length ; i++){
-            if((game.nowtime - game.playerObj.flowerpot[i].watertime)/1000 >= this.waterNum  && game.playerObj.flowerpot[i].water && game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].watertime != 0){
+            if(parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime)/1000) >= this.waterNum  && game.playerObj.flowerpot[i].water && game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].watertime != 0){
                 let time_1 = game.playerObj.flowerpot[i].time
+                let time2 = parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime) / 1000) / 10;
                 game.playerData.child('flowerpot/' + i).update({
-                    time : time_1 + 1,
+                    time : time_1 + time2,
                     water : 0
                 });
                 this.time_2[i] = 0;
                 this.waterObj.removeChild(this.wt[i]);
             }
-            if((game.nowtime - game.playerObj.flowerpot[i].watertime)/1000 < this.waterNum && game.playerObj.flowerpot[i].have){
+            if(parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime)/1000) < this.waterNum && game.playerObj.flowerpot[i].have){
                 this.time_2[i] = parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime) / 1000);
             }
             if(game.playerObj.flowerpot[i].have){
@@ -182,6 +171,7 @@
                 game.playerObj.level += 1;
                 if(game.playerObj.level >= 10){
                     game.player.playerDataBg.image = game.assets.images.player_bg_10;
+                    game.playerObj.exp = 0;
                 }else{
                     game.player.playerDataBg.image = game.assets.images["player_bg_" + game.playerObj.level];
                 }

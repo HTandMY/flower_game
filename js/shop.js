@@ -162,12 +162,12 @@
             break;
         }
         this.itemBox.addChild(item);
-        this.addItemIcon(clickNum , item.x , item.y , i);
+        this.addItemIcon(clickNum , item.x , item.y , i , item.class);
         this.addMoney(clickNum , item.x , item.y , i);
         this.addItemName(clickNum , item.x , item.y , i);
     }
 
-    Shop.prototype.addItemIcon = function(clickNum , ItemBoxX , ItemBoxY , i){
+    Shop.prototype.addItemIcon = function(clickNum , ItemBoxX , ItemBoxY , i , itemClass){
         var imageName;
         let self = this;
         switch(clickNum){
@@ -177,7 +177,11 @@
             break;
             //添加装饰图标
             case 1:
-                imageName = Object.keys(game.gameObj.decorationData)[i];
+                if(itemClass == 2){
+                    imageName = "decoration_bgm";
+                }else{
+                    imageName = Object.keys(game.gameObj.decorationData)[i];
+                }
             break;
         }
         let itemIcon = new createjs.Bitmap(game.assets.images[imageName]);
@@ -403,7 +407,7 @@
             buyButton.image = game.assets.images.button_gray;
         }
 
-        plusButton.addEventListener("click",function(){
+        plusButton.addEventListener("mousedown",function(){
             game.sounds.playSound_1("numbutton");
             buyNumText.text = Number(buyNumText.text) + 1;
             minusButton.visible = true;
@@ -414,7 +418,7 @@
                 buyButton.image = game.assets.images.button_gray;
             }
         });
-        minusButton.addEventListener("click",function(){
+        minusButton.addEventListener("mousedown",function(){
             game.sounds.playSound_1("numbutton");
             buyNumText.text = Number(buyNumText.text) - 1;
             if(Number(buyNumText.text) <= 1){
@@ -537,20 +541,24 @@
         
         var needMoney = game.gameObj.decorationData[itemId].buy;
         this.buyBox.removeAllChildren();
-            
+        
+
+
         var buyBg = new createjs.Bitmap(game.assets.images.shop_buy_bg);
         var title = new createjs.Text(itemName ,"25px UDDigiKyokashoN","#000000").set({
             textAlign : "center",
             x : 360 / 2,
             y : 30
         });
-        var buyItemIcon = new createjs.Bitmap(game.assets.images[itemId]).set({
+        var buyItemIcon = new createjs.Bitmap().set({
             regX : 42.5,
             regY : 60,
             x : 360 / 2,
             y : 150,
             scale : 1.2
         });
+
+        itemClass == 2 ? buyItemIcon.image = game.assets.images.decoration_bgm : buyItemIcon.image = game.assets.images[itemId];
 
         var moneyIcon = new createjs.Bitmap(game.assets.images.item_crystal_2).set({
             regX : 20,
@@ -568,6 +576,18 @@
             textAlign : "center",
             x : 360 / 2,
             y : 260
+        });
+
+        var playButton = new createjs.Bitmap(game.assets.images.button_orange).set({
+            regX : 53,
+            regY : 18,
+            x : 360 / 2,
+            y : 260,
+        });
+        var playText = new createjs.Text("試聴する" ,"16px UDDigiKyokashoN","#FFFFFF").set({
+            textAlign : "center",
+            x : playButton.x,
+            y : playButton.y - 8
         });
 
         var cancelButton = new createjs.Bitmap(game.assets.images.button_brown).set({
@@ -592,7 +612,7 @@
             x : buyButton.x,
             y : buyButton.y - 8
         });
-        this.buyBox.addChild(buyBg , title , buyItemIcon , moneyIcon , money , tipsText , cancelButton , cancelText , buyButton , buyText);
+        this.buyBox.addChild(buyBg , title , buyItemIcon , moneyIcon , money , tipsText , playButton , playText , cancelButton , cancelText , buyButton , buyText);
         
         if(money.text <= game.playerObj.crystal){
             buyButton.image = game.assets.images.button_green;
@@ -600,13 +620,34 @@
             buyButton.image = game.assets.images.button_gray;
         }
 
-        
+        if(itemClass == 2){
+            playButton.visible = true;
+            playText.visible = true;
+        }else{
+            playButton.visible = false;
+            playText.visible = false;
+        }
+
+        playButton.addEventListener("click" , function(){
+            if(playText.text == "試聴する"){
+                playText.text = "停止する";
+                game.sounds.bgmVolumeMinus();
+                game.sounds.playSound_1(game.gameObj.decorationData[itemId].itemname);
+            }else{
+                playText.text = "試聴する";
+                game.sounds.bgmVolumePlus();
+                game.sounds.stopSound_1();
+            }
+
+        })
         cancelButton.addEventListener("click",function(){
+            game.sounds.bgmVolumePlus();
             game.sounds.playSound_1("button");
             self.buyBox.visible = false;
             self.shopBox.visible = true;
         });
         buyButton.addEventListener("click",function(){
+            game.sounds.bgmVolumePlus();
             if(Number(money.text) <= game.playerObj.crystal){
                 if(game.playerObj.depository && game.playerObj.depository.decoration && game.playerObj.depository.decoration[itemId]){
                     game.sounds.playSound_1("not");

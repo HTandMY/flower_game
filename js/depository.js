@@ -196,12 +196,12 @@
             break;
         }
         this.itemBox.addChild(item);
-        this.addItemIcon(clickNum , className[clickNum] , item.x , item.y , i);
+        this.addItemIcon(clickNum , className[clickNum] , item.x , item.y , i , item.class);
         this.addNumber(clickNum , item.number , item.x , item.y , i);
         this.addItemName(item.jpname , item.x , item.y , i);
     }
 
-    Depository.prototype.addItemIcon = function(clickNum , class_Name , ItemBoxX , ItemBoxY , i){
+    Depository.prototype.addItemIcon = function(clickNum , class_Name , ItemBoxX , ItemBoxY , i , itemClass){
         var imageName;
         let self = this;
         switch(clickNum){
@@ -211,7 +211,11 @@
             break;
             //添加装饰图标
             case 1:
-                imageName = Object.keys(game.playerObj.depository.decoration)[i];
+                if(itemClass == 2){
+                    imageName = "decoration_bgm";
+                }else{
+                    imageName = Object.keys(game.playerObj.depository.decoration)[i];
+                }
             break;
             //添加果实图标
             case 2:
@@ -311,13 +315,14 @@
             x : 360 / 2,
             y : 30
         });
-        var ItemIcon = new createjs.Bitmap(game.assets.images[itemName]).set({
+        var ItemIcon = new createjs.Bitmap().set({
             regX : 42.5,
             regY : 60,
             x : 360 / 2,
             y : 150,
             scale : 1.2
         });
+        itemClass == 2 ? ItemIcon.image = game.assets.images.decoration_bgm : ItemIcon.image = game.assets.images[itemName];
         var moneyIcon = new createjs.Bitmap(game.assets.images.item_crystal_2).set({
             regX : 20,
             regY : 20,
@@ -378,7 +383,7 @@
         });
         useButton.addEventListener("click" , function(){
             self.useDecoration(itemClass , itemName);
-        })
+        });
     }
 
     Depository.prototype.recovery = function(itemClass , money , itemName , tips){
@@ -413,7 +418,17 @@
                 }
             break;
             case 2:
-
+                if(game.playerObj.bgm == itemName){
+                    game.sounds.playSound_1("not");
+                    tips.text = "この装飾品は現在使用中です";
+                }else{
+                    game.playerObj.crystal += money;
+                    delete game.playerObj.depository.decoration[itemName];
+                    game.playerData.update(game.playerObj , function(){
+                        game.sounds.playSound_1("buy");
+                        self.sellSuccess("売却しました!" , 1);
+                    });
+                }
             break;
         }
 
@@ -442,7 +457,13 @@
             break;
             //更变音乐
             case 2:
-
+                game.playerData.update({
+                    bgm : itemName
+                } , function(){
+                    game.sounds.playSound_1("buy");
+                    game.sounds.gameStart();
+                    self.sellSuccess("音楽を変更しました!" , 1);
+                });
             break;
         }
     } 

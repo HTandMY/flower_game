@@ -23,7 +23,8 @@ function signUp(){
         "depository" : {
             "decoration" : {
                 "decoration_bg_01" : {"class" : 1},
-                "decoration_flowerpot_01" : {"class" : 0}
+                "decoration_flowerpot_01" : {"class" : 0},
+                "decoration_sound_01" : {"class" : 2}
             }
         },
         "flowerpot" : [ {

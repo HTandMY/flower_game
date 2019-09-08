@@ -30,6 +30,7 @@
         {"name" : "decoration_bg_08" , "url" : "images/decoration_bg_08.png"},
         {"name" : "decoration_bg_09" , "url" : "images/decoration_bg_09.png"},
         {"name" : "decoration_bg_10" , "url" : "images/decoration_bg_10.png"},
+        {"name" : "decoration_bgm" , "url" : "images/decoration_bgm.png"},
 
         {"name" : "wood_1" , "url" : "images/wood_1.png"},
         {"name" : "wood_2" , "url" : "images/wood_2.png"},
@@ -206,7 +207,17 @@
         {"name" : "water_2" , "url" : "images/water_2.png"}
     ],
     "sounds" : [
-        {"name" : "bgm_1" , "url" : "sounds/bgm_1.mp3"},
+        {"name" : "bgm_01" , "url" : "sounds/bgm_01.mp3"},
+        {"name" : "bgm_02" , "url" : "sounds/bgm_02.mp3"},
+        {"name" : "bgm_03" , "url" : "sounds/bgm_03.mp3"},
+        {"name" : "bgm_04" , "url" : "sounds/bgm_04.mp3"},
+        {"name" : "bgm_05" , "url" : "sounds/bgm_05.mp3"},
+        {"name" : "bgm_06" , "url" : "sounds/bgm_06.mp3"},
+        {"name" : "bgm_07" , "url" : "sounds/bgm_07.mp3"},
+        {"name" : "bgm_08" , "url" : "sounds/bgm_08.mp3"},
+        {"name" : "bgm_09" , "url" : "sounds/bgm_09.mp3"},
+        {"name" : "bgm_10" , "url" : "sounds/bgm_10.mp3"},
+        {"name" : "bgm_11" , "url" : "sounds/bgm_11.mp3"},
         {"name" : "buy" , "url" : "sounds/buy.mp3"},
         {"name" : "button" , "url" : "sounds/button.mp3"},
         {"name" : "click" , "url" : "sounds/click.mp3"},
