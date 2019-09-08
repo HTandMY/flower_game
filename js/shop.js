@@ -572,10 +572,10 @@
             y : 200
         });
 
-        var tipsText = new createjs.Text("" ,"15px UDDigiKyokashoN","#000000").set({
+        var tipsText = new createjs.Text("" ,"15px UDDigiKyokashoN","#ff0000").set({
             textAlign : "center",
             x : 360 / 2,
-            y : 260
+            y : 80
         });
 
         var playButton = new createjs.Bitmap(game.assets.images.button_orange).set({
