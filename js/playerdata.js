@@ -46,13 +46,9 @@
         this.name.text = game.playerObj.playername;
         this.level.text = "Lv" + game.playerObj.level;
         this.exp.text = game.playerObj.exp + "/" + game.gameObj.levelData[game.playerObj.level - 1];
-        this.money.text = game.playerObj.money;
-        this.crystal.text = game.playerObj.crystal;
-        if(game.playerObj.exp == 0){
-            this.expBg.scaleX = 0
-        }else{
-            this.expBg.scaleX = game.playerObj.exp / game.gameObj.levelData[game.playerObj.level - 1];
-        }
         
+        game.playerObj.money >= 999999 ? this.money.text = 999999 : this.money.text = game.playerObj.money;
+        game.playerObj.crystal >= 999999 ? this.crystal.text = 999999 : this.crystal.text = game.playerObj.crystal;
+        game.playerObj.exp == 0 ? this.expBg.scaleX = 0 : this.expBg.scaleX = game.playerObj.exp / game.gameObj.levelData[game.playerObj.level - 1];
     }
 })()

@@ -18,8 +18,7 @@
         });
         this.settingsObj.addChild(this.SettingsIcon);
 
-        this.settingsBg = new createjs.Shape();
-        this.settingsBg.graphics.beginFill("white").drawRoundRect(0,0,100,150,10);
+        this.settingsBg = new createjs.Bitmap(game.assets.images.setting_bg);
         this.settingsBg.shadow = new createjs.Shadow("#aaaaaa", 0, 0, 4);
 
         this.settingsMenu = new createjs.Container().set({
@@ -31,19 +30,19 @@
         this.settingsMenu.addChild(this.settingsBg);
         this.settingsObj.addChild(this.settingsMenu);
 
-        this.addText("zukan" , "図  鑑" , 20 , function(){
+        this.addText("zukan" , "図  鑑" , 18 , function(){
             console.log("図  鑑");
             game.sounds.playSound_1("open");
             self.changeState();
             game.manager.enter(6);
         });
-        this.addText("alarm" , "アラーム" , 65 , function(){
+        this.addText("alarm" , "アラーム" , 62 , function(){
             game.sounds.playSound_1("open");
             console.log("アラーム");
             self.changeState();
             game.alarm.setOpen();
         });
-        this.addText("logout" , "ログアウト" , 110 , function(){
+        this.addText("logout" , "ログアウト" , 104 , function(){
             game.sounds.stopAll();
             console.log("ログアウト");
             self.logOut();
@@ -53,7 +52,7 @@
     Settings.prototype.addText = function(name ,text , y , doSome){
         let hit1 = new createjs.Shape();
         hit1.graphics.beginFill("#555").drawRect(-50, -10, 100, 40);
-        this[name] = new createjs.Text(text ,"16px UDDigiKyokashoN","").set({
+        this[name] = new createjs.Text(text ,"16px UDDigiKyokashoN","#5c190f").set({
             textAlign : "center",
             x : 50,
             y : y,

@@ -15,11 +15,21 @@
         {"name" : "flowerpot_02" , "url" : "images/flowerpot_02.png"},
         {"name" : "flowerpot_03" , "url" : "images/flowerpot_03.png"},
         {"name" : "flowerpot_04" , "url" : "images/flowerpot_04.png"},
+        {"name" : "flowerpot_05" , "url" : "images/flowerpot_05.png"},
+        {"name" : "flowerpot_06" , "url" : "images/flowerpot_06.png"},
+        {"name" : "flowerpot_07" , "url" : "images/flowerpot_07.png"},
+        {"name" : "flowerpot_08" , "url" : "images/flowerpot_08.png"},
+        {"name" : "flowerpot_09" , "url" : "images/flowerpot_09.png"},
 
         {"name" : "decoration_flowerpot_01" , "url" : "images/decoration_flowerpot_01.png"},
         {"name" : "decoration_flowerpot_02" , "url" : "images/decoration_flowerpot_02.png"},
         {"name" : "decoration_flowerpot_03" , "url" : "images/decoration_flowerpot_03.png"},
         {"name" : "decoration_flowerpot_04" , "url" : "images/decoration_flowerpot_04.png"},
+        {"name" : "decoration_flowerpot_05" , "url" : "images/decoration_flowerpot_05.png"},
+        {"name" : "decoration_flowerpot_06" , "url" : "images/decoration_flowerpot_06.png"},
+        {"name" : "decoration_flowerpot_07" , "url" : "images/decoration_flowerpot_07.png"},
+        {"name" : "decoration_flowerpot_08" , "url" : "images/decoration_flowerpot_08.png"},
+        {"name" : "decoration_flowerpot_09" , "url" : "images/decoration_flowerpot_09.png"},
         {"name" : "decoration_bg_01" , "url" : "images/decoration_bg_01.png"},
         {"name" : "decoration_bg_02" , "url" : "images/decoration_bg_02.png"},
         {"name" : "decoration_bg_03" , "url" : "images/decoration_bg_03.png"},
@@ -204,7 +214,10 @@
         {"name" : "player_exp" , "url" : "images/player_exp.png"},
 
         {"name" : "water_1" , "url" : "images/water_1.png"},
-        {"name" : "water_2" , "url" : "images/water_2.png"}
+        {"name" : "water_2" , "url" : "images/water_2.png"},
+
+        {"name" : "setting_bg" , "url" : "images/setting_bg.png"}
+        
     ],
     "sounds" : [
         {"name" : "bgm_01" , "url" : "sounds/bgm_01.mp3"},
