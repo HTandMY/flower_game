@@ -8,7 +8,10 @@ var firebaseConfig = {
     appId: "1:860639608980:web:1e1b1893ce24c9a0"
 };
 firebase.initializeApp(this.firebaseConfig);
-
+var bg = document.getElementById("bg");
+if(document.documentElement.clientWidth >= document.documentElement.clientHeight){
+    bg.style.width = document.documentElement.clientHeight * 0.5625 + "px";
+}
 var tips = document.getElementById("tips");
 
 function signUp(){

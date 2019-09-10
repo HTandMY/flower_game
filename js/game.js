@@ -1,8 +1,14 @@
 (function(){
     var Game = window.Game = function(){
         this.canvas = document.getElementById("game");
-        this.canvas.width = document.documentElement.clientWidth;
+        
+        if(document.documentElement.clientWidth >= document.documentElement.clientHeight){
+            this.canvas.width = document.documentElement.clientHeight * 0.5625;
+        }else{
+            this.canvas.width = document.documentElement.clientWidth;
+        }
         this.canvas.height = document.documentElement.clientHeight;
+        
         this.assets = {images:[],sounds:[]};
         console.log(login.userId);
 

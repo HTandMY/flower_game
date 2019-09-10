@@ -127,6 +127,10 @@
     <script src="./js/alarm.js"></script>
     <script src="./js/sounds.js"></script>
     <script>
+        var allWidth = document.getElementById("loginBox");
+        if(document.documentElement.clientWidth >= document.documentElement.clientHeight){
+            allWidth.style.width = document.documentElement.clientHeight * 0.5625 + "px";
+        }
         var login = new Login();
         function doNothing(){  
             window.event.returnValue=false;  
