@@ -1,5 +1,6 @@
 (function(){
     var Login = window.Login = function(){
+        var self = this;
         this.firebaseConfig = {
             apiKey: "AIzaSyCwYyQCtYztQrxVQYmHcxw0HknJGKc7AbQ",
             authDomain: "gamedata-6d071.firebaseapp.com",
@@ -13,6 +14,19 @@
         this.loginBox = document.getElementById("loginBox");
         this.gameBox = document.getElementById("gameBox");
         this.tips = document.getElementById("tips");
+        var doLoading;
+        var loadingBox = document.getElementById("loading");
+        window.onload = function(){
+            doLoading = setTimeout(function(){
+                loadingBox.remove();
+                this.loginBox.style.display = "block";
+            }, 1000);
+        };
+        loadingBox.addEventListener('click',function(){
+            loadingBox.remove();
+            self.loginBox.style.display = "block";
+            clearTimeout(doLoading);
+        },false);
     }
 
     Login.prototype.tipsClear = function(){

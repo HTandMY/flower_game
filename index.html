@@ -16,6 +16,17 @@
         }
         body {overflow: hidden;}
         canvas {display:block;}
+        #loading {
+            width: 100vw;
+            height: 100vh;
+            text-align: center;
+            background-color: rgb(255, 253, 223);
+        }
+        #loading img {
+            width: 30%;
+            position: relative;
+            top: 30%;
+        }
         #loginBox {
             width: 100vw;
             height: 100vh;
@@ -23,6 +34,7 @@
             background-position: bottom;
             background-size: cover;
             background-repeat: no-repeat;
+            display: none;
         }
         #loginLogoBox {
             text-align: center;
@@ -96,6 +108,9 @@
     </style>
 </head>
 <body oncontextmenu="doNothing()">
+    <div id="loading">
+        <img src="./images/loading.gif" alt="">
+    </div>
     <div id="loginBox">
         <div id="loginLogoBox"><img src="./images/login_logo.png"></div>
         <form>
