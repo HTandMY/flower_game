@@ -207,10 +207,12 @@
     }
 
     Flowerpot.prototype.messageUpdate = function(num){
-        if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
-            this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
-        }else{
-            this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+        if(game.playerObj.flowerpot[num].have){
+            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
+            }else{
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+            }
         }
     }
 
