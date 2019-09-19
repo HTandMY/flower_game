@@ -56,6 +56,7 @@
             game.manager.enter(1);
         });
         this.fpObj.addChild(this.closeButton);
+        this.addMessage();
     }
 
     Flowerpot.prototype.flower = function(i , flowerId , j){
@@ -169,6 +170,50 @@
         }
     }
 
+    Flowerpot.prototype.addMessage = function(){
+        this.messageId = 0
+        this.timeObj = new createjs.Container().set({
+            visible : false
+        });
+        var blackBg = new createjs.Shape();
+        blackBg.graphics.beginFill("black").drawRoundRectComplex(0, 0, 100, 50, 5, 5, 5, 5);
+        blackBg.alpha = 0.4;
+        blackBg.addEventListener("click",function(){});
+        this.timeText = new createjs.Text("" ,"12px UDDigiKyokashoN","#ffffff").set({
+            textAlign : "center",
+            x : 50,
+            y : 7,
+            lineHeight : 20
+        });
+        this.timeObj.addChild(blackBg , this.timeText);
+        this.fpObj.addChild(this.timeObj);
+    }
+
+    Flowerpot.prototype.changeMessage = function(messageX , messageY , num){
+        if(game.playerObj.flowerpot[num].have){
+            game.sounds.playSound_1("button");
+            this.messageId = num;
+            this.timeObj.set({
+                visible : true,
+                x : messageX - 50,
+                y : messageY - 5
+            });
+            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
+            }else{
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+            }
+        }
+    }
+
+    Flowerpot.prototype.messageUpdate = function(num){
+        if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
+            this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
+        }else{
+            this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+        }
+    }
+
     Flowerpot.prototype.bindEvent = function(name , par , j){
         var self = this;
         switch(name){
@@ -194,6 +239,13 @@
                 for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
                     this.fp[i].addEventListener("click",function(){
                         self.doChangePot(i , par);
+                    });
+                }
+            break;
+            case "message":
+                for (let i = 0 ; i < game.playerObj.flowerpot.length ; i++) {
+                    this.fp[i].addEventListener("click",function(event){
+                        self.changeMessage(event.target.x , event.target.y , event.target.num);
                     });
                 }
             break;

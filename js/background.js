@@ -6,7 +6,7 @@
         this.bg.setTransform(0,0,game.canvas.width/1080,game.canvas.height/1920);
         this.bgObj.addChild(this.bg);
         this.bg.addEventListener("click",function(){
-            console.log("点击了背景");
+            game.flowerpot.timeObj.visible = false;
         });
         var y = game.canvas.height / 4;
         for (let i = 0; i < 3; i++) {

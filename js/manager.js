@@ -26,6 +26,7 @@
         game.flowerpot.removeEvent();
         game.flower.removeEvent();
         game.settings.settingsObj.visible = false;
+        game.flowerpot.timeObj.visible = false;
         switch (this.managerNum) {
             case 1:
                 game.settings.settingsObj.visible = true;
@@ -33,6 +34,7 @@
                 game.depository.depositoryObj.visible = false;
                 game.illustrate.illustrateObj.visible = false;
                 game.alarm.alarmObj.visible = false;
+                game.flowerpot.bindEvent("message");
             break;
             case 2:
                 game.depository.open();
@@ -65,7 +67,7 @@
         this.nowManager.text = this.managerNum;
         switch (this.managerNum) {
             case 1:
-                
+                game.flowerpot.messageUpdate(game.flowerpot.messageId);
             break;
             case 2:
                 game.depository.update();
