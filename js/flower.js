@@ -6,6 +6,7 @@
         this.fwObj.addChild(this.flowerObj , this.waterObj);
         this.fw = [];
         this.wt = [];
+        this.growTime = 15;
         this.state = true;
         this.time_2 = [0,0,0,0,0,0,0,0,0];
         this.waterNum = 20;
@@ -55,17 +56,17 @@
                 this.time_2[i] = parseInt((game.nowtime - game.playerObj.flowerpot[i].watertime) / 1000);
             }
             if(game.playerObj.flowerpot[i].have){
-                if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25){
+                if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime){
                     this.fw[i].image = game.assets.images["flower_" + game.gameObj.plantData[game.playerObj.flowerpot[i].id].name + "_5"];
-                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 20){
+                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime / 5 * 4){
                     this.fw[i].image = game.assets.images["flower_" + game.gameObj.plantData[game.playerObj.flowerpot[i].id].name + "_4"];
-                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 15){
+                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime / 5 * 3){
                     this.fw[i].image = game.assets.images["flower_" + game.gameObj.plantData[game.playerObj.flowerpot[i].id].name + "_3"];
-                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 10){
+                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime / 5 * 2){
                     this.fw[i].image = game.assets.images["flower_" + game.gameObj.plantData[game.playerObj.flowerpot[i].id].name + "_2"];
-                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 5){
+                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime / 5){
                     this.fw[i].image = game.assets.images["flower_" + game.gameObj.plantData[game.playerObj.flowerpot[i].id].name + "_1"];
-                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] <= 5){
+                }else if(game.playerObj.flowerpot[i].time * 10 + this.time_2[i] <= this.growTime / 5){
                     this.fw[i].image = game.assets.images.flower_seed;
                 }
             }
@@ -100,7 +101,7 @@
 
         Math.random() < 0.05 ? addNumber = 2 : addNumber = 1;
         
-        if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > 25 && this.state == true){
+        if(game.playerObj.flowerpot[i].have && game.playerObj.flowerpot[i].time * 10 + this.time_2[i] > this.growTime && this.state == true){
             this.state = false;
             game.playerObj.flowerpot[i].have = 0;
             game.playerObj.flowerpot[i].time = 0;

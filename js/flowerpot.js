@@ -198,20 +198,20 @@
                 x : messageX - 50,
                 y : messageY - 5
             });
-            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
+            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > game.flower.growTime){
                 this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
             }else{
-                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (game.flower.growTime - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
             }
         }
     }
 
     Flowerpot.prototype.messageUpdate = function(num){
         if(game.playerObj.flowerpot[num].have){
-            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > 25){
+            if(game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num] > game.flower.growTime){
                 this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: 0 秒";
             }else{
-                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (25 - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
+                this.timeText.text = game.gameObj.plantData[game.playerObj.flowerpot[num].id].jpname + "\n残り: " + (game.flower.growTime - (game.playerObj.flowerpot[num].time * 10 + game.flower.time_2[num])) + " 秒";
             }
         }
     }

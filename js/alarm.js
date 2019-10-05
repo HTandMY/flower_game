@@ -272,80 +272,81 @@
 
     Alarm.prototype.getItem = function(){
         var self = this;
-        game.playerObj.alarm.getup = true;
-        var num_1 = Math.random();
-        var num_2 = Math.floor(Math.random() * game.playerObj.level);
-        if(num_1 < 0.6){
-            var addItenNum = Math.ceil(Math.random() * 3);
-            if(game.playerObj.depository == undefined){
-                game.playerObj.depository = {
-                    seed : [{
-                        id : num_2,
-                        num : addItenNum
-                    }]
-                }
-                game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
-                game.playerData.set(game.playerObj , function(){
-                    self.netState = true;
-                    game.sounds.playSound_1("get");
-                    self.success(1 , num_2 , addItenNum);
-                });
-            }else if(game.playerObj.depository.seed == undefined){
-                game.playerObj.depository.seed = [{
-                    id : num_2,
-                    num : addItenNum
-                }];
-                game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
-                game.playerData.set(game.playerObj , function(){
-                    self.netState = true;
-                    game.sounds.playSound_1("get");
-                    self.success(1 , num_2 , addItenNum);
-                });
-            }else{
-                for(let n = 0 ; n < game.playerObj.depository.seed.length ; n++){
-                    if(game.playerObj.depository.seed[n].id == num_2){
-                        game.playerObj.depository.seed[n].num = Number(game.playerObj.depository.seed[n].num) + addItenNum;
-                        game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
-                        game.playerData.set(game.playerObj , function(){
-                            self.netState = true;
-                            game.sounds.playSound_1("get");
-                            self.success(1 , num_2 , addItenNum);
-                        });
-                        return;
-                    }
-                }
-                game.playerObj.depository.seed.push({
-                    id : num_2,
-                    num : addItenNum
-                });
-                game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
-                game.playerData.set(game.playerObj , function(){
-                    self.netState = true;
-                    game.sounds.playSound_1("get");
-                    self.success(1 , num_2 , addItenNum);
-                });
-            }
-        }else if(num_1 < 0.9){
-            var addMoneyNum = Math.ceil(Math.random() * 10) * 30
-            game.playerObj.money += addMoneyNum;
+        // game.playerObj.alarm.getup = true;
+        // var num_1 = Math.random();
+        // var num_2 = Math.floor(Math.random() * game.playerObj.level);
+        // if(num_1 < 0.6){
+        //     var addItenNum = Math.ceil(Math.random() * 3);
+        //     if(game.playerObj.depository == undefined){
+        //         game.playerObj.depository = {
+        //             seed : [{
+        //                 id : num_2,
+        //                 num : addItenNum
+        //             }]
+        //         }
+        //         game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
+        //         game.playerData.set(game.playerObj , function(){
+        //             self.netState = true;
+        //             game.sounds.playSound_1("get");
+        //             self.success(1 , num_2 , addItenNum);
+        //         });
+        //     }else if(game.playerObj.depository.seed == undefined){
+        //         game.playerObj.depository.seed = [{
+        //             id : num_2,
+        //             num : addItenNum
+        //         }];
+        //         game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
+        //         game.playerData.set(game.playerObj , function(){
+        //             self.netState = true;
+        //             game.sounds.playSound_1("get");
+        //             self.success(1 , num_2 , addItenNum);
+        //         });
+        //     }else{
+        //         for(let n = 0 ; n < game.playerObj.depository.seed.length ; n++){
+        //             if(game.playerObj.depository.seed[n].id == num_2){
+        //                 game.playerObj.depository.seed[n].num = Number(game.playerObj.depository.seed[n].num) + addItenNum;
+        //                 game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
+        //                 game.playerData.set(game.playerObj , function(){
+        //                     self.netState = true;
+        //                     game.sounds.playSound_1("get");
+        //                     self.success(1 , num_2 , addItenNum);
+        //                 });
+        //                 return;
+        //             }
+        //         }
+        //         game.playerObj.depository.seed.push({
+        //             id : num_2,
+        //             num : addItenNum
+        //         });
+        //         game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
+        //         game.playerData.set(game.playerObj , function(){
+        //             self.netState = true;
+        //             game.sounds.playSound_1("get");
+        //             self.success(1 , num_2 , addItenNum);
+        //         });
+        //     }
+        // }else if(num_1 < 0.9){
+        //     var addMoneyNum = Math.ceil(Math.random() * 10) * 30
+        //     game.playerObj.money += addMoneyNum;
+        //     game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
+        //     game.playerData.set(game.playerObj , function(){
+        //         self.netState = true;
+        //         game.sounds.playSound_1("get");
+        //         self.success(3 , "item_chip_2" , addMoneyNum);
+        //     });
+        // }else{
+            var num_1 = Math.ceil(Math.random() * 2)
+            game.playerObj.crystal += num_1;
             game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
             game.playerData.set(game.playerObj , function(){
                 self.netState = true;
                 game.sounds.playSound_1("get");
-                self.success(3 , "item_chip_2" , addMoneyNum);
+                self.success(4 , num_1);
             });
-        }else{
-            game.playerObj.crystal += 1;
-            game.flower.expUp(Math.ceil(Math.random() * 10) * 10);
-            game.playerData.set(game.playerObj , function(){
-                self.netState = true;
-                game.sounds.playSound_1("get");
-                self.success(4);
-            });
-        }
+        // }
     }
 
-    Alarm.prototype.success = function(state , addItem , num){
+    Alarm.prototype.success = function(state , num){
         var self = this;
         this.alarmOnObj.removeAllChildren();
         var alarmBg = new createjs.Bitmap(game.assets.images.alarm_bg_2);
@@ -364,27 +365,28 @@
         });
 
         switch(state){
-            case 1:
-                itemIcon.image = game.assets.images["flower_" + game.gameObj.plantData[addItem].name + "_bag"];
-                itemIcon.regX = 43;
-                itemNumber.text = "× " + num;
-            break;
-            case 2:
-                itemIcon.image = game.assets.images["flower_" + game.gameObj.plantData[addItem].name + "_ball"];
-                itemIcon.regX = 43;
-                itemNumber.text = "× " + num;
-            break;
-            case 3:
-                itemIcon.image = game.assets.images[addItem];
-                itemIcon.regX = 20;
-                itemIcon.scale = 1.4;
-                itemNumber.text = "× " + num;
-            break;
+            // case 1:
+            //     itemIcon.image = game.assets.images["flower_" + game.gameObj.plantData[addItem].name + "_bag"];
+            //     itemIcon.regX = 43;
+            //     itemNumber.text = "× " + num;
+            // break;
+            // case 2:
+            //     itemIcon.image = game.assets.images["flower_" + game.gameObj.plantData[addItem].name + "_ball"];
+            //     itemIcon.regX = 43;
+            //     itemNumber.text = "× " + num;
+            // break;
+            // case 3:
+            //     itemIcon.image = game.assets.images[addItem];
+            //     itemIcon.regX = 20;
+            //     itemIcon.scale = 1.4;
+            //     itemNumber.text = "× " + num;
+            // break;
             case 4:
                 itemIcon.image = game.assets.images.item_crystal_2;
+                itemIcon.y = 170;
                 itemIcon.regX = 20;
                 itemIcon.scale = 1.4;
-                itemNumber.text = "× 1";
+                itemNumber.text = "× " + num;
             break;
         }
         
@@ -438,8 +440,8 @@
                 game.manager.enter(1);
             }
         }
-
-        if(game.playerObj.alarm.alarmOpen == true && game.playerObj.alarm.getup == false && this.alarmState == false && game.time.getDate() == game.playerObj.alarm.date && game.time.getHours() == game.playerObj.alarm.hour && game.time.getMinutes() == game.playerObj.alarm.minute){
+        //game.playerObj.alarm.getup == false
+        if(game.playerObj.alarm.alarmOpen == true && this.alarmState == false && game.time.getDate() == game.playerObj.alarm.date && game.time.getHours() == game.playerObj.alarm.hour && game.time.getMinutes() == game.playerObj.alarm.minute){
             console.log("timeNow");
             this.alarmState = true;
             game.sounds.playSound_1("clock");
