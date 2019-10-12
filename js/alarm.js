@@ -437,7 +437,7 @@
                 this.alarmOnObj.visible = false;
                 this.alarmObj.visible = false;
                 this.closeState = false;
-                game.manager.enter(1);
+                // game.manager.enter(1);
             }
         }
         //game.playerObj.alarm.getup == false

@@ -596,7 +596,7 @@
             game.playerObj.money += Number(moneyNum);
             game.playerData.set(game.playerObj , function(){
                 game.sounds.playSound_1("buy");
-                self.sellSuccess("妖精を森に放しました!" , 2);
+                self.sellSuccess("妖精を森に放しました!\n欠片 " + moneyNum + "個 GET!"  , 2);
             });
         }
     }
